@@ -16,11 +16,36 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import {
+  purpleA400, teal500, pinkA200, grey100, grey500, grey300, yellow100, 
+  darkBlack, fullBlack, white
+} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+// This replaces the textColor value on the palette
+// and then update the keys for each component that depends on it.
+// More on Colors: http://www.material-ui.com/#/customization/colors
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: teal500,
+    primary2Color: teal500,
+    primary3Color: teal500,
+    textColor: darkBlack,
+    accent1Color: pinkA200,
+    accent2Color: teal500, // change toolbar background 
+    accent3Color: grey500,
+    alternateTextColor: white,
+    canvasColor: yellow100, // fondo de la tabla
+    borderColor: grey300,
+    pickerHeaderColor: teal500,
+    shadowColor: fullBlack,
+  },
+});
+
 injectTapEventPlugin();
 
 ReactDOM.render(
-  <MuiThemeProvider>
-    <Provider store={Store} >
+  <MuiThemeProvider muiTheme={muiTheme}>
+    <Provider store={Store}>
       <Router>
       	<Switch>
             <Route exact path="/" component={Welcome} />

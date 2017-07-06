@@ -5,6 +5,7 @@ import Navbar from '../../Containers/Navbar';
 import DashboardExpenses from '../../Components/DashboardExpenses';
 import MonthFolders from '../../Components/MonthFolders';
 import Footer from '../../Components/Footer';
+import { Link } from 'react-router-dom';
 
 class Dashboard extends React.Component {
 
@@ -19,9 +20,8 @@ class Dashboard extends React.Component {
           <div className="ExpensesTable">
             <p>Recent Expenses</p>
             <DashboardExpenses /><br/>
-            <div className="wrapper">
-              <FlatButton label="Add Expenses" style={{backgroundColor: "#0DFF83" }}/>
-              <FlatButton label="View more..." style={{backgroundColor: "#0DFF83" }}/>
+            <div className="wrapper" style={{float: "right"}}>
+              <Link to="/expenses"><FlatButton label="View more..." /></Link>
             </div>
           </div>
         </div>

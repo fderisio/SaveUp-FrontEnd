@@ -1,5 +1,6 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
+
 import '../../style.css';
 import Navbar from '../../Containers/Navbar';
 import ProfileTabs from '../../Components/ProfileTabs';

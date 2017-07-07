@@ -20,6 +20,16 @@ const initialState = {
 			monthly: true,
 		}
 	],
+	paymethods: [
+		{ id: 1,
+			name: "American Express",
+			Bank: "",
+		},
+		{ id: 2,
+			name: "Cash",
+			Bank: "",
+		},
+	]
 }
 
 const currentUser = (state=initialState, action) => {

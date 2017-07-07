@@ -9,34 +9,39 @@ import {
 } from 'material-ui/Table';
 import { connect } from 'react-redux';
 
-class ExpensesTable extends React.Component {
+class DashboardTable extends React.Component {
   
+  // Date converter to "DD-MM-YYYY"
+  convertDate = (inputFormat) => {
+      function pad(s) { return (s < 10) ? '0' + s : s; }
+      var d = new Date(inputFormat);
+      return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
+  }
+
   render() {
-    console.log('expenses props', this.props)
-    const expenses = this.props.expenses;
-
-    const categoriesArray = this.props.currentUser.categories;
+    //console.log('expenses props', this.props)
+    const expenses = this.props.expenses[0];
+    expenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );
+    
+    // new categories object with just name to render
     let categories = {}
-    console.log(this.props.currentUser.categories)
-
+    const categoriesArray = this.props.currentUser.categories;
     for (let i=0; i<categoriesArray.length; i++) {
       categories[categoriesArray[i].id] = categoriesArray[i].name;
     }
-    console.log(categories);
-    // let expenses = [];
-    // for (let i=0; i<this.props.categories.length-1; i = i+2) {
-    //   expenses = this.props.categories[i].expenses.concat(this.props.categories[i+1].expenses);
-    // }
 
-    // // sort expenses - expenseDate (desc.)
-    // expenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );
-    
-    // console.log(expenses);
+    // new paymethods object with just name to render
+    let paymethods = {}
+    const paymethodsArray = this.props.currentUser.paymethods;
+    for (let i=0; i<paymethodsArray.length; i++) {
+      paymethods[paymethodsArray[i].id] = paymethodsArray[i].name;
+    }
 
     return(
     <Table selectable={true} >
       <TableHeader adjustForCheckbox={false} displaySelectAll={false} >
         <TableRow>
+          <TableHeaderColumn>Date</TableHeaderColumn>
           <TableHeaderColumn>Category</TableHeaderColumn>
           <TableHeaderColumn>Store</TableHeaderColumn>
           <TableHeaderColumn>Total</TableHeaderColumn>
@@ -49,10 +54,11 @@ class ExpensesTable extends React.Component {
             if (categories)
             return (
               <TableRow key={ index }>
-                <TableRowColumn>{ categories[expense.category_id] }</TableRowColumn>
+                <TableRowColumn>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
+                <TableRowColumn>{ categories[expense.category.id] }</TableRowColumn>
                 <TableRowColumn>{ expense.store }</TableRowColumn>
                 <TableRowColumn>CHF { expense.total.toFixed(2) }</TableRowColumn>
-                <TableRowColumn>{ expense.payMethod.name }</TableRowColumn>
+                <TableRowColumn>{ paymethods[expense.payMethod.id] }</TableRowColumn>
               </TableRow>
             );
       }) }
@@ -68,37 +74,4 @@ const mapStateToProps = (state) => {
   return state;
 }
 
-export default connect(mapStateToProps)(ExpensesTable);
-
- // <TableRow>
- //          <TableRowColumn>Groceries</TableRowColumn>
- //          <TableRowColumn>Migros</TableRowColumn>
- //          <TableRowColumn>CHF 45.00</TableRowColumn>
- //          <TableRowColumn>MasterCard</TableRowColumn>
- //        </TableRow>
- //        <TableRow>
- //          <TableRowColumn>Groceries</TableRowColumn>
- //          <TableRowColumn>COOP</TableRowColumn>
- //          <TableRowColumn>CHF 4.00</TableRowColumn>
- //          <TableRowColumn>Visa</TableRowColumn>
- //        </TableRow>
- //        <TableRow>
- //          <TableRowColumn>Groceries</TableRowColumn>
- //          <TableRowColumn>Migros</TableRowColumn>
- //          <TableRowColumn>CHF 45.00</TableRowColumn>
- //          <TableRowColumn>Maestro</TableRowColumn>
- //        </TableRow>
- //        <TableRow>
- //          <TableRowColumn>Groceries</TableRowColumn>
- //          <TableRowColumn>COOP</TableRowColumn>
- //          <TableRowColumn>CHF 5.00</TableRowColumn>
- //          <TableRowColumn>Maestro</TableRowColumn>
- //        </TableRow>
- //        <TableRow>
- //          <TableRowColumn>Groceries</TableRowColumn>
- //          <TableRowColumn>Migros</TableRowColumn>
- //          <TableRowColumn>CHF 45.00</TableRowColumn>
- //          <TableRowColumn>Maestro</TableRowColumn>
- //        </TableRow>
-
-
+export default connect(mapStateToProps)(DashboardTable);

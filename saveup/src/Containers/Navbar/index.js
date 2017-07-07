@@ -22,7 +22,7 @@ class Navbar extends React.Component {
   render() {
     console.log(this.props)
 
-    if (this.props.id != null) {
+    if (this.props.currentUser.id != null) {
       return (
         <Toolbar style={ styles.navbar } >
           <ToolbarGroup firstChild={false}>
@@ -82,38 +82,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(Navbar);
-
-// return (
-//       <div>
-//         <Toolbar style={ styles.navbar } >
-
-//           <ToolbarGroup firstChild={false}>
-//             <p className="icon">SaveUp</p>
-//             <div className="ContactButtons">
-//               <Link to="/dashboard">
-//                 <FlatButton label="Dashboard" labelStyle={ styles.button }/>
-//               </Link>
-//               <Link to="/expenses">
-//                 <FlatButton label="Expenses" labelStyle={ styles.button }/>
-//               </Link>
-//               <Link to="/profile">
-//                 <FlatButton label="Profile" labelStyle={ styles.button }/>
-//               </Link>
-//               <FlatButton label="Sign out" labelStyle={ styles.button }/>
-//             </div>
-//           </ToolbarGroup>
-
-//           <ToolbarGroup >
-//             <div className="SignButtons">
-//               <Link to="/signin">
-//                 <FlatButton label="Sign In" primary={true} labelStyle={ styles.button }/>
-//               </Link>
-//               <Link to="/signup">
-//                 <FlatButton label="Sign Up" secondary={true} labelStyle={ styles.button }/>
-//               </Link>
-//             </div>
-//           </ToolbarGroup>
-
-//         </Toolbar>
-//       </div>
-//     );

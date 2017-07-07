@@ -6,6 +6,7 @@ import DashboardExpenses from '../../Components/DashboardExpenses';
 import MonthFolders from '../../Components/MonthFolders';
 import Footer from '../../Components/Footer';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Dashboard extends React.Component {
 

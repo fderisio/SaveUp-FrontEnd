@@ -7,57 +7,85 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import { connect } from 'react-redux';
 
-const ExpensesTable = () => (
-  <Table
-    multiSelectable={true}>
-    <TableHeader>
-      <TableRow>
-        <TableHeaderColumn>Category</TableHeaderColumn>
-        <TableHeaderColumn>Store</TableHeaderColumn>
-        <TableHeaderColumn>Total</TableHeaderColumn>
-        <TableHeaderColumn>Payment</TableHeaderColumn>
-        <TableHeaderColumn>Notes</TableHeaderColumn>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      <TableRow>
-        <TableRowColumn>Groceries</TableRowColumn>
-        <TableRowColumn>Migros</TableRowColumn>
-        <TableRowColumn>CHF 45.00</TableRowColumn>
-        <TableRowColumn>MasterCard</TableRowColumn>
-        <TableRowColumn></TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>Groceries</TableRowColumn>
-        <TableRowColumn>COOP</TableRowColumn>
-        <TableRowColumn>CHF 4.00</TableRowColumn>
-        <TableRowColumn>Visa</TableRowColumn>
-        <TableRowColumn></TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>Groceries</TableRowColumn>
-        <TableRowColumn>Migros</TableRowColumn>
-        <TableRowColumn>CHF 45.00</TableRowColumn>
-        <TableRowColumn>Maestro</TableRowColumn>
-        <TableRowColumn></TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>Groceries</TableRowColumn>
-        <TableRowColumn>COOP</TableRowColumn>
-        <TableRowColumn>CHF 5.00</TableRowColumn>
-        <TableRowColumn>Maestro</TableRowColumn>
-        <TableRowColumn></TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>Groceries</TableRowColumn>
-        <TableRowColumn>Migros</TableRowColumn>
-        <TableRowColumn>CHF 45.00</TableRowColumn>
-        <TableRowColumn>Maestro</TableRowColumn>
-        <TableRowColumn></TableRowColumn>
+const styles = {
+  root: {
+    height: 450,
+    overflowY: 'auto',
+    marginTop: 50,
+  }
+}
+
+class ExpensesTable extends React.Component {
+  
+  // Date converter to "DD-MM-YYYY"
+  convertDate = (inputFormat) => {
+      function pad(s) { return (s < 10) ? '0' + s : s; }
+      var d = new Date(inputFormat);
+      return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
+  }
+
+  render() {
+    //console.log('expenses props', this.props)
+    const expenses = this.props.expenses[0];
+    // sort expenses
+    expenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );
+
+    // new categories object with just name to render
+    let categories = {}
+    const categoriesArray = this.props.currentUser.categories;
+    for (let i=0; i<categoriesArray.length; i++) {
+      categories[categoriesArray[i].id] = categoriesArray[i].name;
+    }
+
+    // new paymethods object with just name to render
+    let paymethods = {}
+    const paymethodsArray = this.props.currentUser.paymethods;
+    for (let i=0; i<paymethodsArray.length; i++) {
+      paymethods[paymethodsArray[i].id] = paymethodsArray[i].name;
+    }
+
+
+    return(
+    <div style={ styles.root }>
+    <Table selectable={true}>
+      <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+        <TableRow>
+          <TableHeaderColumn>Date</TableHeaderColumn>
+          <TableHeaderColumn>Category</TableHeaderColumn>
+          <TableHeaderColumn>Store</TableHeaderColumn>
+          <TableHeaderColumn>Total</TableHeaderColumn>
+          <TableHeaderColumn>Payment</TableHeaderColumn>
+          <TableHeaderColumn>Notes</TableHeaderColumn>
         </TableRow>
-    </TableBody>
-  </Table>
-);
+      </TableHeader>
+    
+      <TableBody displayRowCheckbox={false}>
+      { expenses.map((expense, index) => {
+            if (categories)
+            return (
+              <TableRow key={ index }>
+                <TableRowColumn>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
+                <TableRowColumn>{ categories[expense.category.id] }</TableRowColumn>
+                <TableRowColumn>{ expense.store }</TableRowColumn>
+                <TableRowColumn>CHF { expense.total.toFixed(2) }</TableRowColumn>
+                <TableRowColumn>{ paymethods[expense.payMethod.id] }</TableRowColumn>
+                <TableRowColumn>{ expense.text }</TableRowColumn>
+              </TableRow>
+            );
+      }) }
+      </TableBody>
+   
+    </Table>
+    </div>
+    );
+  }
 
-export default ExpensesTable;
+}
+
+const mapStateToProps = (state) => {
+  return state;
+}
+
+export default connect(mapStateToProps)(ExpensesTable);

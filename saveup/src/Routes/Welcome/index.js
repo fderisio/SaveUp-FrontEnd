@@ -11,8 +11,9 @@ class Welcome extends Component {
       <div className="App">
         <div className="welcome">
           <h2>SaveUp</h2>
-          <p>Organize your expenses &</p>
-          <p>make your savings drive you wherever you want</p>
+          <p>Organize your expenses &<br/>
+          make your savings drive you<br/>
+          wherever you want</p>
           <div className="signup">
             <Link to="/signin"><RaisedButton label="Sign In" /></Link>
             <span>...</span>

@@ -31,10 +31,10 @@ const muiTheme = getMuiTheme({
     primary3Color: teal500,
     textColor: darkBlack,
     accent1Color: red400,
-    accent2Color: teal500, // change toolbar background 
+    accent2Color: teal500, // toolbar background 
     accent3Color: grey500,
     alternateTextColor: white,
-    canvasColor: yellow100, // fondo de la tabla
+    canvasColor: yellow100, // tables background
     borderColor: grey300,
     pickerHeaderColor: teal500,
     shadowColor: grey900,

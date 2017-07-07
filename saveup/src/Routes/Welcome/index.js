@@ -14,7 +14,7 @@ class Welcome extends Component {
           <p>Organize your expenses &</p>
           <p>make your savings drive you wherever you want</p>
           <div className="signup">
-            <Link to="/signup"><RaisedButton label="Sign In" /></Link>
+            <Link to="/signin"><RaisedButton label="Sign In" /></Link>
             <span>...</span>
             <Link to="/signup"><RaisedButton label="Sign Up" /></Link>
           </div>

@@ -43,7 +43,7 @@ class SignUp extends React.Component {
     return (
       <div>
         <Navbar />
-        <h2>Welcome to SaveUp</h2>
+        <h2>Registration</h2>
         <Paper zDepth={2} style={styles.paper}>
           <form>
             <TextField 
@@ -58,7 +58,7 @@ class SignUp extends React.Component {
             <TextField 
               hintText="Password" floatingLabelText="Password" 
               type="password" style={styles.textField} onChange={this.handlePassword} />
-            <p className="SmallNotes">*Minimum 6 charachters</p><br/>
+            <p className="SmallNotes">*Minimum 6 characters</p><br/>
             <TextField 
               hintText="Repeat password" floatingLabelText="Repeat Password" 
               type="password" style={styles.textField} onChange={this.handleRepeatPassword} />

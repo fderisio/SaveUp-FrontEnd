@@ -42,7 +42,9 @@ class Navbar extends React.Component {
               <Link to="/profile">
                 <FlatButton label="Profile" labelStyle={ styles.button }/>
               </Link>
-              <FlatButton label="Sign out" labelStyle={ styles.button }/>
+              <Link to="/">
+                <FlatButton label="Sign out" labelStyle={ styles.button }/>
+              </Link>
             </div>
           </ToolbarGroup>
         </Toolbar>

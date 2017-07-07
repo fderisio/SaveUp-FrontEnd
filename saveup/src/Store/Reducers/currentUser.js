@@ -8,20 +8,20 @@ const initialState = {
 			name: "Clothing",
 			fixed: false,
 			expenses: [
-				{ id: 1, text: "Blouses", store: "H&M", expenseDate: "12.05.2017", total: 50, payMethod: { id: 1, name: "MasterCard" }},
-				{ id: 2, text: "Pants", store: "H&M", expenseDate: "01.03.2017", total: 150, payMethod: { id: 2, name: "cash" }},
-				{ id: 3, text: "T-Shirts", store: "H&M", expenseDate: "19.05.2017", total: 20.50, payMethod: { id: 1, name: "MasterCard" }},
-				{ id: 4, text: "Blouses", store: "H&M", expenseDate: "01.06.2017", total: 30.90, payMethod: { id: 1, name: "MasterCard" }},
+				{ id: 1, text: "Blouses", store: "H&M", expenseDate: "2017-05-02", total: 50, payMethod: { id: 1, name: "MasterCard" }},
+				{ id: 2, text: "Pants", store: "H&M", expenseDate: "2017-01-03", total: 150, payMethod: { id: 2, name: "cash" }},
+				{ id: 3, text: "T-Shirts", store: "H&M", expenseDate: "2017-06-20", total: 20.50, payMethod: { id: 1, name: "MasterCard" }},
+				{ id: 4, text: "Blouses", store: "H&M", expenseDate: "2017-01-01", total: 30.90, payMethod: { id: 1, name: "MasterCard" }},
 			]
 		},
-		{ id: 1,
+		{ id: 1,	
 			name: "Groseries",
 			fixed: false,
 			expenses: [
-				{ id: 1, text: "Weekly Groceries", store: "Migros", expenseDate: "12.05.2017", total: 45.75, payMethod: { id: 1, name: "MasterCard" }},
-				{ id: 2, text: "Weekly Groceries", store: "Migros", expenseDate: "01.03.2017", total: 42.10, payMethod: { id: 2, name: "cash" }},
-				{ id: 3, text: "Weekly Groceriess", store: "COOP", expenseDate: "19.05.2017", total: 20, payMethod: { id: 1, name: "MasterCard" }},
-				{ id: 4, text: "", store: "Denner", expenseDate: "01.06.2017", total: 30, payMethod: { id: 1, name: "MasterCard" }},
+				{ id: 1, text: "Weekly Groceries", store: "Migros", expenseDate: "12/05/2017", total: 45.75, payMethod: { id: 1, name: "MasterCard" }},
+				{ id: 2, text: "Weekly Groceries", store: "Migros", expenseDate: "12/05/2017", total: 42.10, payMethod: { id: 2, name: "cash" }},
+				{ id: 3, text: "Weekly Groceriess", store: "COOP", expenseDate: "12/05/2017", total: 20, payMethod: { id: 1, name: "MasterCard" }},
+				{ id: 4, text: "", store: "Denner", expenseDate: "12/05/2017", total: 30, payMethod: { id: 1, name: "MasterCard" }},
 			]
 		}
 	],

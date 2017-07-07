@@ -8,7 +8,7 @@ const UnderConstruction = () => (
   	<Navbar />
   	<br/> <br/>
     <h2>Sorry... this link is under construction.</h2>
-    <img src={gif} style={{height: 100}}/>
+    <img src={gif} style={{height: 100, marginTop: 100}}/>
     <Footer />
   </div>
 );

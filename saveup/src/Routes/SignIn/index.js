@@ -46,8 +46,8 @@ class SignIn extends Component {
             <RaisedButton type="submit" label="Sign In" />
           </form>
         </Paper><br/><br/>
-        <Link to="/forgotpassword"><p>Forgot your password?</p></Link>
-        <h3>If you don´t have an user, you can register <Link to="/signup">here.</Link> </h3>
+        <Link to="/underconstruction"><p>Forgot your password?</p></Link>
+        <p>If you don´t have an account, you can register <Link to="/signup">here.</Link> </p>
         <Footer />
       </div>
     );

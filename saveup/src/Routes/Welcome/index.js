@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { RaisedButton } from 'material-ui';
 import { Link } from 'react-router-dom';
 import '../../style.css';
-import handImage from '../../Images/hand.png';
 import Footer from '../../Components/Footer';
 
 class Welcome extends Component {

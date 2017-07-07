@@ -10,7 +10,7 @@ const styles = {
     width: 350,
   },
   paper: {
-    width:'30%', 
+    width: 460, 
     height: 480, 
     margin: 'auto', 
     marginTop: 20,

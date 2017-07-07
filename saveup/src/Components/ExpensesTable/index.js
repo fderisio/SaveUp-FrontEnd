@@ -28,6 +28,7 @@ class ExpensesTable extends React.Component {
   }
 
   render() {
+    // this.props.match.params.restaurant_id;
     //console.log('expenses props', this.props)
     const expenses = this.props.expenses[0];
     // sort expenses
@@ -47,24 +48,23 @@ class ExpensesTable extends React.Component {
       paymethods[paymethodsArray[i].id] = paymethodsArray[i].name;
     }
 
-
-    return(
-    <div style={ styles.root }>
-    <Table selectable={true}>
-      <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-        <TableRow>
-          <TableHeaderColumn>Date</TableHeaderColumn>
-          <TableHeaderColumn>Category</TableHeaderColumn>
-          <TableHeaderColumn>Store</TableHeaderColumn>
-          <TableHeaderColumn>Total</TableHeaderColumn>
-          <TableHeaderColumn>Payment</TableHeaderColumn>
-          <TableHeaderColumn>Notes</TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
+    if (this.props.path === "/expenses") {
+      return(
+        <div style={ styles.root }>
+          <Table selectable={true}>
+            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+              <TableRow>
+                <TableHeaderColumn>Date</TableHeaderColumn>
+                <TableHeaderColumn>Category</TableHeaderColumn>
+                <TableHeaderColumn>Store</TableHeaderColumn>
+                <TableHeaderColumn>Total</TableHeaderColumn>
+                <TableHeaderColumn>Payment</TableHeaderColumn>
+                <TableHeaderColumn>Notes</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
     
-      <TableBody displayRowCheckbox={false}>
-      { expenses.map((expense, index) => {
-            if (categories)
+            <TableBody displayRowCheckbox={false}>
+            { expenses.map((expense, index) => {
             return (
               <TableRow key={ index }>
                 <TableRowColumn>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
@@ -76,12 +76,44 @@ class ExpensesTable extends React.Component {
                 <TableRowColumn>{ expense.text }</TableRowColumn>
               </TableRow>
             );
-      }) }
-      </TableBody>
+            }) }
+            </TableBody>
    
-    </Table>
-    </div>
-    );
+          </Table>
+        </div>
+      );
+    }
+
+    if (this.props.path === "/dashboard") {
+      return(
+        <div style={ styles.root }>
+          <Table selectable={true} >
+            <TableHeader adjustForCheckbox={false} displaySelectAll={false} >
+              <TableRow>
+                <TableHeaderColumn>Date</TableHeaderColumn>
+                <TableHeaderColumn>Category</TableHeaderColumn>
+                <TableHeaderColumn>Store</TableHeaderColumn>
+                <TableHeaderColumn>Total</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+    
+            <TableBody displayRowCheckbox={false}>
+            { expenses.map((expense, index) => {
+            return (
+              <TableRow key={ index }>
+                <TableRowColumn>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
+                <TableRowColumn>{ categories[expense.category.id] }</TableRowColumn>
+                <TableRowColumn>{ Logos[expense.store] ? <img src={ Logos[expense.store] } className='logo' alt='logo'/> :
+                  expense.store } </TableRowColumn>
+                <TableRowColumn>CHF { expense.total.toFixed(2) }</TableRowColumn>
+              </TableRow>
+            );
+            }) }
+            </TableBody>
+          </Table>
+        </div>
+      );
+    }
   }
 
 }

@@ -17,12 +17,11 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import {
-  purpleA400, teal500, pinkA200, grey100, grey500, grey300, yellow100, 
-  darkBlack, fullBlack, white, grey900, red400
-} from 'material-ui/styles/colors';
+  teal500, grey500, grey300, darkBlack, white, grey900, red400
+} from 'material-ui/styles/colors'; // other colors: pinkA200, purpleA400, grey100, yellow100
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-// This replaces the textColor value on the palette
-// and then update the keys for each component that depends on it.
+
+// This replaces the default values of Material UI palette
 // More on Colors: http://www.material-ui.com/#/customization/colors
 const muiTheme = getMuiTheme({
   palette: {
@@ -34,7 +33,7 @@ const muiTheme = getMuiTheme({
     accent2Color: teal500, // toolbar background 
     accent3Color: grey500,
     alternateTextColor: white,
-    canvasColor: yellow100, // tables background
+    canvasColor: white, //yellow100, // tables background
     borderColor: grey300,
     pickerHeaderColor: teal500,
     shadowColor: grey900,

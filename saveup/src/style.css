@@ -10,16 +10,17 @@
 
 .welcome h2 {
   margin-bottom: 2em;
-  color: firebrick; /*#ffffff;*/
+  color: black; /*#ffffff;*/
   font-size: 65px; 
 }
 
 .welcome p {
-  color: firebrick; /*#ffffff;*/
+  color: black; /*#ffffff;*/
   font-size: 2.5em;
   margin-bottom: 2.5em;
   margin-left: 8em;
   line-height: 35px;
+  text-shadow: 0 2px white; /*#000000;*/
 }
 
 .welcome .signup {
@@ -93,9 +94,9 @@
 
 .ExpensesTable {
   margin-top: 10px;
-  width: 70% !important;
+  width: 50% !important;
   float: right;
-  margin-right: 70px;
+  margin-right: 90px;
 }
 
 

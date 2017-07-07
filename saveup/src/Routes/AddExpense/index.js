@@ -28,7 +28,8 @@ class AddExpense extends Component {
     }
   }
 
-  handleCategory = (e) => { this.setState({ category: e.currentTarget.value }); };
+  //handleCategory = (e) => { this.setState({ category: e.currentTarget.value }); };
+  handleCategory = (event, index, value) => this.setState({value});
   handleNotes = (e) => { this.setState({ notes: e.currentTarget.value }); };
   handleCompany = (e) => { this.setState({ company: e.currentTarget.value }); };
   handleDate = (e) => { this.setState({ expenseDate: e.currentTarget.value }); };
@@ -39,16 +40,22 @@ class AddExpense extends Component {
     e.preventDefault();
   };
   
+
   render() {
+    console.log('addExpense props', this.props);
+    const categories = this.props.currentUser.categories;
+    const items = [];
+    for (let i = 0; i < 100; i++ ) {
+      items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`} />);
+    }
+    
     return (
-      <div className="App">
-        <Navbar />
-        <br/>
+      <div>
         <form>
-          <DropDownMenu maxHeight={300} value={this.state.value} onChange={this.handleCategory}>
+          <TextField hintText="Category" floatingLabelText="Category*" onChange={ this.handleCategory }/>
+          <DropDownMenu maxHeight={300} value={this.state.category} onChange={this.handleCategory}>
               {items}
           </DropDownMenu>
-          <TextField hintText="Category" floatingLabelText="Category*" onChange={ this.handleLastName }/> <br />
           <TextField hintText="Notes" floatingLabelText="Notes" onChange={ this.handleNotes }/> <br />
           <TextField hintText="Company" floatingLabelText="Company" onChange={ this.handleCompany }/> <br />
           <TextField hintText="Date of Expense" floatingLabelText="Date of Expense*" onChange={this.handleDate }/><br />
@@ -57,7 +64,6 @@ class AddExpense extends Component {
           <RaisedButton type="submit" label="Add Expense" onClick={ this.addExpense } />
         </form><br/>
         <p className="SmallNotes">*Required</p><br/>
-        <Footer />
       </div>
     );
   }

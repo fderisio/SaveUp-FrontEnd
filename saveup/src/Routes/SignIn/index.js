@@ -14,10 +14,10 @@ const styles = {
     width: 350,
   },
   paper: {
-    width:'30%', 
-    height:'220', 
+    width: 500,
+    height: 210, 
     margin: 'auto', 
-    marginTop: '50',
+    marginTop: 100,
   }
 };
 
@@ -38,7 +38,6 @@ class SignIn extends Component {
     return (
       <div>
         <Navbar />
-        <h2>Welcome back!</h2>
         <Paper zDepth={2} style={ styles.paper } >
           <form>
             <TextField hintText="E-mail" style={styles.textField}/><br />

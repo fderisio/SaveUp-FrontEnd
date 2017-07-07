@@ -1,20 +1,20 @@
 import React from 'react';
 import '../../style.css';
 import Navbar from '../../Containers/Navbar';
-import ProfileTabs from '../../Components/ProfileTabs';
+import AddExpense from '../../Containers/AddExpense';
 import Footer from '../../Components/Footer';
 
-class Profile extends React.Component {
+class QuickAdd extends React.Component {
 
   render() {
     return (
       <div>
         <Navbar />
-        <ProfileTabs />
+        <AddExpense />
         <Footer />
       </div>
     );
   }
 }
 
-export default Profile;
+export default QuickAdd;

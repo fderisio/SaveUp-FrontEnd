@@ -2,8 +2,7 @@
   background-image: url('./Images/lakebench.jpg');
   background-position: center; /* center top*/
   background-size: cover;
-  padding: 20px 0;
-  /*margin: 30px;*/
+  padding: 25px 0;
   text-shadow: 0 2px white; /*#000000;*/
   font-family: 'Trebuchet MS', 'Helvetica';
 }
@@ -47,17 +46,6 @@
   height: 15px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
 .SmallNotes {
   float: left;
   margin-left: 55px;
@@ -67,23 +55,22 @@
   color: grey;
 }
 
-.handImage {
+/*.handImage {
   height: 400px;
   position: relative;
   float: right;
-}
+}*/
 
 .FirstColumn {
-  margin-top: 20px;
+  margin-top: 40px;
   width: 20% !important;
   float: left;
 }
 
 .SecondColumn {
   margin-top: 10px;
-  width: 50% !important;
+  width: 70% !important;
   float: right;
-  margin-right: 70px;
 }
 
 .MonthFolders {
@@ -98,7 +85,6 @@
   float: right;
   margin-right: 90px;
 }
-
 
 .Footer {
   font-size: 0.75em;

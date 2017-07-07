@@ -8,13 +8,18 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import { connect } from 'react-redux';
-import Logos from '../Logos';
+import Logos from '../../Components/Logos';
 
 const styles = {
   root: {
-    height: 440,
+    height: 490,
     overflowY: 'auto',
     marginTop: 50,
+  },
+  table: {
+    height: 490,
+    overflowY: 'auto',
+    fontSize: '50px',
   }
 }
 
@@ -28,10 +33,11 @@ class ExpensesTable extends React.Component {
   }
 
   render() {
-    // this.props.match.params.restaurant_id;
-    //console.log('expenses props', this.props)
+
+    /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
+
     const expenses = this.props.expenses[0];
-    // sort expenses
+    // sort expenses (newst one first)
     expenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );
 
     // new categories object with just name to render
@@ -48,9 +54,13 @@ class ExpensesTable extends React.Component {
       paymethods[paymethodsArray[i].id] = paymethodsArray[i].name;
     }
 
+
+    /* ---- RENDER TABLES ---- */
+
+    // full table expenses
     if (this.props.path === "/expenses") {
       return(
-        <div style={ styles.root }>
+        <div className='SecondColumn' style={ styles.root }>
           <Table selectable={true}>
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
@@ -84,10 +94,11 @@ class ExpensesTable extends React.Component {
       );
     }
 
+    // short expenses table
     if (this.props.path === "/dashboard") {
       return(
         <div style={ styles.root }>
-          <Table selectable={true} >
+          <Table selectable={true}>
             <TableHeader adjustForCheckbox={false} displaySelectAll={false} >
               <TableRow>
                 <TableHeaderColumn>Date</TableHeaderColumn>

@@ -2,7 +2,7 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import '../../style.css';
 import Navbar from '../../Containers/Navbar';
-import ExpensesTable from '../../Components/ExpensesTable';
+import ExpensesTable from '../../Containers/ExpensesTable';
 import MonthFolders from '../../Components/MonthFolders';
 import Footer from '../../Components/Footer';
 import { Link } from 'react-router-dom';
@@ -18,7 +18,6 @@ class Dashboard extends React.Component {
             <MonthFolders />
           </div>
           <div className="ExpensesTable">
-            <p>Recent Expenses</p>
             <ExpensesTable path={ this.props.match.path } /><br/>
             <div className="wrapper" style={{float: "right"}}>
               <Link to="/expenses"><FlatButton label="View more..." /></Link>
@@ -29,10 +28,6 @@ class Dashboard extends React.Component {
       </div>
     );
   }
-}
-
-const mapStateToProps = (state) => {
-  return state;
 }
 
 export default Dashboard;

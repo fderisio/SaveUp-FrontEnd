@@ -2,7 +2,6 @@ import React from 'react';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import '../../style.css';
-import icon from './iconorange.png';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -12,7 +11,7 @@ const styles = {
   },
   button: {
     textTransform: 'capitalize',
-    color: 'white',
+    color: 'lightgrey',
     fontSize: '16px',
   }
 };
@@ -33,6 +32,9 @@ class Navbar extends React.Component {
               </Link>
               <Link to="/expenses">
                 <FlatButton label="Expenses" labelStyle={ styles.button }/>
+              </Link>
+              <Link to="/quickadd">
+                <FlatButton label="Quick Add" labelStyle={ styles.button }/>
               </Link>
             </div>
           </ToolbarGroup>

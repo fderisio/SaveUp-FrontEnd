@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
+import { RaisedButton } from 'material-ui';
+import { Link } from 'react-router-dom';
 import '../../style.css';
-import handImage from '../../images/hand.png';
-import Navbar from '../../Containers/Navbar';
+import handImage from '../../Images/hand.png';
 import Footer from '../../Components/Footer';
 
 class Welcome extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
-        <h2>Welcome to SaveUp</h2>
-        <p className="App-intro">
-          Are your ready to organize your expenses? <br/>
-            Check easily how much can you save<br/>
-              Start enjoying your savings now<br/>
-                All your expenses in one place <br/>
-        </p>
-        <img src={handImage} className="handImage"/>
+        <div className="welcome">
+          <h2>SaveUp</h2>
+          <p>Organize your expenses &</p>
+          <p>make your savings drive you wherever you want</p>
+          <div className="signup">
+            <Link to="/signup"><RaisedButton label="Sign In" /></Link>
+            <span>...</span>
+            <Link to="/signup"><RaisedButton label="Sign Up" /></Link>
+          </div>
+        </div>
         <Footer />
       </div>
     );
@@ -24,3 +26,5 @@ class Welcome extends Component {
 }
 
 export default Welcome;
+
+// <img src={handImage} className="handImage"/>

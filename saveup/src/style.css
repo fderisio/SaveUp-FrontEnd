@@ -1,3 +1,32 @@
+.welcome {
+  background-image: url('./Images/lakebench.jpg');
+  background-position: center; /* center top*/
+  background-size: cover;
+  padding: 100px 0;
+  /*margin: 30px;*/
+  text-shadow: 0 2px #000000;
+  font-family: 'Trebuchet MS', 'Helvetica';
+}
+
+.welcome h2 {
+  margin-bottom: 2em;
+  color: #ffffff;
+  font-size: 65px; 
+}
+
+.welcome p {
+  color: #ffffff;
+  font-size: 2em;
+}
+
+.welcome .notAMember {
+  font-size: 20px;
+}
+
+.welcome .signup {
+  display: inline-flex;
+}
+
 .ContactButtons {
   margin-left: 70px;
 }
@@ -63,15 +92,35 @@
   margin-right: 70px;
 }
 
+
 .Footer {
-  /*  background-color: #822B40;*/
-  text-align: center;
-  font-size: 10px;
+  font-size: 0.75em;
   color: grey;
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
-  width: 99%;
-  padding: 5px;
+}
+
+nav li {
+  display: inline;
+  margin-top: 10px;
+  padding: 0 10px;
+  font-size: 1.25em;  
+}
+
+nav ul {
+  display: inline;
+  margin-right: 40px;
+}
+
+nav a {
+  height: 30px;
+  line-height: 30px;
+  color: #204156;
+  text-decoration: none;
+}
+
+nav {
+  margin-top: 5px;
 }

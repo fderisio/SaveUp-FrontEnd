@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../../style.css';
 import { RaisedButton } from 'material-ui';
+import DatePicker from 'material-ui/DatePicker';
 import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -38,6 +39,11 @@ const styles = {
     float: 'right',
     marginRight: 150,
   },
+  datepicker: {
+    float: 'right',
+    marginRight: 139,
+    marginTop: 20,
+  }
 }
 
 class AddExpense extends Component {
@@ -55,12 +61,20 @@ class AddExpense extends Component {
     }
   }
 
-  handleCategory = (event, index, value) => this.setState({ category: value });
+  // Date converter to "DD-MM-YYYY"
+  convertDate = (inputFormat) => {
+      function pad(s) { return (s < 10) ? '0' + s : s; }
+      const d = new Date(inputFormat);
+      return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
+  };
+
+  // handle functions (changes the state)
+  handleCategory = (e, index, value) => this.setState({ category: value });
   handleNotes = (e) => { this.setState({ notes: e.currentTarget.value }); };
   handleCompany = (e) => { this.setState({ company: e.currentTarget.value }); };
-  handleDate = (e) => { this.setState({ expenseDate: e.currentTarget.value }); };
+  handleDate = (e, index) => this.setState({ expenseDate: this.convertDate(index) });
   handleTotal = (e) => { this.setState({ total: e.currentTarget.value }); };
-  handlePayment = (event, index, value) => this.setState({ payment: value });
+  handlePayment = (e, index, value) => this.setState({ payment: value });
 
   addExpense = (e) => {
     e.preventDefault();
@@ -69,7 +83,7 @@ class AddExpense extends Component {
   render() {
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
-    console.log('addExpense props', this.props);
+    console.log('addExpense props', this.state);
 
     // filter non fixed categories
     let nonfixedCategories = [];
@@ -121,12 +135,11 @@ class AddExpense extends Component {
               hintText="Store/Company" 
               floatingLabelText="Company" 
               style={styles.textField} 
-              onChange={this.handleCompany} />
-            <TextField 
-              hintText="Date of Expense" 
-              floatingLabelText="Date of Expense" 
-              style={styles.textField} 
-              onChange={this.handleDate} />
+              onChange={this.handleCompany} /><br/>
+            <DatePicker
+              style={styles.datepicker}
+              hintText="YYYY-MM-DD"
+              onChange={this.handleDate}/>
             <p className="SmallNotes">*Required</p><br/>
             <TextField 
               hintText="Total in CHF" 
@@ -146,7 +159,7 @@ class AddExpense extends Component {
         </Paper>
       </div>
     );
-  }
+  };
 }
 
 const mapStateToProps = (state) => {

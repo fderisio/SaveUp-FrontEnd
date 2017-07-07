@@ -28,7 +28,7 @@ class ExpensesTable extends React.Component {
   // Date converter to "DD-MM-YYYY"
   convertDate = (inputFormat) => {
       function pad(s) { return (s < 10) ? '0' + s : s; }
-      var d = new Date(inputFormat);
+      const d = new Date(inputFormat);
       return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
   }
 

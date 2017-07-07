@@ -13,15 +13,25 @@ class ExpensesTable extends React.Component {
   
   render() {
     console.log('expenses props', this.props)
-    let expenses = [];
-    for (let i=0; i<this.props.categories.length-1; i = i+2) {
-      expenses = this.props.categories[i].expenses.concat(this.props.categories[i+1].expenses);
-    }
+    const expenses = this.props.expenses;
 
-    expenses.sort(function(a, b) {
-    return a.expenseDate - b.expenseDate;
-    });
-    console.log(expenses);
+    const categoriesArray = this.props.currentUser.categories;
+    let categories = {}
+    console.log(this.props.currentUser.categories)
+
+    for (let i=0; i<categoriesArray.length; i++) {
+      categories[categoriesArray[i].id] = categoriesArray[i].name;
+    }
+    console.log(categories);
+    // let expenses = [];
+    // for (let i=0; i<this.props.categories.length-1; i = i+2) {
+    //   expenses = this.props.categories[i].expenses.concat(this.props.categories[i+1].expenses);
+    // }
+
+    // // sort expenses - expenseDate (desc.)
+    // expenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );
+    
+    // console.log(expenses);
 
     return(
     <Table selectable={true} >
@@ -33,39 +43,21 @@ class ExpensesTable extends React.Component {
           <TableHeaderColumn>Payment</TableHeaderColumn>
         </TableRow>
       </TableHeader>
-
+    
       <TableBody displayRowCheckbox={false}>
-        <TableRow>
-          <TableRowColumn>Groceries</TableRowColumn>
-          <TableRowColumn>Migros</TableRowColumn>
-          <TableRowColumn>CHF 45.00</TableRowColumn>
-          <TableRowColumn>MasterCard</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>Groceries</TableRowColumn>
-          <TableRowColumn>COOP</TableRowColumn>
-          <TableRowColumn>CHF 4.00</TableRowColumn>
-          <TableRowColumn>Visa</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>Groceries</TableRowColumn>
-          <TableRowColumn>Migros</TableRowColumn>
-          <TableRowColumn>CHF 45.00</TableRowColumn>
-          <TableRowColumn>Maestro</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>Groceries</TableRowColumn>
-          <TableRowColumn>COOP</TableRowColumn>
-          <TableRowColumn>CHF 5.00</TableRowColumn>
-          <TableRowColumn>Maestro</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>Groceries</TableRowColumn>
-          <TableRowColumn>Migros</TableRowColumn>
-          <TableRowColumn>CHF 45.00</TableRowColumn>
-          <TableRowColumn>Maestro</TableRowColumn>
-        </TableRow>
+      { expenses.map((expense, index) => {
+            if (categories)
+            return (
+              <TableRow key={ index }>
+                <TableRowColumn>{ categories[expense.category_id] }</TableRowColumn>
+                <TableRowColumn>{ expense.store }</TableRowColumn>
+                <TableRowColumn>CHF { expense.total.toFixed(2) }</TableRowColumn>
+                <TableRowColumn>{ expense.payMethod.name }</TableRowColumn>
+              </TableRow>
+            );
+      }) }
       </TableBody>
+   
     </Table>
     );
   }
@@ -77,3 +69,36 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(ExpensesTable);
+
+ // <TableRow>
+ //          <TableRowColumn>Groceries</TableRowColumn>
+ //          <TableRowColumn>Migros</TableRowColumn>
+ //          <TableRowColumn>CHF 45.00</TableRowColumn>
+ //          <TableRowColumn>MasterCard</TableRowColumn>
+ //        </TableRow>
+ //        <TableRow>
+ //          <TableRowColumn>Groceries</TableRowColumn>
+ //          <TableRowColumn>COOP</TableRowColumn>
+ //          <TableRowColumn>CHF 4.00</TableRowColumn>
+ //          <TableRowColumn>Visa</TableRowColumn>
+ //        </TableRow>
+ //        <TableRow>
+ //          <TableRowColumn>Groceries</TableRowColumn>
+ //          <TableRowColumn>Migros</TableRowColumn>
+ //          <TableRowColumn>CHF 45.00</TableRowColumn>
+ //          <TableRowColumn>Maestro</TableRowColumn>
+ //        </TableRow>
+ //        <TableRow>
+ //          <TableRowColumn>Groceries</TableRowColumn>
+ //          <TableRowColumn>COOP</TableRowColumn>
+ //          <TableRowColumn>CHF 5.00</TableRowColumn>
+ //          <TableRowColumn>Maestro</TableRowColumn>
+ //        </TableRow>
+ //        <TableRow>
+ //          <TableRowColumn>Groceries</TableRowColumn>
+ //          <TableRowColumn>Migros</TableRowColumn>
+ //          <TableRowColumn>CHF 45.00</TableRowColumn>
+ //          <TableRowColumn>Maestro</TableRowColumn>
+ //        </TableRow>
+
+

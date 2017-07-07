@@ -1,4 +1,4 @@
-import reducer from './Reducers/currentUser';
+import reducer from './Reducers';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'react-thunk'; // required by the Middleware
 

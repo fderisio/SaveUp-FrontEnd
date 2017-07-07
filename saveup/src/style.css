@@ -2,7 +2,7 @@
   background-image: url('./Images/lakebench.jpg');
   background-position: center; /* center top*/
   background-size: cover;
-  padding: 160px 0;
+  padding: 75px 0;
   /*margin: 30px;*/
   text-shadow: 0 2px #000000;
   font-family: 'Trebuchet MS', 'Helvetica';
@@ -19,12 +19,9 @@
   font-size: 2em;
 }
 
-.welcome .notAMember {
-  font-size: 20px;
-}
-
 .welcome .signup {
   display: inline-flex;
+  margin-top: 12em;
 }
 
 .ContactButtons {

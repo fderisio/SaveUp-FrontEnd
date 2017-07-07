@@ -12,6 +12,7 @@ const initialState = [[
 				{ id: 8, category: { id: 2 }, text: "", store: "Denner", expenseDate: "2017-06-14T06:36:03.635Z", total: 30, payMethod: { id: 1 }},
 				{ id: 8, category: { id: 2 }, text: "", store: "Denner", expenseDate: "2017-06-14T06:36:03.635Z", total: 30, payMethod: { id: 1 }},
 				{ id: 8, category: { id: 2 }, text: "", store: "Denner", expenseDate: "2017-06-14T06:36:03.635Z", total: 30, payMethod: { id: 1 }},
+				{ id: 8, category: { id: 2 }, text: "", store: "Aldi", expenseDate: "2017-06-14T06:36:03.635Z", total: 30, payMethod: { id: 1 }},
 ]];
 
 const expenses = (state=initialState, action) => {

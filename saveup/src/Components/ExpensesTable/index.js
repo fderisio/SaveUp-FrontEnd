@@ -8,10 +8,11 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import { connect } from 'react-redux';
+import Logos from '../Logos';
 
 const styles = {
   root: {
-    height: 450,
+    height: 440,
     overflowY: 'auto',
     marginTop: 50,
   }
@@ -68,7 +69,8 @@ class ExpensesTable extends React.Component {
               <TableRow key={ index }>
                 <TableRowColumn>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
                 <TableRowColumn>{ categories[expense.category.id] }</TableRowColumn>
-                <TableRowColumn>{ expense.store }</TableRowColumn>
+                <TableRowColumn>{ Logos[expense.store] ? <img src={ Logos[expense.store] } className='logo' alt='logo'/> :
+                  expense.store } </TableRowColumn>
                 <TableRowColumn>CHF { expense.total.toFixed(2) }</TableRowColumn>
                 <TableRowColumn>{ paymethods[expense.payMethod.id] }</TableRowColumn>
                 <TableRowColumn>{ expense.text }</TableRowColumn>

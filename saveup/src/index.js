@@ -18,7 +18,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import {
   purpleA400, teal500, pinkA200, grey100, grey500, grey300, yellow100, 
-  darkBlack, fullBlack, white
+  darkBlack, fullBlack, white, grey900, red400
 } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // This replaces the textColor value on the palette
@@ -30,14 +30,14 @@ const muiTheme = getMuiTheme({
     primary2Color: teal500,
     primary3Color: teal500,
     textColor: darkBlack,
-    accent1Color: pinkA200,
+    accent1Color: red400,
     accent2Color: teal500, // change toolbar background 
     accent3Color: grey500,
     alternateTextColor: white,
     canvasColor: yellow100, // fondo de la tabla
     borderColor: grey300,
     pickerHeaderColor: teal500,
-    shadowColor: fullBlack,
+    shadowColor: grey900,
   },
 });
 

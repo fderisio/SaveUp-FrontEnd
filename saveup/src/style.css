@@ -2,7 +2,7 @@
   background-image: url('./Images/lakebench.jpg');
   background-position: center; /* center top*/
   background-size: cover;
-  padding: 100px 0;
+  padding: 160px 0;
   /*margin: 30px;*/
   text-shadow: 0 2px #000000;
   font-family: 'Trebuchet MS', 'Helvetica';
@@ -36,7 +36,9 @@
 }
 
 .icon {
-  height: 40px;
+  color: #26A69A; /*darkseagreen;*/
+  margin-top: 10px;
+  font-size: 22px;
   margin-left: 70px;
 }
 
@@ -117,7 +119,7 @@ nav ul {
 nav a {
   height: 30px;
   line-height: 30px;
-  color: #204156;
+  color: #004D40; /*#204156;*/
   text-decoration: none;
 }
 

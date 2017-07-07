@@ -4,47 +4,65 @@ import FlatButton from 'material-ui/FlatButton';
 import '../../style.css';
 import icon from './iconorange.png';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const labelStyles = {
-  // navbar: {
-  //   backgroundColor: '#78B5A2', // other possible colors: '#590018', // #007F41
-  // },
+const styles = {
+  navbar: {
+    backgroundColor: '#424242', // '#78B5A2', // other possible colors: '#590018', // #007F41
+  },
   button: {
     textTransform: 'capitalize',
-    //color: 'white'
+    color: 'white',
+    fontSize: '16px',
   }
 };
 
 class Navbar extends React.Component {
 
   render() {
-    return (
-      <div>
-        <Toolbar className="Navbar" >
+    console.log(this.props)
 
+    if (this.props.id != null) {
+      return (
+        <Toolbar style={ styles.navbar } >
           <ToolbarGroup firstChild={false}>
-            <img src={icon} className="icon" alt="Logo icon"/>
+            <p className="icon">SaveUp</p>
             <div className="ContactButtons">
               <Link to="/dashboard">
-                <FlatButton label="Dashboard" labelStyle={ labelStyles.button }/>
+                <FlatButton label="Dashboard" labelStyle={ styles.button }/>
               </Link>
               <Link to="/expenses">
-                <FlatButton label="Expenses" labelStyle={ labelStyles.button }/>
+                <FlatButton label="Expenses" labelStyle={ styles.button }/>
               </Link>
-              <Link to="/profile">
-                <FlatButton label="Profile" labelStyle={ labelStyles.button }/>
-              </Link>
-              <FlatButton label="Sign out" labelStyle={ labelStyles.button }/>
             </div>
           </ToolbarGroup>
 
           <ToolbarGroup >
             <div className="SignButtons">
+              <Link to="/profile">
+                <FlatButton label="Profile" labelStyle={ styles.button }/>
+              </Link>
+              <FlatButton label="Sign out" labelStyle={ styles.button }/>
+            </div>
+          </ToolbarGroup>
+        </Toolbar>
+      )
+    } else {
+      return (
+      <div>
+        <Toolbar style={ styles.navbar } >
+
+          <ToolbarGroup firstChild={false}>
+            <p className="icon">SaveUp</p>
+          </ToolbarGroup>
+
+          <ToolbarGroup >
+            <div className="SignButtons">
               <Link to="/signin">
-                <FlatButton label="Sign In" primary={true} labelStyle={ labelStyles.button }/>
+                <FlatButton label="Sign In" primary={true} labelStyle={ styles.button }/>
               </Link>
               <Link to="/signup">
-                <FlatButton label="Sign Up" secondary={true} labelStyle={ labelStyles.button }/>
+                <FlatButton label="Sign Up" secondary={true} labelStyle={ styles.button }/>
               </Link>
             </div>
           </ToolbarGroup>
@@ -52,6 +70,8 @@ class Navbar extends React.Component {
         </Toolbar>
       </div>
     );
+    }
+    
   }
 }
 
@@ -59,4 +79,39 @@ const mapStateToProps = (state) => {
   return state;
 }
 
-export default Navbar;
+export default connect(mapStateToProps)(Navbar);
+
+// return (
+//       <div>
+//         <Toolbar style={ styles.navbar } >
+
+//           <ToolbarGroup firstChild={false}>
+//             <p className="icon">SaveUp</p>
+//             <div className="ContactButtons">
+//               <Link to="/dashboard">
+//                 <FlatButton label="Dashboard" labelStyle={ styles.button }/>
+//               </Link>
+//               <Link to="/expenses">
+//                 <FlatButton label="Expenses" labelStyle={ styles.button }/>
+//               </Link>
+//               <Link to="/profile">
+//                 <FlatButton label="Profile" labelStyle={ styles.button }/>
+//               </Link>
+//               <FlatButton label="Sign out" labelStyle={ styles.button }/>
+//             </div>
+//           </ToolbarGroup>
+
+//           <ToolbarGroup >
+//             <div className="SignButtons">
+//               <Link to="/signin">
+//                 <FlatButton label="Sign In" primary={true} labelStyle={ styles.button }/>
+//               </Link>
+//               <Link to="/signup">
+//                 <FlatButton label="Sign Up" secondary={true} labelStyle={ styles.button }/>
+//               </Link>
+//             </div>
+//           </ToolbarGroup>
+
+//         </Toolbar>
+//       </div>
+//     );

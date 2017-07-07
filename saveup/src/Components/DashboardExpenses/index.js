@@ -7,8 +7,19 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import { connect } from 'react-redux';
 
-const ExpensesTable = () => (
+class ExpensesTable extends React.Component {
+  
+  render() {
+    console.log('expenses props', this.props)
+    let expenses = [];
+    for (let i=0; i<this.props.categories.length-1; i = i+2) {
+      expenses = this.props.categories[i].expenses.concat(this.props.categories[i+1].expenses);
+    }
+    console.log(expenses);
+
+    return(
   <Table selectable={true} >
     <TableHeader adjustForCheckbox={false} displaySelectAll={false} >
       <TableRow>
@@ -53,5 +64,11 @@ const ExpensesTable = () => (
     </TableBody>
   </Table>
 );
+}
+}
 
-export default ExpensesTable;
+const mapStateToProps = (state) => {
+  return state;
+}
+
+export default connect(mapStateToProps)(ExpensesTable);

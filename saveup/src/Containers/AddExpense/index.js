@@ -32,7 +32,7 @@ const styles = {
     width: 450, 
     height: 510, 
     margin: 'auto', 
-    marginTop: 20,
+    marginTop: 50,
   },
   button: {
     marginTop: 25,
@@ -125,17 +125,17 @@ class AddExpense extends Component {
               {categories}
             </DropDownMenu>
             <TextField 
+              hintText="Store/Company" 
+              floatingLabelText="Company/Store" 
+              style={styles.textField} 
+              onChange={this.handleCompany} /><br/>
+            <TextField 
               hintText="Notes" 
               floatingLabelText="Notes" 
               maxLength={20}
               style={styles.textField} 
               onChange={this.handleNotes}/>
             <p className="SmallNotes">*Max. 20 characters</p><br/>
-            <TextField 
-              hintText="Store/Company" 
-              floatingLabelText="Company" 
-              style={styles.textField} 
-              onChange={this.handleCompany} /><br/>
             <DatePicker
               style={styles.datepicker}
               hintText="YYYY-MM-DD"

@@ -1,6 +1,6 @@
 const initialState = {
 	id: 1, 
-	fistName: "Caroline",
+	firstName: "Caroline",
 	lastName: "Smith",
 	email: "car17@aol.com",
 	categories: [
@@ -11,7 +11,23 @@ const initialState = {
 		{ id: 2,	
 			name: "Groceries",
 			fixed: false,
-		}
+		},
+		{ id: 3,
+			name: "Pharmacy",
+			fixed: false,
+		},
+		{ id: 4,
+			name: "CelAbo",
+			fixed: true,
+		},
+		{ id: 5,
+			name: "TVAbo",
+			fixed: true,
+		},
+		{ id: 6,
+			name: "GAAbo",
+			fixed: true,
+		},
 	],
 	incomes: [
 		{ id: 1,

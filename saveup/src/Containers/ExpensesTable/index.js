@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Table,
   TableBody,
+  TableFooter,
   TableHeader,
   TableHeaderColumn,
   TableRow,
@@ -20,6 +21,11 @@ const styles = {
     height: 490,
     overflowY: 'auto',
     fontSize: '50px',
+  },
+  dashboardtable: {
+    height: 520,
+    overflowY: 'auto',
+    marginTop: 20,
   }
 }
 
@@ -36,24 +42,33 @@ class ExpensesTable extends React.Component {
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
 
-    const expenses = this.props.expenses[0];
-    // sort expenses (newst one first)
-    expenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );
+    const allExpenses = this.props.expenses[0];
+    // sort expenses (newest to oldest)
+    allExpenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );
 
     // new categories object with just name to render
-    let categories = {}
+    let categories = {};
     const categoriesArray = this.props.currentUser.categories;
     for (let i=0; i<categoriesArray.length; i++) {
-      categories[categoriesArray[i].id] = categoriesArray[i].name;
+      if (categoriesArray[i].fixed === false) {
+        categories[categoriesArray[i].id] = categoriesArray[i].name;
+      }
     }
 
     // new paymethods object with just name to render
-    let paymethods = {}
+    let paymethods = {};
     const paymethodsArray = this.props.currentUser.paymethods;
     for (let i=0; i<paymethodsArray.length; i++) {
       paymethods[paymethodsArray[i].id] = paymethodsArray[i].name;
     }
 
+    // filter non fixed expenses
+    const expenses = [];
+    for (let i=0; i<allExpenses.length; i++) {
+      if (allExpenses[i].category.id in categories) {
+        expenses.push(allExpenses[i]);
+      }
+    }
 
     /* ---- RENDER TABLES ---- */
 
@@ -80,7 +95,7 @@ class ExpensesTable extends React.Component {
                 <TableRowColumn>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
                 <TableRowColumn>{ categories[expense.category.id] }</TableRowColumn>
                 <TableRowColumn>{ Logos[expense.store] ? <img src={ Logos[expense.store] } className='logo' alt='logo'/> :
-                  expense.store } </TableRowColumn>
+                  expense.store }</TableRowColumn>
                 <TableRowColumn>CHF { expense.total.toFixed(2) }</TableRowColumn>
                 <TableRowColumn>{ paymethods[expense.payMethod.id] }</TableRowColumn>
                 <TableRowColumn>{ expense.text }</TableRowColumn>
@@ -88,7 +103,20 @@ class ExpensesTable extends React.Component {
             );
             }) }
             </TableBody>
-   
+            
+            <TableFooter adjustForCheckbox={false}>
+              <TableRow>
+                <TableRowColumn>ID</TableRowColumn>
+                <TableRowColumn>Name</TableRowColumn>
+                <TableRowColumn>Status</TableRowColumn>
+              </TableRow>
+              <TableRow>
+                <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>
+                  Super Footer
+                </TableRowColumn>
+              </TableRow>
+            </TableFooter>   
+
           </Table>
         </div>
       );
@@ -96,8 +124,10 @@ class ExpensesTable extends React.Component {
 
     // short expenses table
     if (this.props.path === "/dashboard") {
+      // filter only the last 10 expenses
+      expenses.splice(10, expenses.length-1);
       return(
-        <div style={ styles.root }>
+        <div style={ styles.dashboardtable }>
           <Table selectable={true}>
             <TableHeader adjustForCheckbox={false} displaySelectAll={false} >
               <TableRow>

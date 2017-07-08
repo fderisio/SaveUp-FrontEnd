@@ -18,6 +18,7 @@ class Dashboard extends React.Component {
             <MonthFolders />
           </div>
           <div className="ExpensesTable">
+            <h3>Your last 10 expenses</h3>
             <ExpensesTable path={ this.props.match.path } /><br/>
             <div className="wrapper" style={{float: "right"}}>
               <Link to="/expenses"><FlatButton label="View more..." /></Link>

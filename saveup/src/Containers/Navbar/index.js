@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 
 const styles = {
   navbar: {
-    backgroundColor: '#424242', // '#78B5A2', // other possible colors: '#590018', // #007F41
+    //backgroundColor: '#00E5FF', // '#78B5A2', // other possible colors: '#590018', // #007F41
   },
   button: {
     textTransform: 'capitalize',
-    color: 'lightgrey',
+    color: '#424242', //lightgrey',
     fontSize: '16px',
   }
 };
@@ -25,7 +25,7 @@ class Navbar extends React.Component {
       return (
         <Toolbar style={ styles.navbar } >
           <ToolbarGroup firstChild={false}>
-            <p className="icon">SaveUp</p>
+            <Link to="/dashboard"><p className="icon">SaveUp</p></Link>
             <div className="ContactButtons">
               <Link to="/dashboard">
                 <FlatButton label="Dashboard" labelStyle={ styles.button }/>

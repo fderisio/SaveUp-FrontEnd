@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { RaisedButton } from 'material-ui';
 import { Link } from 'react-router-dom';
 import '../../style.css';
 import Footer from '../../Components/Footer';
 
-class Welcome extends Component {
-  render() {
-    return (
+const Welcome = () => (
       <div className="App">
         <div className="welcome">
           <h2>SaveUp</h2>
@@ -21,9 +19,7 @@ class Welcome extends Component {
         </div>
         <Footer />
       </div>
-    );
-  }
-}
+);
 
 export default Welcome;
 

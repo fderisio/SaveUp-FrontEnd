@@ -43,6 +43,7 @@ class ExpensesTable extends React.Component {
   };
 
   render() {
+
     /* ---- LOADING INFO ---- */
     if (this.props.currentUser.paymethods === undefined || this.props.currentUser.categories === undefined) {
       return(
@@ -51,7 +52,6 @@ class ExpensesTable extends React.Component {
     }
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
-
     const allExpenses = this.props.expenses;
     // sort expenses (newest to oldest)
     allExpenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );

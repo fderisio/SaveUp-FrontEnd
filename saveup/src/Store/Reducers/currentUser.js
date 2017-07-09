@@ -1,3 +1,24 @@
+const currentUser = (state={}, action) => {
+	switch (action.type) {
+		case 'setUser':
+			const newState = { ...action.user };
+			console.log('entre al estado', newState)
+			return newState;
+		case 'addCategory':
+			const newState2 = { ...this.state };
+			return newState2;
+		case 'logOut':
+			let logoutState = { ...state };
+			localStorage.clear();
+			logoutState = {};
+			return logoutState;
+		default:
+			return state;
+	}
+}
+
+export default currentUser;
+
 const initialState = {
 	id: 1, 
 	firstName: "Caroline",
@@ -47,24 +68,3 @@ const initialState = {
 		},
 	]
 }
-
-const currentUser = (state={}, action) => {
-	switch (action.type) {
-		case 'setUser':
-			const newState = { ...action.user };
-			return newState;
-		case 'addCategory':
-			const newState2 = { ...this.state };
-			return newState2;
-		case 'logOut':
-			let logoutState = { ...state };
-			localStorage.clear();
-			logoutState = {};
-			return logoutState;
-		default:
-			return state;
-	}
-}
-
-
-export default currentUser;

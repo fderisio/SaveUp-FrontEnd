@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import '../../style.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { logOutUser } from '../../Store/actions';
 
 const styles = {
   navbar: {
@@ -17,6 +18,13 @@ const styles = {
 };
 
 class Navbar extends React.Component {
+
+  signout = (e) => {
+    e.preventDefault();
+    const logoutAction = logOutUser();
+    this.props.dispatch(logoutAction);
+    this.props.nextPage('/');
+  };
 
   render() {
     console.log(this.props)
@@ -45,7 +53,7 @@ class Navbar extends React.Component {
                 <FlatButton label="Profile" labelStyle={ styles.button }/>
               </Link>
               <Link to="/">
-                <FlatButton label="Sign out" labelStyle={ styles.button }/>
+                <FlatButton label="Sign out" labelStyle={ styles.button } onClick={this.signout}/>
               </Link>
             </div>
           </ToolbarGroup>

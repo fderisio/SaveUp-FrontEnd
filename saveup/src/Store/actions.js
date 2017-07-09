@@ -32,15 +32,14 @@ export const signin = (email, password) => (dispatch, getState) => {
 	return fetch('http://localhost:8080/user/login', config)
 		.then(res => res.json())
 		.then(user => {
-			console.log('user', user)
-			// if (!user._id) {
-			// 	return 'not found';
-			// } else {
-			// 	const action = setCurrentUserCreator(user);
-			// 	dispatch(action);
-			// 	localStorage.setItem('userId', user.id);
-			// 	return 'user found';
-			// }
+			if (!user.id) {
+				return 'not found';
+			} else {
+				const action = setCurrentUser(user);
+				dispatch(action);
+				localStorage.setItem('userId', user.id);
+				return 'user found';
+			}
 		}) 
 		.catch(err => {
 			console.log('an error ocurred', err);
@@ -48,7 +47,8 @@ export const signin = (email, password) => (dispatch, getState) => {
 }
 
 // GET --> User Information reducer (Categories, Incomes and Payment Methods Lists)
-export const fetchUser = () => (dispatch, getState) => { 
+export const fetchUser = () => (dispatch, getState) => {
+	const userID = localStorage.getItem('userId'); 
 	const currentUser = getState().currentUser;
 	const headers  = new Headers({ 
 		'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export const fetchUser = () => (dispatch, getState) => {
 		headers: headers, // tells the fetch which format is (in this case Json)
 	}; 
 
-	fetch('http://localhost:8080/user/1', config)
+	fetch(`http://localhost:8080/user/${userID}`, config)
 		.then(res => res.json())
 		.then(user => {
 			const action = setCurrentUser(user);
@@ -72,6 +72,7 @@ export const fetchUser = () => (dispatch, getState) => {
 
 // GET --> User Expenses reducer
 export const fetchExpenses = () => (dispatch, getState) => { 
+	const userID = localStorage.getItem('userId'); 
 	const currentUser = getState().currentUser;
 	const headers  = new Headers({ 
 		'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ export const fetchExpenses = () => (dispatch, getState) => {
 		headers: headers, // tells the fetch which format is (in this case Json)
 	}; 
 
-	fetch('http://localhost:8080/user/1/expenses', config)
+	fetch(`http://localhost:8080/user/${userID}/expenses`, config)
 		.then(res => res.json())
 		.then(expenses => {
 			const action = setExpenses(expenses);

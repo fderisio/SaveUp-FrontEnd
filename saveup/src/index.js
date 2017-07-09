@@ -10,6 +10,7 @@ import SignUp from './Routes/SignUp';
 import SignIn from './Routes/SignIn';
 import UnderConstruction from './Routes/UnderConstruction';
 import Store from './Store';
+import { setCurrentUser } from './Store/actions';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -40,6 +41,16 @@ const muiTheme = getMuiTheme({
     shadowColor: grey900,
   },
 });
+
+// get token of current session
+const checkLocalUser = () => {
+  const userID = localStorage.getItem('userId'); // variable as its in the fetch function
+  const user = {
+    userID: userID,
+  };
+  Store.dispatch(setCurrentUser(userID)); // guarda el token en el redux state - from the index.js manda la info del user a todas las pages
+}
+checkLocalUser();
 
 injectTapEventPlugin();
 

@@ -4,6 +4,8 @@ import '../../style.css';
 import { RaisedButton } from 'material-ui';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import { fetchUser, fetchExpenses } from '../../Store/actions';
+import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
   categoriesmenu: {
@@ -19,6 +21,11 @@ const styles = {
 }
 
 class Filters extends Component {
+
+  componentDidMount = () => {
+    this.props.dispatch(fetchUser());
+    this.props.dispatch(fetchExpenses());
+  }
 
   constructor(props) {
     super(props)
@@ -41,6 +48,13 @@ class Filters extends Component {
   
 
   render() {
+
+    /* ---- LOADING INFO ---- */
+    if (this.props.currentUser.paymethods === undefined || this.props.currentUser.categories === undefined) {
+      return(
+        <LoadingIcon />
+      );
+    }
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
     console.log('addExpense props', this.props);

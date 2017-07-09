@@ -48,8 +48,22 @@ const initialState = {
 	]
 }
 
-const currentUser = (state=initialState, action) => {
-	return state;
+const currentUser = (state={}, action) => {
+	switch (action.type) {
+		case 'setUser':
+			const newState = { ...action.user };
+			return newState;
+		case 'addCategory':
+			const newState2 = { ...this.state };
+			return newState2;
+		case 'logOut':
+			let logoutState = { ...state };
+			localStorage.clear();
+			logoutState = {};
+			return logoutState;
+		default:
+			return state;
+	}
 }
 
 

@@ -1,31 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {List, ListItem} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
+import { fetchUser, fetchExpenses } from '../../Store/actions';
+import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
 	list: {
-		width: 300,
-		height: 490,
+    width: 300,
+    height: 490,
     overflowY: 'auto',
     marginLeft: 80,
-	}
+	},
+  button: {
+    marginTop: 25,
+    float: 'right',
+    marginRight: 150,
+  },
 }
 
 class FixedCategories extends React.Component {
 
- 	render() {
- 	  //console.log(this.props);
+  componentDidMount = () => {
+    this.props.dispatch(fetchUser());
+    this.props.dispatch(fetchExpenses());
+  }
 
- 		// filter fixed categories and create array with them 
-    // let fixedCategories = [];
-    // const categoriesArray = this.props.currentUser.categories;
-    // for (let i=0; i<categoriesArray.length; i++) {
-    //   if (categoriesArray[i].fixed === true) {
-    //     let newArray = [categoriesArray[i].id, categoriesArray[i].name];
-    //     fixedCategories.push(newArray);
-    //   }
-    // }
+ 	render() {
+ 	  if (this.props.expenses === undefined || this.props.currentUser.categories === undefined) {
+      return(
+        <LoadingIcon />
+      );
+    }
 
     // new categories object with just name to render
     let fixedCategories = {}
@@ -48,17 +54,17 @@ class FixedCategories extends React.Component {
     console.log(fixedExpenses[4])
 
  		return(
- 			<div style={styles.list}>
+ 			  <div style={styles.list}>
         { Object.keys(fixedCategories).map((key, index) => {
           return(
             <p key={index}><b>{fixedCategories[key]}:</b>  CHF {fixedExpenses[key]} <a>Edit</a></p>
           );
         }
         )}
-
-    	</div>
+    	  </div>
  		)
  	}
+
 }
 
 const mapStateToProps = (state) => {
@@ -66,4 +72,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(FixedCategories);
-

@@ -5,6 +5,7 @@ import Dashboard from './Routes/Dashboard';
 import Profile from './Routes/Profile';
 import Expenses from './Routes/Expenses';
 import QuickAdd from './Routes/QuickAdd';
+import AddCategory from './Routes/AddCategory';
 import SignUp from './Routes/SignUp';
 import SignIn from './Routes/SignIn';
 import UnderConstruction from './Routes/UnderConstruction';
@@ -54,6 +55,7 @@ ReactDOM.render(
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/expenses" component={Expenses} />
             <Route exact path="/quickadd" component={QuickAdd} />
+            <Route exact path="/addcategory" component={AddCategory} />
             <Route exact path="/underconstruction" component={UnderConstruction} />
 		    </Switch>
       </Router>

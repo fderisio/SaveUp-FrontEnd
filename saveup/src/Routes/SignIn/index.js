@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../../style.css';
 import { RaisedButton } from 'material-ui';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import { signin } from '../../Store/actions';
 import Navbar from '../../Containers/Navbar';
 import Footer from '../../Components/Footer';
 
@@ -30,18 +32,50 @@ class SignIn extends Component {
     }
   }
 
-  handleEmail = (e) => { this.setState({ email: e.currentTarget.value}) };
-  handlePassword = (e) => { this.setState({ password: e.currentTarget.value}) };
+  handleEmail = (e) => { 
+    const email = e.currentTarget.value;
+    this.setState({ email });
+  }
+
+  handlePassword = (e) => { 
+    const password = e.currentTarget.value;
+    this.setState({ password });
+  }
   
+  signin = (e) => {
+    e.preventDefault();
+    const signinAction = signin(this.state.email, this.state.password); // signin(email, password) is in actions.js
+    this.props.dispatch(signinAction)   
+      .then((userSearch) => { // checks return of the loginAction
+        if (userSearch === 'not found') {
+          return <p>Sorry... user not found</p>
+          console.log('user not found')
+        } else {
+          console.log('user found', userSearch)
+          //this.props.history.push('/user/');
+        }
+      })
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div>
         <Navbar />
         <Paper zDepth={2} style={ styles.paper } >
           <form>
-            <TextField hintText="E-mail" style={styles.textField}/><br />
-            <TextField hintText="Password" style={styles.textField}/><br /><br />
-            <RaisedButton type="submit" label="Sign In" />
+            <TextField 
+              hintText="E-mail" 
+              floatingLabelText="E-mail" 
+              style={ styles.textField } 
+              onChange={ this.handleEmail }/><br />
+            <TextField 
+              hintText="Password" 
+              floatingLabelText="Password" 
+              type="password" 
+              style={ styles.textField } 
+              onChange={ this.handlePassword }/><br /><br />
+            <RaisedButton type="submit" label="Sign In" onClick={ this.signin } />
           </form>
         </Paper><br/><br/>
         <Link to="/underconstruction"><p>Forgot your password?</p></Link>
@@ -52,4 +86,8 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => {
+  return state;
+}
+
+export default connect(mapStateToProps)(SignIn);

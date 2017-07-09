@@ -1,6 +1,8 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
+import { connect } from 'react-redux';
 import '../../style.css';
+import { fetchUser, fetchExpenses } from '../../Store/actions';
 import Navbar from '../../Containers/Navbar';
 import ExpensesTable from '../../Containers/ExpensesTable';
 import MonthFolders from '../../Components/MonthFolders';
@@ -8,6 +10,11 @@ import Footer from '../../Components/Footer';
 import { Link } from 'react-router-dom';
 
 class Dashboard extends React.Component {
+
+  componentDidMount = () => {
+    this.props.dispatch(fetchUser());
+    this.props.dispatch(fetchExpenses());
+  }
 
   render() {
     return (
@@ -31,4 +38,8 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return state;
+}
+
+export default connect(mapStateToProps)(Dashboard);

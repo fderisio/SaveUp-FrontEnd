@@ -10,17 +10,21 @@ import {
 } from 'material-ui/Table';
 import { connect } from 'react-redux';
 import Logos from '../../Components/Logos';
+import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
   root: {
     height: 490,
     overflowY: 'auto',
-    marginTop: 50,
+  },
+  total: {
+    marginTop: 25,
+    textAlign: 'right',
+    marginRight: 400,
   },
   table: {
     height: 490,
     overflowY: 'auto',
-    fontSize: '50px',
   },
   dashboardtable: {
     height: 520,
@@ -30,19 +34,25 @@ const styles = {
 }
 
 class ExpensesTable extends React.Component {
-  
+
   // Date converter to "DD-MM-YYYY"
   convertDate = (inputFormat) => {
       function pad(s) { return (s < 10) ? '0' + s : s; }
       const d = new Date(inputFormat);
       return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
-  }
+  };
 
   render() {
+    /* ---- LOADING INFO ---- */
+    if (this.props.currentUser.paymethods === undefined || this.props.currentUser.categories === undefined) {
+      return(
+        <LoadingIcon />
+      );
+    }
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
 
-    const allExpenses = this.props.expenses[0];
+    const allExpenses = this.props.expenses;
     // sort expenses (newest to oldest)
     allExpenses.sort(function(a,b) {return (a.expenseDate > b.expenseDate) ? -1 : ((b.expenseDate > a.expenseDate) ? 1 : 0);} );
 
@@ -64,9 +74,11 @@ class ExpensesTable extends React.Component {
 
     // filter non fixed expenses
     const expenses = [];
+    let total = 0;
     for (let i=0; i<allExpenses.length; i++) {
       if (allExpenses[i].category.id in categories) {
         expenses.push(allExpenses[i]);
+        total += allExpenses[i].total;
       }
     }
 
@@ -75,9 +87,11 @@ class ExpensesTable extends React.Component {
     // full table expenses
     if (this.props.path === "/expenses") {
       return(
+        <div>
+        <h4 style={ styles.total }>Total: <b>CHF {total.toFixed(2)}</b></h4>
         <div className='SecondColumn' style={ styles.root }>
-          <Table selectable={true}>
-            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+          <Table selectable={true} >
+            <TableHeader adjustForCheckbox={false} displaySelectAll={false} style={ styles.table }>
               <TableRow>
                 <TableHeaderColumn>Date</TableHeaderColumn>
                 <TableHeaderColumn>Category</TableHeaderColumn>
@@ -85,10 +99,11 @@ class ExpensesTable extends React.Component {
                 <TableHeaderColumn>Total</TableHeaderColumn>
                 <TableHeaderColumn>Payment</TableHeaderColumn>
                 <TableHeaderColumn>Notes</TableHeaderColumn>
+                <TableHeaderColumn>Delete</TableHeaderColumn>
               </TableRow>
             </TableHeader>
     
-            <TableBody displayRowCheckbox={false}>
+            <TableBody displayRowCheckbox={false} >
             { expenses.map((expense, index) => {
             return (
               <TableRow key={ index }>
@@ -103,21 +118,9 @@ class ExpensesTable extends React.Component {
             );
             }) }
             </TableBody>
-            
-            <TableFooter adjustForCheckbox={false}>
-              <TableRow>
-                <TableRowColumn>ID</TableRowColumn>
-                <TableRowColumn>Name</TableRowColumn>
-                <TableRowColumn>Status</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>
-                  Super Footer
-                </TableRowColumn>
-              </TableRow>
-            </TableFooter>   
 
           </Table>
+        </div>
         </div>
       );
     }

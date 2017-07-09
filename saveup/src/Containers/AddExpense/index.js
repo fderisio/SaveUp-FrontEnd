@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../../style.css';
+import { addExpenseAction } from '../../Store/actions';
+import { fetchUser, fetchExpenses } from '../../Store/actions';
 import { RaisedButton } from 'material-ui';
 import DatePicker from 'material-ui/DatePicker';
+import SelectField from 'material-ui/SelectField';
 import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import LoadingIcon from '../../Components/LoadingIcon';
+
 
 const styles = {
   textField: {
@@ -48,72 +53,85 @@ const styles = {
 
 class AddExpense extends Component {
 
+  componentDidMount = () => {
+    this.props.dispatch(fetchUser());
+    this.props.dispatch(fetchExpenses());
+  }
+
   constructor(props) {
     super(props)
     this.state = {
-      category: 0,
-      notes: '',
-      company: '',
+      category: '',
+      text: '',
+      store: '',
       expenseDate: '',
       total: '',
-      payment: 0,
+      payMethod: '',
       open: false,
     }
   }
 
-  // Date converter to "DD-MM-YYYY"
+  // Date converter to "DD-MM-YYYY" "YYYY-MM-DDT00:00:00.000Z"
   convertDate = (inputFormat) => {
       function pad(s) { return (s < 10) ? '0' + s : s; }
       const d = new Date(inputFormat);
-      return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
+      return [d.getFullYear(), pad(d.getMonth()+1), pad(d.getDate())].join('-') + "T00:00:00.000Z";
   };
 
   // handle functions (changes the state)
   handleCategory = (e, index, value) => this.setState({ category: value });
-  handleNotes = (e) => { this.setState({ notes: e.currentTarget.value }); };
-  handleCompany = (e) => { this.setState({ company: e.currentTarget.value }); };
+  handleNotes = (e) => { this.setState({ text: e.currentTarget.value }); };
+  handleCompany = (e) => { this.setState({ store: e.currentTarget.value }); };
   handleDate = (e, index) => this.setState({ expenseDate: this.convertDate(index) });
-  handleTotal = (e) => { this.setState({ total: e.currentTarget.value }); };
-  handlePayment = (e, index, value) => this.setState({ payment: value });
+  handleTotal = (e) => { this.setState({ total: parseFloat(e.currentTarget.value) }); };
+  handlePayment = (e, index, value) => this.setState({ payMethod: value });
 
   addExpense = (e) => {
     e.preventDefault();
-  };
+    console.log('hola')
+    const addExpenseAct = addExpenseAction(this.state.category, this.state.text,
+    this.state.store, this.state.expenseDate, this.state.total, this.state.payMethod); // signin(email, password) is in actions.js
+    this.props.dispatch(addExpenseAct);
+  }
 
   render() {
 
-    /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
-    console.log('addExpense props', this.state);
-
-    // filter non fixed categories
-    let nonfixedCategories = [];
-    const categoriesArray = this.props.currentUser.categories;
-    for (let i=0; i<categoriesArray.length; i++) {
-      if (categoriesArray[i].fixed === false) {
-        let newArray = [categoriesArray[i].id, categoriesArray[i].name];
-        nonfixedCategories.push(newArray);
-      }
+    /* ---- LOADING INFO ---- */
+    if (this.props.currentUser.paymethods === undefined || this.props.currentUser.categories === undefined) {
+      return(
+        <LoadingIcon />
+      );
     }
 
-    // categories list to display using dropdownmenu
-    const categories = [];
-    categories.push(<MenuItem value={0} key={0} primaryText={`Category`} />);
-    for (let i = 0; i < nonfixedCategories.length; i++ ) {
-      categories.push(
-        <MenuItem value={nonfixedCategories[i][0]} key={nonfixedCategories[i][0]} 
-        primaryText={`${nonfixedCategories[i][1]}`} />);
+    /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
+    console.log('addExpense props', this.props);
+
+    // filter non fixed categories
+    let categories = [];
+    const categoriesArray = this.props.currentUser.categories;
+    console.log(categoriesArray)
+    for (let i=0; i<categoriesArray.length; i++) {
+      if (categoriesArray[i].fixed === false) {
+        categories.push(
+          <MenuItem 
+            value={categoriesArray[i]} 
+            key={categoriesArray[i].id} 
+            primaryText={`${categoriesArray[i].name}`} />
+        );
+      }
     }
 
     // payment methods list to display using dropdownmenu
     let paymethods = [];
-    paymethods.push(<MenuItem value={0} key={0} primaryText={`Payment`} />);
     const paymethodsArray = this.props.currentUser.paymethods;
     for (let i=0; i<paymethodsArray.length; i++) {
       paymethods.push(
-        <MenuItem value={paymethodsArray[i].id} key={paymethodsArray[i].id} 
-        primaryText={`${paymethodsArray[i].name}`} />);
+        <MenuItem 
+          value={paymethodsArray[i]} 
+          key={paymethodsArray[i].id} 
+          primaryText={`${paymethodsArray[i].name}`} />
+      );
     }
-
 
     /* ---- RENDER ADD EXPENSE FORM ---- */
 
@@ -121,40 +139,51 @@ class AddExpense extends Component {
         <div>
         <Paper zDepth={2} style={styles.paper}>
           <form>
-            <DropDownMenu maxHeight={300} value={this.state.category} style={styles.categoriesmenu} onChange={this.handleCategory}>
+            <SelectField
+              floatingLabelText="Category"
+              style={styles.textField}
+              value={this.state.category}
+              onChange={this.handleCategory}
+            >
               {categories}
-            </DropDownMenu>
+            </SelectField>
             <TextField 
               hintText="Store/Company" 
               floatingLabelText="Company/Store" 
               style={styles.textField} 
-              onChange={this.handleCompany} /><br/>
+              onChange={this.handleCompany} />
             <TextField 
               hintText="Notes" 
               floatingLabelText="Notes" 
               maxLength={20}
               style={styles.textField} 
               onChange={this.handleNotes}/>
-            <p className="SmallNotes">*Max. 20 characters</p><br/>
+            <p className="SmallNotes">*Max. 20 characters</p>
             <DatePicker
               style={styles.datepicker}
               hintText="YYYY-MM-DD"
               onChange={this.handleDate}/>
-            <p className="SmallNotes">*Required</p><br/>
+            <p className="SmallNotes">*Required</p>
             <TextField 
               hintText="Total in CHF" 
               floatingLabelText="Total in CHF" 
               maxLength={10}
               style={styles.textField} 
               onChange={this.handleTotal} />
-            <p className="SmallNotes">*Example: 31.50</p><br/><br/>
-            <DropDownMenu maxHeight={300} value={this.state.payment} style={styles.paymentmenu} onChange={this.handlePayment}>
+            <p className="SmallNotes">*Example: 31.50</p>
+            <SelectField
+              floatingLabelText="Payment"
+              style={styles.textField}
+              value={this.state.payMethod}
+              onChange={this.handlePayment}
+            >
               {paymethods}
-            </DropDownMenu>
+            </SelectField>
             <RaisedButton 
               label="Add Expense" 
               type="submit" 
-              style={styles.button} />
+              style={styles.button} 
+              onClick={this.addExpense}/>
           </form>
         </Paper>
       </div>
@@ -163,6 +192,7 @@ class AddExpense extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('state', state)
   return state;
 }
 

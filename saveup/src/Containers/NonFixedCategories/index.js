@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui/List';
+import { fetchUser } from '../../Store/actions';
+import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
 	list: {
@@ -14,7 +16,18 @@ const styles = {
 
 class NonFixedCategories extends React.Component {
 
+  componentDidMount = () => {
+    this.props.dispatch(fetchUser());
+  }
+
  	render() {
+
+    if (this.props.expenses === undefined || this.props.currentUser.categories === undefined) {
+      return(
+        <LoadingIcon />
+      );
+    }
+
  		const user = this.props.currentUser.categories;
 
  		// filter non fixed categories
@@ -29,7 +42,7 @@ class NonFixedCategories extends React.Component {
 
  		console.log(nonfixedCategories)
  		return(
- 			<List style={styles.list}>
+      <List style={styles.list}>
  			{ nonfixedCategories.map((category) => {
  				return(
 		      <ListItem primaryText={category[1]} key={category[0]}/>

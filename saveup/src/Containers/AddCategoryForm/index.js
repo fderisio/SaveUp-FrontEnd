@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../style.css';
 import LoadingIcon from '../../Components/LoadingIcon';
-import { addCategoryAction } from '../../Store/actions';
+import { addCategoryAction, addExpenseAction } from '../../Store/actions';
 import { fetchUser, fetchExpenses } from '../../Store/actions';
 import { RaisedButton } from 'material-ui';
 import Checkbox from 'material-ui/Checkbox';
@@ -23,7 +23,7 @@ const styles = {
   },
   paper: {
     width: 450, 
-    height: 270, 
+    height: 330, 
     margin: 'auto',
     marginTop: 50,
   },
@@ -46,6 +46,7 @@ class AddCategory extends Component {
     this.state = {
       name: '',
       fixed: false,
+      company: '',
       total: '',
     }
   }
@@ -53,13 +54,42 @@ class AddCategory extends Component {
   // handle functions (changes the state)
   handleName = (e) => { this.setState({ name: e.currentTarget.value }); };
   handleFixed = (e) => { this.setState({ fixed: !(this.state.fixed) }); };
-  handleTotal = (e) => { this.setState({ total: e.currentTarget.value }); };
+  handleCompany = (e) => { this.setState({ company: e.currentTarget.value }); };
+  handleTotal = (e) => { this.setState({ total: parseFloat(e.currentTarget.value) }); };
+
+  currentDate = () => {
+    let today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+
+    today = yyyy + '-' + mm + '-' +  dd + "T00:00:00.000Z";
+    return today;
+  };
+
+
 
   addCategory = (e) => {
     e.preventDefault();
     console.log('inside category form clicked')
     const addCategoryAct = addCategoryAction(this.state.name, this.state.fixed);
     this.props.dispatch(addCategoryAct);
+
+    // save fixed category as a expense
+    const currentDate = Date.now();
+    const text = "Fixed charge";
+    const paymentId = 0;
+    if (this.state.fixed === true) {
+      this.props.dispatch(addExpenseAction(text, this.state.company, this.state.total, this.currentDate()));
+    }
     this.props.history("/profile");
   };
 
@@ -106,6 +136,13 @@ class AddCategory extends Component {
               style={styles.checkbox}
               onClick={this.handleFixed} />
             <TextField 
+              disabled={!(this.state.fixed)}
+              hintText="Company" 
+              floatingLabelText="Category name" 
+              style={styles.textField} 
+              onChange={this.handleCompany} /><br/>
+            <TextField 
+              disabled={!(this.state.fixed)}
               hintText="Monthly cost in CHF" 
               floatingLabelText="Monthly cost in CHF" 
               maxLength={10}

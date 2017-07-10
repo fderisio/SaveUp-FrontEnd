@@ -45,7 +45,7 @@ export const signin = (email, password) => (dispatch, getState) => {
 			} else {
 				const action = setCurrentUser(user);
 				dispatch(action);
-				localStorage.setItem('userId', user.id);
+				localStorage.setItem('userId', parseInt(user.id));
 				return 'user found';
 			}
 		}) 
@@ -127,13 +127,12 @@ export const fetchExpenses = () => (dispatch, getState) => {
 }
 
 // POST --> Add new expense // /{categoryId}{paymentId}/expenses/add
-export const addExpenseAction = (category, text, store, expenseDate, total, payMethod) => (dispatch, getState) => { 
+export const addExpenseAction = (text, store, expenseDate, total, payMethod, category) => (dispatch, getState) => { 
 	const currentUser = getState().currentUser;
 	const headers  = new Headers({ 
 		'Content-Type': 'application/json',
 		Authorization: `Bearer ${currentUser.id}`
 	})
-	console.log(category, payMethod)
 	const body = { text, store, expenseDate, total };
 	console.log('json', JSON.stringify(body))
 	const config = {

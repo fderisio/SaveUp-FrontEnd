@@ -13,8 +13,6 @@ const styles = {
   },
 	list: {
     width: 300,
-    // height: 120,
-    // overflowY: 'auto',
     marginLeft: 100,
 	},
   link: {

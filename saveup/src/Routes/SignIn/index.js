@@ -11,12 +11,11 @@ import Footer from '../../Components/Footer';
 
 const styles = {
   textField: {
-    marginTop: 20,
     width: 350,
   },
   paper: {
     width: 500,
-    height: 210, 
+    height: 220, 
     margin: 'auto', 
     marginTop: 100,
   }
@@ -45,17 +44,17 @@ class SignIn extends Component {
   signin = (e) => {
     e.preventDefault();
     const signinAction = signin(this.state.email, this.state.password); // signin(email, password) is in actions.js
-    this.props.dispatch(signinAction);
-    this.props.history.push("/dashboard");
-      // .then((userSearch) => { // checks return of the loginAction
-      //   if (userSearch === 'not found') {
-      //     return <p>Sorry... user not found</p>
-      //     console.log('user not found')
-      //   } else {
-      //     console.log('user found', userSearch)
-      //     //this.props.history.push('/user/');
-      //   }
-      // })
+    this.props.dispatch(signinAction)
+    //this.props.history.push("/dashboard");
+      .then((userSearch) => { // checks return of the loginAction
+        if (userSearch === 'not found') {
+          return <p>Sorry... user not found</p>
+          console.log('user not found')
+        } else {
+          console.log('user found', userSearch)
+           this.props.history.push("/dashboard");
+        }
+      })
   }
 
   render() {

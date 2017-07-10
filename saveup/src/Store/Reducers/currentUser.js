@@ -2,8 +2,11 @@ const currentUser = (state={}, action) => {
 	switch (action.type) {
 		case 'setUser':
 			const newState = { ...action.user };
-			console.log('entre al estado', newState)
 			return newState;
+		case 'signUp':
+			const newState1 = { ...action.user };
+			console.log('entre al estado de signup', newState)
+			return newState1;
 		case 'addCategory':
 			const newState2 = { ...this.state };
 			return newState2;

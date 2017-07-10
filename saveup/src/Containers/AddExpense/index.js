@@ -95,7 +95,7 @@ class AddExpense extends Component {
   }
 
   render() {
-
+    console.log(typeof this.state.total)
     /* ---- LOADING INFO ---- */
     if (this.props.currentUser.paymethods === undefined || this.props.currentUser.categories === undefined) {
       return(

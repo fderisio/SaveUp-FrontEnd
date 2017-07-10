@@ -5,14 +5,14 @@ import '../../style.css';
 import { fetchUser, fetchExpenses } from '../../Store/actions';
 import Navbar from '../../Containers/Navbar';
 import ExpensesTable from '../../Containers/ExpensesTable';
-import MonthFolders from '../../Components/MonthFolders';
+import CurrentMonth from '../../Containers/Charts/CurrentMonth';
 import Footer from '../../Components/Footer';
 import { Link } from 'react-router-dom';
 
 class Dashboard extends React.Component {
 
   componentDidMount = () => {
-    //this.props.dispatch(fetchUser());
+    this.props.dispatch(fetchUser());
     this.props.dispatch(fetchExpenses());
   }
 
@@ -20,13 +20,25 @@ class Dashboard extends React.Component {
   nextPage = (value) => { this.props.history.push(value); };
 
   render() {
-    console.log('dashboard props', this.props)
+
+    /* ---- EXTRA VARIABLES ---- */
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentMonthExpenses = [];
+    for (let i=0; i<this.props.expenses; i++) {
+      if (this.props.expenses[i].category.fixed === false) {
+        currentMonthExpenses.push(this.props.expenses[i]);
+      }
+    }
+
+    console.log('dashboard props', currentMonthExpenses)
     return (
       <div>
         <Navbar nextPage = {this.nextPage} />
         <div className="wrapper">
           <div className="MonthFolders">
-            <MonthFolders />
+            <h3>Current month expenses</h3>
+            <CurrentMonth monthExpenses={this.props.expenses}/>
           </div>
           <div className="ExpensesTable">
             <h3>{this.props.currentUser.firstName}, your last 10 expenses</h3>

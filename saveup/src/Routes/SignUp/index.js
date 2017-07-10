@@ -1,7 +1,9 @@
 import React from 'react';
-import { RaisedButton } from 'material-ui';
-import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
+import { connect } from 'react-redux';
+import { RaisedButton, Paper, TextField } from 'material-ui';
+//import Paper from 'material-ui/Paper';
+//import TextField from 'material-ui/TextField';
+import { signup } from '../../Store/actions';
 import Navbar from '../../Containers/Navbar';
 import Footer from '../../Components/Footer';
 
@@ -39,6 +41,14 @@ class SignUp extends React.Component {
   handlePassword = (e) => { this.setState({ password: e.currentTarget.value}) };
   handleRepeatPassword = (e) => { this.setState({ repeatPassword: e.currentTarget.value}) };
 
+  register = (e) => {
+    e.preventDefault();
+    console.log('inside signup form clicked')
+    const signupAction = signup(this.state.firstName, this.state.lastName, this.state.email, this.state.password);
+    this.props.dispatch(signupAction);
+    //this.props.history.push("/dashboard");
+  };
+
   render() {
     return (
       <div>
@@ -62,7 +72,7 @@ class SignUp extends React.Component {
             <TextField 
               hintText="Repeat password" floatingLabelText="Repeat Password" 
               type="password" style={styles.textField} onChange={this.handleRepeatPassword} />
-            <RaisedButton label="Create Account" type="submit" style={styles.button}/>
+            <RaisedButton label="Create Account" type="submit" style={styles.button} onClick={this.register}/>
           </form>
         </Paper>
         <Footer />
@@ -72,4 +82,8 @@ class SignUp extends React.Component {
   
 }
 
-export default SignUp;
+const mapStateToProps = (state) => {
+  return state;
+}
+
+export default connect(mapStateToProps)(SignUp);

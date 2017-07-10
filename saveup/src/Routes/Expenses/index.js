@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import ChartsIcon from 'material-ui/svg-icons/action/trending-up';
+import CreateIcon from 'material-ui/svg-icons/content/create';
+import ViewAllIcon from 'material-ui/svg-icons/content/content-paste';
 import '../../style.css';
 import Navbar from '../../Containers/Navbar';
 import Filters from '../../Containers/Filters';
@@ -21,7 +24,7 @@ const styles = {
   },
   info: {
     marginLeft: 200,
-  }
+  },
 };
 
 class Expenses extends React.Component {
@@ -31,9 +34,9 @@ class Expenses extends React.Component {
     return (
       <div>
         <Navbar />
-        <Tabs>
+        <Tabs style={styles.root} contentContainerStyle={styles.root}>
 
-          <Tab label="View All" >
+          <Tab icon={<ViewAllIcon />} label="View All" >
             <div style={styles.tab}>
               <div className='FirstColumn'>
                 <Filters />
@@ -42,11 +45,11 @@ class Expenses extends React.Component {
             </div>
           </Tab>
 
-          <Tab label="Add Expenses" >
+          <Tab icon={<CreateIcon />} label="Add Expenses" >
             <AddExpense />
           </Tab>
           
-          <Tab label="Search" >
+          <Tab icon={<ChartsIcon />} label="Charts" >
             <div style={styles.tab}>
             </div>
           </Tab>

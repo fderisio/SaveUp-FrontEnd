@@ -16,9 +16,14 @@ const styles = {
     float: 'left',
     marginLeft: 55,
   },
+  checkbox: {
+    float: 'left',
+    marginLeft: 55,
+    textAlign: 'left',
+  },
   paper: {
     width: 450, 
-    height: 250, 
+    height: 270, 
     margin: 'auto',
     marginTop: 50,
   },
@@ -98,7 +103,7 @@ class AddCategory extends Component {
               onChange={this.handleName} /><br/>
             <Checkbox
               label="Fixed category"
-              style={styles.textField}
+              style={styles.checkbox}
               onClick={this.handleFixed} />
             <TextField 
               hintText="Monthly cost in CHF" 
@@ -106,7 +111,7 @@ class AddCategory extends Component {
               maxLength={10}
               style={styles.textField} 
               onChange={this.handleTotal} />
-            <p className="SmallNotes">*Example: 31.50</p><br/><br/>
+            <p className="SmallNotes">*ONLY FOR FIXED CATEGORIES</p><br/><br/>
             <Link to="/profile"><RaisedButton 
               label="Add Category" 
               type="submit" 

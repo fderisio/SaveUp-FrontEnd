@@ -19,7 +19,7 @@ class LastMonth extends Component {
 
 		/* ---- EXTRA VARIABLES ---- */
     const currentDate = new Date();
-    const lastMonth = currentDate.getMonth() - 1;
+    const lastMonth = currentDate.getMonth();
 
     // non fixed categories names
     let categories = {};
@@ -30,7 +30,7 @@ class LastMonth extends Component {
       }
     }
 
-    // sum of current month expenses per category
+    // sum of last month expenses per category
     const currentMonthExpenses = {};
     const allExpenses = this.props.expenses;
     for (let i=0; i<allExpenses.length; i++) {

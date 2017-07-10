@@ -7,22 +7,25 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import IconButton from 'material-ui/IconButton';
+import DeleteButton from 'material-ui/svg-icons/action/delete';
 import { connect } from 'react-redux';
 import Logos from '../../Components/Logos';
 import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
   root: {
+    marginTop: 15,
     height: 490,
     overflowY: 'auto',
   },
   total: {
-    marginTop: 25,
+    marginTop: 20,
     textAlign: 'right',
-    marginRight: 400,
+    marginRight: 150,
   },
   table: {
-    height: 490,
+    height: 470,
     overflowY: 'auto',
   },
   dashboardtable: {
@@ -85,19 +88,18 @@ class ExpensesTable extends React.Component {
     // full table expenses
     if (this.props.path === "/expenses") {
       return(
-        <div>
-        <h4 style={ styles.total }>Total: <b>CHF {total.toFixed(2)}</b></h4>
-        <div className='SecondColumn' style={ styles.root }>
+        <div className='SecondColumn' >
+        <div style={ styles.root }>
           <Table selectable={true} >
             <TableHeader adjustForCheckbox={false} displaySelectAll={false} style={ styles.table }>
               <TableRow>
-                <TableHeaderColumn>Date</TableHeaderColumn>
-                <TableHeaderColumn>Category</TableHeaderColumn>
-                <TableHeaderColumn>Store</TableHeaderColumn>
-                <TableHeaderColumn>Total</TableHeaderColumn>
-                <TableHeaderColumn>Payment</TableHeaderColumn>
-                <TableHeaderColumn>Notes</TableHeaderColumn>
-                <TableHeaderColumn>Delete</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '11%'}}>Date</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '12%'}}>Category</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '15%'}}>Store</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '10%'}}>Total</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '10%'}}>Payment</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '14%'}}>Notes</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '7%'}}>Delete</TableHeaderColumn>
               </TableRow>
             </TableHeader>
     
@@ -105,20 +107,21 @@ class ExpensesTable extends React.Component {
             { expenses.map((expense, index) => {
             return (
               <TableRow key={ index }>
-                <TableRowColumn>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
-                <TableRowColumn>{ categories[expense.category.id] }</TableRowColumn>
-                <TableRowColumn>{ Logos[expense.store] ? <img src={ Logos[expense.store] } className='logo' alt='logo'/> :
+                <TableRowColumn style={{width: '11%'}}>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
+                <TableRowColumn style={{width: '12%'}}>{ categories[expense.category.id] }</TableRowColumn>
+                <TableRowColumn style={{width: '15%'}}>{ Logos[expense.store] ? <img src={ Logos[expense.store] } className='logo' alt='logo'/> :
                   expense.store }</TableRowColumn>
-                <TableRowColumn>CHF { expense.total.toFixed(2) }</TableRowColumn>
-                <TableRowColumn>{ paymethods[expense.payMethod.id] }</TableRowColumn>
-                <TableRowColumn>{ expense.text }</TableRowColumn>
+                <TableRowColumn style={{width: '10%'}}>CHF { expense.total.toFixed(2) }</TableRowColumn>
+                <TableRowColumn style={{width: '10%'}}>{ paymethods[expense.payMethod.id] }</TableRowColumn>
+                <TableRowColumn style={{width: '14%'}}>{ expense.text }</TableRowColumn>
+                <TableRowColumn style={{width: '7%'}}><IconButton><DeleteButton/></IconButton></TableRowColumn>
               </TableRow>
             );
             }) }
             </TableBody>
-
           </Table>
         </div>
+        <h4 style={ styles.total }>Total: <b>CHF {total.toFixed(2)}</b></h4>
         </div>
       );
     }

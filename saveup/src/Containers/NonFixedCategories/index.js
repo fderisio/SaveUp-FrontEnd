@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui/List';
 import { RaisedButton } from 'material-ui';
 import { fetchUser } from '../../Store/actions';
+import IconButton from 'material-ui/IconButton';
+import EditButton from 'material-ui/svg-icons/content/create';
 import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
@@ -49,13 +51,11 @@ class NonFixedCategories extends React.Component {
  		return(
       <div>
       <h2 style={styles.headline}>Variable Expense Categories</h2>
-      <Link to='/addcategory'><RaisedButton 
-        label="Add new category" 
-        type="submit" /></Link>
+      <Link to='/addcategory'><p style={{ marginLeft: 150 }} >Add new category </p></Link>
       <List style={styles.list}>
  			{ nonfixedCategories.map((category) => {
  				return(
-		      <ListItem primaryText={category[1]} key={category[0]}/>
+		      <ListItem primaryText={category[1]} key={category[0]} />
 		    );
       }) }
     	</List>
@@ -69,3 +69,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(NonFixedCategories);
+
+// <IconButton><EditButton/></IconButton>

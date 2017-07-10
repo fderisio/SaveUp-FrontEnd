@@ -13,8 +13,8 @@ const styles = {
   },
 	list: {
     width: 300,
-    height: 150,
-    overflowY: 'auto',
+    // height: 120,
+    // overflowY: 'auto',
     marginLeft: 100,
 	},
   link: {
@@ -22,7 +22,7 @@ const styles = {
   },
 }
 
-class PayMethods extends React.Component {
+class Incomes extends React.Component {
 
   componentDidMount = () => {
     this.props.dispatch(fetchUser());
@@ -32,25 +32,25 @@ class PayMethods extends React.Component {
  	render() {
 
     /* ---- LOADING INFO ---- */
- 	  if (this.props.currentUser === undefined || this.props.currentUser.paymethods === undefined) {
+ 	  if (this.props.currentUser.incomes === undefined) {
       return(
         <LoadingIcon />
       );
     }
 
     /* ---- EXTRA VARIABLE TO RENDER THE INFO ---- */
-    const paymethods = this.props.currentUser.paymethods;
-
+    const incomes = this.props.currentUser.incomes;
+    console.log(incomes)
  		return(
  			  <div>
-          <h2 style={styles.headline}>Payment methods on file</h2>
+          <h4 style={styles.headline}>Income</h4>
           <div style={styles.list}>
-          { paymethods.map(paymethod => {
+          { incomes.map(income => {
             return(
-              <p key={paymethod.id}><b>{paymethod.name}</b> {paymethod.bank} <a>Delete</a></p>
+              <p key={income.id}>CHF {income.amount} monthly from {income.startedAt}</p>
             );
           })}
-          <Link to='/addpaymethod'><p style={styles.link}>Add new payment method</p></Link>
+          <Link to='/addincome'><p style={styles.link}>Add new income</p></Link>
           </div>
     	  </div>
  		)
@@ -62,4 +62,4 @@ const mapStateToProps = (state) => {
   return state;
 }
 
-export default connect(mapStateToProps)(PayMethods);
+export default connect(mapStateToProps)(Incomes);

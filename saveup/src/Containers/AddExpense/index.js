@@ -17,34 +17,36 @@ const styles = {
     width: 350,
     float: 'left',
     marginLeft: 55,
+    marginTop: -5,
   },
   selectCategory: {
     width: 255,
     float: 'left',
     marginLeft: 55,
-    textAlign: 'left'
+    textAlign: 'left',
   },
   selectPayment: {
     width: 255,
     float: 'right',
     marginRight: 139,
-    textAlign: 'left'
+    textAlign: 'left',
+    marginTop: -10
   },
   paper: {
     width: 450, 
-    height: 550, 
+    height: 490, 
     margin: 'auto', 
     marginTop: 30,
   },
   button: {
-    marginTop: 25,
+    marginTop: 20,
     float: 'right',
     marginRight: 150,
   },
   datepicker: {
     float: 'right',
     marginRight: 139,
-    marginTop: 20,
+    marginTop: 10,
   }
 }
 

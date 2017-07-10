@@ -19,15 +19,16 @@ class Dashboard extends React.Component {
 
   // EXTRA FUNCTION FOR OTHER COMPONENTS
   nextPage = (value) => { this.props.history.push(value); };
+  pathMatch = (value) => { this.props.match.path(value); };
 
   render() {
     return (
       <div>
-        <Navbar nextPage = {this.nextPage} />
+        <Navbar nextPage = {this.nextPage} path = {this.pathMatch} />
         <div className="wrapper">
           
           <div className="ExpensesTable">
-            <h3>{this.props.currentUser.firstName}, your last 10 expenses</h3>
+            <h3>Hi {this.props.currentUser.firstName}, your last 10 expenses</h3>
             <ExpensesTable path={ this.props.match.path } /><br/>
             <div className="wrapper" style={{float: "left"}}>
               <Link to="/expenses"><FlatButton label="View more..." /></Link>

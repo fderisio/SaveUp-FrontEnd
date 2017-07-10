@@ -93,7 +93,8 @@ class AddPayMethod extends Component {
               floatingLabelText="Category name" 
               maxLength={20}
               style={styles.textField} 
-              onChange={this.handleName} /><br/>
+              onChange={this.handleName} />
+            <p className="SmallNotes">*Required</p><br/><br/>
             <TextField 
               hintText="Bank" 
               defaultValue=""
@@ -101,9 +102,8 @@ class AddPayMethod extends Component {
               maxLength={40}
               style={styles.textField} 
               onChange={this.handleBank} />
-            <p className="SmallNotes">*Example: 31.50</p><br/><br/>
             <Link to="/profile"><RaisedButton 
-              label="Add Payment" 
+              label="add pay method" 
               type="submit" 
               style={styles.button}
               onClick={this.addPayMethod} /></Link>

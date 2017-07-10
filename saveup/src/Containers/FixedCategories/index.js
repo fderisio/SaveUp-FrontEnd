@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RaisedButton } from 'material-ui';
 import { fetchUser, fetchExpenses } from '../../Store/actions';
+import IconButton from 'material-ui/IconButton';
+import EditButton from 'material-ui/svg-icons/content/create';
 import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
@@ -55,13 +57,11 @@ class FixedCategories extends React.Component {
     return(
       <div>
         <h2 style={styles.headline}>Fixed Expense Categories</h2>
-        <Link to='/addcategory'><RaisedButton 
-          label="Add new category" 
-          type="submit" /></Link>
+        <Link to='/addcategory'><p style={{ marginLeft: 150 }} >Add new category </p></Link>
         <div style={styles.list}>
         { Object.keys(fixedCategories).map((key, index) => {
           return(
-            <p key={index}><b>{fixedCategories[key]}:</b>  CHF {fixedExpenses[key]} <a>Edit</a></p>
+            <p key={index}><b>{fixedCategories[key]}:</b>  CHF {fixedExpenses[key]} <IconButton><EditButton/></IconButton></p>
           );
         })}
         </div>

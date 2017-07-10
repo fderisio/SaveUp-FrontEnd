@@ -6,10 +6,8 @@ import { fetchUser, fetchExpenses } from '../../Store/actions';
 import { RaisedButton } from 'material-ui';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
-import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import LoadingIcon from '../../Components/LoadingIcon';
 
@@ -20,24 +18,23 @@ const styles = {
     float: 'left',
     marginLeft: 55,
   },
-  categoriesmenu: {
-    width: 200,
+  selectCategory: {
+    width: 255,
     float: 'left',
-    marginLeft: 30,
-    textAlign: 'left',
+    marginLeft: 55,
+    textAlign: 'left'
   },
-  paymentmenu: {
-    marginTop: 10,
-    width: 300,
+  selectPayment: {
+    width: 255,
     float: 'right',
-    marginRight: 120,
-    textAlign: 'left',
+    marginRight: 139,
+    textAlign: 'left'
   },
   paper: {
     width: 450, 
-    height: 510, 
+    height: 550, 
     margin: 'auto', 
-    marginTop: 50,
+    marginTop: 30,
   },
   button: {
     marginTop: 25,
@@ -134,17 +131,15 @@ class AddExpense extends Component {
     }
 
     /* ---- RENDER ADD EXPENSE FORM ---- */
-
     return (
         <div>
         <Paper zDepth={2} style={styles.paper}>
           <form>
             <SelectField
               floatingLabelText="Category"
-              style={styles.textField}
+              style={styles.selectCategory}
               value={this.state.category}
-              onChange={this.handleCategory}
-            >
+              onChange={this.handleCategory}>
               {categories}
             </SelectField>
             <TextField 
@@ -173,10 +168,9 @@ class AddExpense extends Component {
             <p className="SmallNotes">*Example: 31.50</p>
             <SelectField
               floatingLabelText="Payment"
-              style={styles.textField}
+              style={styles.selectPayment}
               value={this.state.payMethod}
-              onChange={this.handlePayment}
-            >
+              onChange={this.handlePayment}>
               {paymethods}
             </SelectField>
             <RaisedButton 

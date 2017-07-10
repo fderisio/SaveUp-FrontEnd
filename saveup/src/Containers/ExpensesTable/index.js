@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Table,
   TableBody,
-  TableFooter,
   TableHeader,
   TableHeaderColumn,
   TableRow,
@@ -28,7 +27,6 @@ const styles = {
   },
   dashboardtable: {
     height: 520,
-    overflowY: 'auto',
     marginTop: 20,
   }
 }

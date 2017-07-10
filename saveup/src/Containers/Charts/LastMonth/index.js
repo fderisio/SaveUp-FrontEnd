@@ -5,7 +5,7 @@ import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
   LabelList, Label } from 'recharts';
 import LoadingIcon from '../../../Components/LoadingIcon';
 
-class CurrentMonth extends Component {
+class LastMonth extends Component {
 
 
 	render() {
@@ -19,7 +19,7 @@ class CurrentMonth extends Component {
 
 		/* ---- EXTRA VARIABLES ---- */
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1;
+    const lastMonth = currentDate.getMonth() - 1;
 
     // non fixed categories names
     let categories = {};
@@ -38,10 +38,10 @@ class CurrentMonth extends Component {
     	const expenseMonth = parseInt(date[5]+date[6]);
       if (allExpenses[i].category.id in categories 
       		&& allExpenses[i].category.id in currentMonthExpenses 
-      		&& expenseMonth === currentMonth) {
+      		&& expenseMonth === lastMonth) {
         currentMonthExpenses[allExpenses[i].category.id] += allExpenses[i].total;
       } else if (allExpenses[i].category.id in categories 
-      					&& expenseMonth === currentMonth) {
+      					&& expenseMonth === lastMonth) {
       	currentMonthExpenses[allExpenses[i].category.id] = allExpenses[i].total;
       }
     }
@@ -80,9 +80,4 @@ const mapStateToProps = (state) => {
   return state;
 }
 
-export default connect(mapStateToProps)(CurrentMonth);	
-
-// CHARTS HELPFUL TIPS.
-// con iconos  <XAxis dataKey="name" tick={<CustomAxisTick />} />
-// strokeDasharray: agrega linea punteada
-// <Tooltip />: muestra dinamicamente los valores
+export default connect(mapStateToProps)(LastMonth);	

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../style.css';
 import LoadingIcon from '../../Components/LoadingIcon';
-import { addCategoryAction } from '../../Store/actions';
+import { addPayMethodAction } from '../../Store/actions';
 import { fetchUser, fetchExpenses } from '../../Store/actions';
 import { RaisedButton } from 'material-ui';
-import Checkbox from 'material-ui/Checkbox';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
@@ -29,7 +28,7 @@ const styles = {
   },
 }
 
-class AddCategory extends Component {
+class AddPayMethod extends Component {
 
   componentDidMount = () => {
     this.props.dispatch(fetchUser());
@@ -40,21 +39,19 @@ class AddCategory extends Component {
     super(props)
     this.state = {
       name: '',
-      fixed: false,
-      total: '',
+      bank: '""',
     }
   }
 
   // handle functions (changes the state)
   handleName = (e) => { this.setState({ name: e.currentTarget.value }); };
-  handleFixed = (e) => { this.setState({ fixed: !(this.state.fixed) }); };
-  handleTotal = (e) => { this.setState({ total: e.currentTarget.value }); };
+  handleBank = (e) => { this.setState({ bank: e.currentTarget.value }); };
 
   addCategory = (e) => {
     e.preventDefault();
-    console.log('inside category form clicked')
-    const addCategoryAct = addCategoryAction(this.state.name, this.state.fixed);
-    this.props.dispatch(addCategoryAct);
+    console.log('inside payment form clicked')
+    const addPaymentAction = addPayMethodAction(this.state.name, this.state.bank);
+    this.props.dispatch(addPaymentAction);
     this.props.history("/profile");
   };
 
@@ -94,24 +91,22 @@ class AddCategory extends Component {
             <TextField 
               hintText="Category name" 
               floatingLabelText="Category name" 
+              maxLength={20}
               style={styles.textField} 
               onChange={this.handleName} /><br/>
-            <Checkbox
-              label="Fixed category"
-              style={styles.textField}
-              onClick={this.handleFixed} />
             <TextField 
-              hintText="Monthly cost in CHF" 
-              floatingLabelText="Monthly cost in CHF" 
-              maxLength={10}
+              hintText="Bank" 
+              defaultValue=""
+              floatingLabelText="Bank" 
+              maxLength={40}
               style={styles.textField} 
-              onChange={this.handleTotal} />
+              onChange={this.handleBank} />
             <p className="SmallNotes">*Example: 31.50</p><br/><br/>
             <Link to="/profile"><RaisedButton 
-              label="Add Category" 
+              label="Add Payment" 
               type="submit" 
               style={styles.button}
-              onClick={this.addCategory} /></Link>
+              onClick={this.addPayMethod} /></Link>
           </form>
         </Paper>
     );
@@ -122,4 +117,4 @@ const mapStateToProps = (state) => {
   return state;
 }
 
-export default connect(mapStateToProps)(AddCategory);
+export default connect(mapStateToProps)(AddPayMethod);

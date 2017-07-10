@@ -1,21 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { List, ListItem } from 'material-ui/List';
+import { RaisedButton } from 'material-ui';
 import { fetchUser, fetchExpenses } from '../../Store/actions';
 import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
-	list: {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+  list: {
     width: 300,
     height: 490,
     overflowY: 'auto',
-    marginLeft: 80,
-	},
-  button: {
-    marginTop: 25,
-    float: 'right',
-    marginRight: 150,
+    marginLeft: 100,
   },
 }
 
@@ -26,14 +27,14 @@ class FixedCategories extends React.Component {
     this.props.dispatch(fetchExpenses());
   }
 
- 	render() {
- 	  if (this.props.expenses === undefined || this.props.currentUser.categories === undefined) {
+  render() {
+    if (this.props.expenses === undefined || this.props.currentUser.categories === undefined) {
       return(
         <LoadingIcon />
       );
     }
 
-    // new categories object with just name to render
+    // fixed categories object with just name to render
     let fixedCategories = {}
     const categoriesArray = this.props.currentUser.categories;
     for (let i=0; i<categoriesArray.length; i++) {
@@ -41,7 +42,6 @@ class FixedCategories extends React.Component {
         fixedCategories[categoriesArray[i].id] = categoriesArray[i].name;
       }
     }
-    console.log(fixedCategories[4])
 
     // filter fixed expenses
     const expensesArray = this.props.expenses[0];
@@ -51,19 +51,23 @@ class FixedCategories extends React.Component {
         fixedExpenses[expensesArray[i].id] = expensesArray[i].total.toFixed(2);
       }
     }
-    console.log(fixedExpenses[4])
 
- 		return(
- 			  <div style={styles.list}>
+    return(
+      <div>
+        <h2 style={styles.headline}>Fixed Expense Categories</h2>
+        <Link to='/addcategory'><RaisedButton 
+          label="Add new category" 
+          type="submit" /></Link>
+        <div style={styles.list}>
         { Object.keys(fixedCategories).map((key, index) => {
           return(
             <p key={index}><b>{fixedCategories[key]}:</b>  CHF {fixedExpenses[key]} <a>Edit</a></p>
           );
-        }
-        )}
-    	  </div>
- 		)
- 	}
+        })}
+        </div>
+      </div>
+    );
+  }
 
 }
 

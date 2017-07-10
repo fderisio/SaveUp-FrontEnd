@@ -75,15 +75,15 @@
 
 .MonthFolders {
   margin-top: 20px;
-  width: 20% !important;
-  float: left;
+  width: 40% !important;
+  float: right;
 }
 
 .ExpensesTable {
   margin-top: 10px;
   width: 50% !important;
-  float: right;
-  margin-right: 90px;
+  float: left;
+  margin-left: 90px;
 }
 
 .Footer {

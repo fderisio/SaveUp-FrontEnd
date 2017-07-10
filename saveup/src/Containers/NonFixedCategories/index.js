@@ -2,10 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui/List';
+import { RaisedButton } from 'material-ui';
 import { fetchUser } from '../../Store/actions';
 import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
 	list: {
 		width: 300,
 		height: 490,
@@ -28,8 +35,6 @@ class NonFixedCategories extends React.Component {
       );
     }
 
- 		const user = this.props.currentUser.categories;
-
  		// filter non fixed categories
     let nonfixedCategories = [];
     const categoriesArray = this.props.currentUser.categories;
@@ -42,6 +47,11 @@ class NonFixedCategories extends React.Component {
 
  		console.log(nonfixedCategories)
  		return(
+      <div>
+      <h2 style={styles.headline}>Variable Expense Categories</h2>
+      <Link to='/addcategory'><RaisedButton 
+        label="Add new category" 
+        type="submit" /></Link>
       <List style={styles.list}>
  			{ nonfixedCategories.map((category) => {
  				return(
@@ -49,6 +59,7 @@ class NonFixedCategories extends React.Component {
 		    );
       }) }
     	</List>
+      </div>
  		)
  	}
 }

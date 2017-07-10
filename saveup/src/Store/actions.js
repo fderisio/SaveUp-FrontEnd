@@ -14,6 +14,10 @@ export const addCategory = (category) => {
 	return { type: 'addCategory', category }
 }
 
+export const addPayment = (payment) => {
+	return { type: 'addPayment', payment }
+}
+
 export const signUpUser = (user) => {
 	return { type: 'signUp', user }
 }
@@ -31,7 +35,7 @@ export const signin = (email, password) => (dispatch, getState) => {
 		headers: headers, // tells the fetch which format is (in this case Json)
 		method: 'POST', 
 		body: JSON.stringify(body) 
-	}; 
+	};
 
 	return fetch('http://localhost:8080/user/login', config)
 		.then(res => res.json())
@@ -172,6 +176,35 @@ export const addCategoryAction = (name, fixed) => (dispatch, getState) => {
 		.then(res => res.json())
 		.then(category => {
 			const action = addCategory(category);
+			dispatch(action);
+		}) 
+		.catch(err => {
+			console.log('An error ocurred: ', err);
+		})
+}
+
+// POST --> Add new payment method
+export const addPayMethodAction = (name, bank) => (dispatch, getState) => { 
+	const userID = localStorage.getItem('userId'); 
+	const currentUser = getState().currentUser;
+	const headers  = new Headers({ 
+		'Content-Type': 'application/json',
+		Authorization: `Bearer ${currentUser.id}`
+	})
+
+	const body = { name, bank };
+	console.log('json', JSON.stringify(body))
+	const config = {
+		headers: headers, // tells the fetch which format is (in this case Json)
+		method: 'POST', 
+		body: JSON.stringify(body), // Unexpected token S in JSON at position 0
+	}; 
+
+	fetch(`http://localhost:8080/user/${userID}/paymethods/add`, config)
+	//fetch('http://localhost:8080/user/1/categories/add', config)
+		.then(res => res.json())
+		.then(payment => {
+			const action = addPayment(payment);
 			dispatch(action);
 		}) 
 		.catch(err => {

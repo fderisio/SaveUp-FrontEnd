@@ -10,6 +10,9 @@ const currentUser = (state={}, action) => {
 		case 'addCategory':
 			const newState2 = { ...this.state };
 			return newState2;
+		case 'addPayment':
+			const newState3 = { ...this.state };
+			return newState3;
 		case 'logOut':
 			let logoutState = { ...state };
 			localStorage.clear();

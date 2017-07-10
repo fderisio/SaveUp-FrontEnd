@@ -49,10 +49,8 @@ class SignIn extends Component {
       .then((userSearch) => { // checks return of the loginAction
         if (userSearch === 'not found') {
           return <p>Sorry... user not found</p>
-          console.log('user not found')
         } else {
-          console.log('user found', userSearch)
-           this.props.history.push("/dashboard");
+          this.props.history.push("/dashboard");
         }
       })
   }

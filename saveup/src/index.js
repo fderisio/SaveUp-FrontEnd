@@ -6,6 +6,7 @@ import Profile from './Routes/Profile';
 import Expenses from './Routes/Expenses';
 import QuickAdd from './Routes/QuickAdd';
 import AddCategory from './Routes/AddCategory';
+import AddPayMethod from './Routes/AddPayMethod';
 import SignUp from './Routes/SignUp';
 import SignIn from './Routes/SignIn';
 import UnderConstruction from './Routes/UnderConstruction';
@@ -19,8 +20,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import {
-  teal500, grey700, grey800, white, grey900, grey500, tealA700, amberA100, lightBlueA700, indigo50, grey300, grey100, tealA200
-} from 'material-ui/styles/colors'; // other colors: pinkA200, purpleA400, grey100, yellow100
+  teal500, grey700, grey800, white, grey900, grey500, grey300, tealA200
+} from 'material-ui/styles/colors'; 
+// other colors: pinkA200, purpleA400, grey100, yellow100, tealA700, amberA100, lightBlueA700, indigo50
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 // This replaces the default values of Material UI palette
@@ -45,9 +47,9 @@ const muiTheme = getMuiTheme({
 // keeps user after every page refresh
 const checkLocalUser = () => {
   const userID = localStorage.getItem('userId'); // variable as its in the fetch function
-  const user = {
-    userID: userID,
-  };
+  // const user = {
+  //   userID: userID,
+  // };
   Store.dispatch(setCurrentUser(userID)); // saves userId in redux state - from the index.js sends the info to every page
 }
 checkLocalUser();
@@ -67,6 +69,7 @@ ReactDOM.render(
             <Route exact path="/expenses" component={Expenses} />
             <Route exact path="/quickadd" component={QuickAdd} />
             <Route exact path="/addcategory" component={AddCategory} />
+            <Route exact path="/addpaymethod" component={AddPayMethod} />
             <Route exact path="/underconstruction" component={UnderConstruction} />
 		    </Switch>
       </Router>

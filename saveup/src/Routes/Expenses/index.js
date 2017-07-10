@@ -8,6 +8,7 @@ import '../../style.css';
 import Navbar from '../../Containers/Navbar';
 import Filters from '../../Containers/Filters';
 import ExpensesTable from '../../Containers/ExpensesTable';
+import YearSavings from '../../Containers/Charts/YearSavings';
 import AddExpense from '../../Containers/AddExpense';
 import Footer from '../../Components/Footer';
 
@@ -51,6 +52,8 @@ class Expenses extends React.Component {
           
           <Tab icon={<ChartsIcon />} label="Charts" >
             <div style={styles.tab}>
+            <h3>Year savings</h3>
+            <YearSavings />
             </div>
           </Tab>
 

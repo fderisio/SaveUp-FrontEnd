@@ -4,7 +4,7 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend
   } from 'recharts';
 import LoadingIcon from '../../../Components/LoadingIcon';
 
-class YearSavings extends Component {
+class YearForecast extends Component {
 
 	render() {
 
@@ -80,4 +80,4 @@ const mapStateToProps = (state) => {
   return state;
 }
 
-export default connect(mapStateToProps)(YearSavings);
+export default connect(mapStateToProps)(YearForecast);

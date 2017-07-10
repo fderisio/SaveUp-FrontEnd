@@ -52,7 +52,7 @@ class Expenses extends React.Component {
           
           <Tab icon={<ChartsIcon />} label="Charts" >
             <div style={styles.tab}>
-            <h3>Year savings</h3>
+            <h3>Year {new Date().getFullYear()}</h3>
             <YearSavings />
             </div>
           </Tab>

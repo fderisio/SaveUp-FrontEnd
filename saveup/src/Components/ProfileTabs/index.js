@@ -29,12 +29,12 @@ class ProfileTabs extends React.Component {
             <PayMethods />
           </div>
         </Tab>
-        <Tab icon={<NonFixedIcon />} label="Variable categories" >
+        <Tab icon={<NonFixedIcon />} label="Variable charges" >
           <div style={styles.tab}>
             <NonFixedCategories />
           </div>
         </Tab>
-        <Tab icon={<FixedIcon />} label="Fixed categories" >
+        <Tab icon={<FixedIcon />} label="Fixed charges" >
           <div style={styles.tab}>
             <FixedCategories />
           </div>

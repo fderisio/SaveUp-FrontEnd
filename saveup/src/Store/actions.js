@@ -185,10 +185,10 @@ export const addCategoryAction = (name, fixed) => (dispatch, getState) => {
 // POST --> Add new payment method
 export const addPayMethodAction = (name, bank) => (dispatch, getState) => { 
 	const userID = localStorage.getItem('userId'); 
-	const currentUser = getState().currentUser;
+	//const currentUser = getState().currentUser;
 	const headers  = new Headers({ 
 		'Content-Type': 'application/json',
-		Authorization: `Bearer ${currentUser.id}`
+		//Authorization: `Bearer ${currentUser.id}`
 	})
 
 	const body = { name, bank };
@@ -203,6 +203,7 @@ export const addPayMethodAction = (name, bank) => (dispatch, getState) => {
 	//fetch('http://localhost:8080/user/1/categories/add', config)
 		.then(res => res.json())
 		.then(payment => {
+			console.log("payment post", payment)
 			const action = addPayment(payment);
 			dispatch(action);
 		}) 

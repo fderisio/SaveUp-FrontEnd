@@ -39,7 +39,7 @@ class AddPayMethod extends Component {
     super(props)
     this.state = {
       name: '',
-      bank: '""',
+      bank: '',
     }
   }
 
@@ -65,7 +65,6 @@ class AddPayMethod extends Component {
     }
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
-    console.log('addCategory props', this.props);
 
     // filter non fixed categories
     let nonfixedCategories = [];
@@ -89,12 +88,12 @@ class AddPayMethod extends Component {
         <Paper zDepth={2} style={styles.paper}>
           <form>
             <TextField 
-              hintText="Category name" 
-              floatingLabelText="Category name" 
+              hintText="Payment" 
+              floatingLabelText="New Payment Method" 
               maxLength={20}
               style={styles.textField} 
               onChange={this.handleName} />
-            <p className="SmallNotes">*Required</p><br/><br/>
+            <p className="SmallNotes">*Required.</p><br/><br/>
             <TextField 
               hintText="Bank" 
               defaultValue=""

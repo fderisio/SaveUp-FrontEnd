@@ -61,6 +61,18 @@
   float: right;
 }*/
 
+.FAQFirstColumn {
+  margin-top: 10px;
+  width: 50% !important;
+  float: left;
+}
+
+.FAQSecondColumn {
+  margin-top: 10px;
+  width: 50% !important;
+  float: right;
+}
+
 .FirstColumn {
   margin-top: 40px;
   width: 20% !important;
@@ -127,4 +139,8 @@ nav a {
 
 nav {
   margin-top: 5px;
+}
+
+.About {
+  margin-top: 100px;
 }

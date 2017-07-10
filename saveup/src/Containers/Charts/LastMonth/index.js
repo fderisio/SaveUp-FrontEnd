@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, Brush, Legend,
-  ReferenceArea, ReferenceLine, ReferenceDot, ResponsiveContainer,
-  LabelList, Label } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, 
+  } from 'recharts';
 import LoadingIcon from '../../../Components/LoadingIcon';
 
 class LastMonth extends Component {

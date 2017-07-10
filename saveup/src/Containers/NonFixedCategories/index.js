@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui/List';
-import { RaisedButton } from 'material-ui';
 import { fetchUser } from '../../Store/actions';
-import IconButton from 'material-ui/IconButton';
-import EditButton from 'material-ui/svg-icons/content/create';
 import LoadingIcon from '../../Components/LoadingIcon';
 
 const styles = {
@@ -47,7 +44,6 @@ class NonFixedCategories extends React.Component {
       }
     }
 
- 		console.log(nonfixedCategories)
  		return(
       <div>
       <h2 style={styles.headline}>Variable Expense Categories</h2>

@@ -38,7 +38,7 @@ class Incomes extends React.Component {
 
     /* ---- EXTRA VARIABLE TO RENDER THE INFO ---- */
     const incomes = this.props.currentUser.incomes;
-    console.log(incomes)
+
  		return(
  			  <div>
           <h4 style={styles.headline}>Income</h4>

@@ -34,7 +34,7 @@ const styles = {
   },
 }
 
-class AddCategory extends Component {
+class AddIncome extends Component {
 
   componentDidMount = () => {
     this.props.dispatch(fetchUser());
@@ -84,7 +84,9 @@ class AddCategory extends Component {
     this.props.dispatch(addCategoryAct);
 
     // save fixed category as a expense
+    const currentDate = Date.now();
     const text = "Fixed charge";
+    const paymentId = 0;
     if (this.state.fixed === true) {
       this.props.dispatch(addExpenseAction(text, this.state.company, this.state.total, this.currentDate()));
     }
@@ -101,6 +103,7 @@ class AddCategory extends Component {
     }
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
+    console.log('addCategory props', this.props);
 
     // filter non fixed categories
     let nonfixedCategories = [];
@@ -162,4 +165,4 @@ const mapStateToProps = (state) => {
   return state;
 }
 
-export default connect(mapStateToProps)(AddCategory);
+export default connect(mapStateToProps)(AddIncome);

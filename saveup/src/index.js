@@ -10,6 +10,10 @@ import AddPayMethod from './Routes/AddPayMethod';
 import SignUp from './Routes/SignUp';
 import SignIn from './Routes/SignIn';
 import UnderConstruction from './Routes/UnderConstruction';
+import FAQ from './Routes/FAQ';
+import About from './Routes/About';
+import Contact from './Routes/Contact';
+import ForgotPassword from './Routes/ForgotPassword';
 import Store from './Store';
 import { setCurrentUser } from './Store/actions';
 import registerServiceWorker from './registerServiceWorker';
@@ -71,6 +75,10 @@ ReactDOM.render(
             <Route exact path="/addcategory" component={AddCategory} />
             <Route exact path="/addpaymethod" component={AddPayMethod} />
             <Route exact path="/underconstruction" component={UnderConstruction} />
+            <Route exact path="/FAQ" component={FAQ} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
 		    </Switch>
       </Router>
     </Provider>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RaisedButton } from 'material-ui';
 import { fetchUser, fetchExpenses } from '../../Store/actions';
 import IconButton from 'material-ui/IconButton';
 import EditButton from 'material-ui/svg-icons/content/create';
@@ -36,7 +35,7 @@ class FixedCategories extends React.Component {
       );
     }
 
-    // fixed categories object with just name to render
+    // filter fixed categories object with just name to render
     let fixedCategories = {}
     const categoriesArray = this.props.currentUser.categories;
     for (let i=0; i<categoriesArray.length; i++) {
@@ -46,18 +45,18 @@ class FixedCategories extends React.Component {
     }
 
     // filter fixed expenses
-    const expensesArray = this.props.expenses[0];
+    const expensesArray = this.props.expenses;
     let fixedExpenses = {}
     for (let i=0; i<expensesArray.length; i++) {
-      if (expensesArray[i].id in fixedCategories) {
-        fixedExpenses[expensesArray[i].id] = expensesArray[i].total.toFixed(2);
+      if (expensesArray[i].category.id in fixedCategories) {
+        fixedExpenses[expensesArray[i].category.id] = expensesArray[i].total.toFixed(2);
       }
     }
 
     return(
       <div>
-        <h2 style={styles.headline}>Fixed Expense Categories</h2>
-        <Link to='/addcategory'><p style={{ marginLeft: 150 }} >Add new category </p></Link>
+        <h2 style={styles.headline}>Fixed Expenses</h2>
+        <Link to='/addcategory'><p style={{ marginLeft: 150 }} >Add new fixed charge </p></Link>
         <div style={styles.list}>
         { Object.keys(fixedCategories).map((key, index) => {
           return(

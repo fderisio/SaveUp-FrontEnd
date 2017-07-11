@@ -20,7 +20,7 @@ class ProfileTabs extends React.Component {
   render() {
     return (
       <Tabs >
-        <Tab icon={<MapsPersonPin />} label="Profile Info" >
+        <Tab icon={<MapsPersonPin />} label="Personal Info" >
           <div style={styles.tab} className="TabFirstColumn">
             <PersonalInfo />
             <Incomes />

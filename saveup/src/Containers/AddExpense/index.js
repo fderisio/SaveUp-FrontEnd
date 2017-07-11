@@ -86,10 +86,17 @@ class AddExpense extends Component {
 
   addExpense = (e) => {
     e.preventDefault();
-    console.log('hola')
     const addExpenseAct = addExpenseAction(this.state.category, this.state.text,
     this.state.store, this.state.expenseDate, this.state.total, this.state.payMethod);
     this.props.dispatch(addExpenseAct);
+    this.setState({ 
+      category: '',
+      text: ' ',
+      store: ' ',
+      expenseDate: ' ',
+      total: ' ',
+      payMethod: '',
+    });
   }
 
   render() {
@@ -106,7 +113,6 @@ class AddExpense extends Component {
     // filter non fixed categories to display as a SelectField
     let categories = [];
     const categoriesArray = this.props.currentUser.categories;
-    console.log(categoriesArray)
     for (let i=0; i<categoriesArray.length; i++) {
       if (categoriesArray[i].fixed === false) {
         categories.push(
@@ -186,7 +192,6 @@ class AddExpense extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state', state)
   return state;
 }
 

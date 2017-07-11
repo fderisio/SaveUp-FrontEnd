@@ -27,6 +27,27 @@
   margin-top: 12em;
 }
 
+.Navbar {
+    list-style-type: none;
+    background-color: #0091EA;
+    margin: 0;
+    padding: 0;
+    width: 150px;
+    height: 100%; /* Full height */
+    position: fixed; /* Make it stick, even on scroll */
+    overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+
+.Navbar .Button {
+    display: block;
+    line-height: 100px;
+}
+
+.Navbar li :hover {
+    background-color: red; /*#555;*/
+    color: white;
+}
+
 .ContactButtons {
   margin-left: 70px;
 }
@@ -133,12 +154,24 @@ nav ul {
 nav a {
   height: 30px;
   line-height: 30px;
-  color: #004D40; /*#204156;*/
+  color: #01579B; /*#004D40; /*#204156;*/
   text-decoration: none;
 }
 
 nav {
   margin-top: 5px;
+}
+
+.Contact {
+  margin-top: 50px;
+}
+
+.Heart {
+  margin-top: 50px;
+}
+
+.ContactEmail {
+  margin-top: 100px;
 }
 
 .About {

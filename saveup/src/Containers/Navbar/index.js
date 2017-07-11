@@ -12,7 +12,7 @@ const styles = {
   },
   button: {
     textTransform: 'capitalize',
-    color: '#424242', //lightgrey',
+    color: 'white', //#424242', //lightgrey',
     fontSize: '16px',
   }
 };
@@ -23,7 +23,7 @@ class Navbar extends React.Component {
     e.preventDefault();
     const logoutAction = logOutUser();
     this.props.dispatch(logoutAction);
-    this.props.nextPage('/');
+    this.props.nextPage("/");
   };
 
   render() {
@@ -64,7 +64,7 @@ class Navbar extends React.Component {
         <Toolbar style={ styles.navbar } >
 
           <ToolbarGroup firstChild={false}>
-            <p className="icon">SaveUp</p>
+            <Link to="/"><p className="icon">SaveUp</p></Link>
           </ToolbarGroup>
 
           <ToolbarGroup >

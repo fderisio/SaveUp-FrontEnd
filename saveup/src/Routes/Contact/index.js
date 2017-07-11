@@ -8,11 +8,11 @@ class Contact extends Component {
     return (
       <div>
           <Navbar />
-          <div className="ContactCombineElements">
+          <div className="Contact">
             <h3>Do you like our website?</h3>
             <h3>Do you have any suggestions?</h3>
-            <h2>We would ❤ to hear from you!</h2>
-            <p className="Contact-email">
+            <h2 className="Heart">We would ❤ to hear from you!</h2>
+            <p className="ContactEmail">
             Contact us at <a>support@saveup.com</a>
             </p>
           </div>

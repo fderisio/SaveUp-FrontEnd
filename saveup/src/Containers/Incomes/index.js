@@ -27,8 +27,14 @@ class Incomes extends React.Component {
     this.props.dispatch(fetchExpenses());
   }
 
- 	render() {
+  // Date converter to "DD-MM-YYYY"
+  convertDate = (inputFormat) => {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    const d = new Date(inputFormat);
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
+  };
 
+ 	render() {
     /* ---- LOADING INFO ---- */
  	  if (this.props.currentUser.incomes === undefined) {
       return(
@@ -45,7 +51,7 @@ class Incomes extends React.Component {
           <div style={styles.list}>
           { incomes.map(income => {
             return(
-              <p key={income.id}>CHF {income.amount} monthly from {income.startedAt}</p>
+              <p key={income.id}>CHF {income.amount} monthly from {this.convertDate(income.startedAt)}</p>
             );
           })}
           <Link to='/addincome'><p style={styles.link}>Add new income</p></Link>

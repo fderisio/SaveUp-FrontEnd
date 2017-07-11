@@ -6,11 +6,13 @@ import Footer from '../../Components/Footer';
 
 class AddPayMethod extends React.Component {
 
+	nextPage = (value) => { this.props.history.push(value); };
+
 	render() {
 		return(
 	  	<div>
 		    <Navbar />
-		    <AddPayMethodForm history={this.props.history.push}/>
+		    <AddPayMethodForm nextPage={this.nextPage}/>
 		    <Footer />
 	  	</div>
 	  )

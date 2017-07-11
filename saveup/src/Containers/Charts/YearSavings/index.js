@@ -19,49 +19,69 @@ class YearSavings extends Component {
     const months = { 1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June',
       7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'};
 
-    // sum of expenses per month
+    // fixed & non fixed categories objects
+    let variableCategories = {};
+    let fixedCategories = {}
+    const categoriesArray = this.props.currentUser.categories;
+    for (let i=0; i<categoriesArray.length; i++) {
+      if (categoriesArray[i].fixed === false) {
+        variableCategories[categoriesArray[i].id] = categoriesArray[i].name;
+      } else {
+        fixedCategories[categoriesArray[i].id] = categoriesArray[i].name;
+      }
+    }
+
+    // sum of variable expenses per month
     const monthTotalExpenses = {};
     const allExpenses = this.props.expenses;
     for (let i=0; i<allExpenses.length; i++) {
     	const date = allExpenses[i].expenseDate.split("");
     	const expenseMonth = parseInt(date[5]+date[6]);
-      if (expenseMonth in monthTotalExpenses) {
+      if (allExpenses[i].category.id in variableCategories && expenseMonth in monthTotalExpenses) {
         monthTotalExpenses[expenseMonth] += allExpenses[i].total;
-      } else {
+      } else if (allExpenses[i].category.id in variableCategories) {
       	monthTotalExpenses[expenseMonth] = allExpenses[i].total;
+      } 
+    }
+
+    // monthly fixed expenses
+    let totalMonthlyFixedExpenses = 0;
+    for (let i=0; i<allExpenses.length; i++) {
+      if (allExpenses[i].category.id in fixedCategories) {
+        totalMonthlyFixedExpenses += allExpenses[i].total;
       }
     }
 
     // data to render chart [{ month: 'January', expenses: 3500, income: 8000, savings: 4500}];
 		const data = [];
 		for (let key in monthTotalExpenses) {
-			let newData = { month: '', expenses: '', income: '', savings: ''};
+			let newData = { month: '', Income: '', Expenses: '', Savings: ''};
 			newData.month = months[key];
-			newData.expenses = monthTotalExpenses[key];
-      newData.income = this.props.currentUser.incomes[0].amount;
-      newData.savings = newData.income - newData.expenses;
+			newData.Expenses = monthTotalExpenses[key] + totalMonthlyFixedExpenses;
+      newData.Income = this.props.currentUser.incomes[0].amount;
+      newData.Savings = newData.Income - newData.Expenses;
 			data.push(newData);
 		}
 
     // calculates totals for current year
     let totalSavings = 0;
     Object.keys(monthTotalExpenses).map(key => {
-      totalSavings += this.props.currentUser.incomes[0].amount - monthTotalExpenses[key];
+      totalSavings += this.props.currentUser.incomes[0].amount - monthTotalExpenses[key] - totalMonthlyFixedExpenses;
     });
 
     let totalIncome = this.props.currentUser.incomes[0].amount * (new Date().getMonth() + 1);
 
     let totalExpenses = 0;
     Object.keys(monthTotalExpenses).map(key => {
-      totalExpenses += monthTotalExpenses[key];
+      totalExpenses += monthTotalExpenses[key] + totalMonthlyFixedExpenses;
     });
 
 		return(
       <div>
 			<LineChart width={500} height={250} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-        <Line type="monotone" dataKey="expenses" stroke="#FF443D" activeDot={{r: 8}}/>
-  			<Line type="monotone" dataKey="income" stroke="#82ca9d" />
-        <Line type="monotone" dataKey="savings" stroke="#8884d8" />
+  			<Line type="monotone" dataKey="Income" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="Expenses" stroke="#FF443D" activeDot={{r: 8}}/>
+        <Line type="monotone" dataKey="Savings" stroke="#8884d8" />
 			  <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
 			  <XAxis dataKey="month" />
 			  <YAxis />
@@ -69,6 +89,7 @@ class YearSavings extends Component {
         <Legend />
 			</LineChart>
 			<h4>Total Savings: CHF {totalSavings.toFixed(2)} </h4>
+      <h6>Total Income: CHF {totalIncome.toFixed(2)} </h6>
       <h6>Total Expenses: CHF {totalExpenses.toFixed(2)} </h6>
       </div>
 		);

@@ -22,6 +22,7 @@ class Dashboard extends React.Component {
   pathMatch = (value) => { this.props.match.path(value); };
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <Navbar nextPage = {this.nextPage} path = {this.pathMatch} />
@@ -41,7 +42,7 @@ class Dashboard extends React.Component {
             <h3>Last month expenses</h3>
             <LastMonth />
           </div>
-
+         
         </div>
         <Footer />
       </div>

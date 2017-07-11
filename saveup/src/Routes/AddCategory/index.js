@@ -6,11 +6,13 @@ import Footer from '../../Components/Footer';
 
 class AddCategory extends React.Component {
 
+	nextPage = (value) => { this.props.history.push(value); };
+
 	render() {
 		return(
 	  	<div>
 		    <Navbar />
-		    <AddCategoryForm history={this.props.history.push}/>
+		    <AddCategoryForm nextPage = {this.nextPage} />
 		    <Footer />
 	  	</div>
 	  )

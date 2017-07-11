@@ -25,7 +25,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import {
-  teal500, grey700, grey800, white, grey900, grey500, grey300, tealA200
+  teal500, grey700, grey800, white, grey900, grey500, grey300, tealA200, lightBlueA700, darkBlack, pinkA200, cyan600
 } from 'material-ui/styles/colors'; 
 // other colors: pinkA200, purpleA400, grey100, yellow100, tealA700, amberA100, lightBlueA700, indigo50
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -34,18 +34,18 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // More on Colors: http://www.material-ui.com/#/customization/colors
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: grey700, // tabs background
-    primary2Color: teal500, // calendar background
+    primary1Color: grey800, // tabs background
+    primary2Color: cyan600, // calendar background
     primary3Color: grey500,
     textColor: grey800,
-    accent1Color: grey900, // menu´s choosen option
-    accent2Color: tealA200, // lightBlueA700, // tealA700, // teal500, // toolbar background 
+    accent1Color: grey300, //grey900, // menu´s choosen option
+    accent2Color: cyan600, //lightBlueA700, //tealA200, //lightBlueA700, // tealA700, // teal500, // toolbar background 
     accent3Color: grey500, 
     alternateTextColor: grey300, // buttons background and tabs font color
     canvasColor: white, // tables background
     borderColor: grey700, // grey300, input text lines
     pickerHeaderColor: teal500,
-    shadowColor: grey900,
+    shadowColor: pinkA200, //grey900,
   },
 });
 
@@ -67,6 +67,7 @@ ReactDOM.render(
       <Router>
       	<Switch>
             <Route exact path="/" component={Welcome} />
+            <Route exact path="/welcome" component={Welcome} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/dashboard" component={Dashboard} />

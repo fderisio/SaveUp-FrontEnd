@@ -13,6 +13,9 @@ const currentUser = (state={}, action) => {
 		case 'addPayment':
 			const newState3 = { ...this.state };
 			return newState3;
+		case 'addIncome':
+			const newStateIncome = { ...this.state };
+			return newStateIncome;
 		case 'logOut':
 			let logoutState = { ...state };
 			localStorage.clear();

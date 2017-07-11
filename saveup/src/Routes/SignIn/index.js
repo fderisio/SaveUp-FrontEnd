@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import { signin } from '../../Store/actions';
 import Navbar from '../../Containers/Navbar';
 import Footer from '../../Components/Footer';
+import { Treemap } from 'recharts';
 
 const styles = {
   textField: {
@@ -56,7 +57,6 @@ class SignIn extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Navbar />

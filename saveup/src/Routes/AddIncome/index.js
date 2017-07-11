@@ -6,11 +6,13 @@ import Footer from '../../Components/Footer';
 
 class AddIncome extends React.Component {
 
+	nextPage = (value) => { this.props.history.push(value); };
+
 	render() {
 		return(
 	  	<div>
 		    <Navbar />
-		    <AddIncomeForm history={this.props.history.push}/>
+		    <AddIncomeForm nextPage = {this.nextPage} />
 		    <Footer />
 	  	</div>
 	  )

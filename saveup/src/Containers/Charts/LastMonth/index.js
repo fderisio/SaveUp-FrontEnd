@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, 
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, 
   } from 'recharts';
 import LoadingIcon from '../../../Components/LoadingIcon';
 
 class LastMonth extends Component {
 
-
 	render() {
-
 		/* ---- LOADING INFO ---- */
     if (this.props.currentUser.paymethods === undefined || this.props.currentUser.categories === undefined) {
       return(
@@ -45,7 +43,7 @@ class LastMonth extends Component {
       }
     }
 
-    // data array to render chart
+    // data array to render chart [{ name: 'groceries', value: 100 }]
 		const data = [];
 		for (let key in currentMonthExpenses) {
 			let newData = { name: '', value: ''};
@@ -54,21 +52,15 @@ class LastMonth extends Component {
 			data.push(newData);
 		}
 
-		// data array format (example)
-		// const data2 = [
-		// 	{ name: 'groceries', value: 100 },
-		// 	{ name: 'pharmacy', value: 75 },
-		// 	{ name: 'leisure', value: 560 },
-		// ];
-
 		return(
-			<LineChart width={500} height={250} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-  			<Line type="monotone" dataKey="value" stroke="#8884d8" />
-			  <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-			  <XAxis dataKey="name" />
-			  <YAxis dataKey="value" />
-			  <Tooltip />
-			</LineChart>
+			<BarChart width={500} height={250} data={data} 
+        margin={{ top: 5, bottom: 5, left: 0 }}>
+        <XAxis dataKey="name"/>
+        <YAxis dataKey="value" />
+        <CartesianGrid stroke="#ccc" strokeDasharray="3 3"/>
+        <Tooltip/>
+        <Bar dataKey="value" fill="#8884d8" barSize={30} />
+      </BarChart>   
 			
 		);
 	}

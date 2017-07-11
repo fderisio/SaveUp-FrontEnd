@@ -47,12 +47,12 @@ class AddPayMethod extends Component {
   handleName = (e) => { this.setState({ name: e.currentTarget.value }); };
   handleBank = (e) => { this.setState({ bank: e.currentTarget.value }); };
 
-  addCategory = (e) => {
+  addPayMethod = (e) => {
     e.preventDefault();
     console.log('inside payment form clicked')
     const addPaymentAction = addPayMethodAction(this.state.name, this.state.bank);
     this.props.dispatch(addPaymentAction);
-    this.props.history("/profile");
+    this.props.nextPage("/profile");
   };
 
   render() {

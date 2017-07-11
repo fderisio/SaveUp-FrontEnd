@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../style.css';
 import LoadingIcon from '../../Components/LoadingIcon';
-import { addCategoryAction, addExpenseAction } from '../../Store/actions';
+import { addIncomeAction } from '../../Store/actions';
 import { fetchUser, fetchExpenses } from '../../Store/actions';
 import { RaisedButton } from 'material-ui';
 import Checkbox from 'material-ui/Checkbox';
@@ -33,6 +33,11 @@ const styles = {
     float: 'right',
     marginRight: 150,
   },
+  datepicker: {
+    float: 'right',
+    marginRight: 139,
+    marginTop: 10,
+  }
 }
 
 class AddIncome extends Component {
@@ -46,47 +51,38 @@ class AddIncome extends Component {
     super(props)
     this.state = {
       amount: '',
-      monthly: true,
       started: '',
+      monthly: true,
       ended: '',
     }
   }
 
-  // handle functions (changes the state)
-  handleAmount = (e) => { this.setState({ name: e.currentTarget.value }); };
-  handleMonthly = (e) => { this.setState({ monthly: !(this.state.fixed) }); };
-  handleStarted = (e) => { this.setState({ started: e.currentTarget.value }); };
-  handleEnded = (e) => { this.setState({ ended: parseFloat(e.currentTarget.value) }); };
-
-  currentDate = () => {
-    let today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-
-    if(dd<10) {
-        dd = '0'+dd
-    } 
-
-    if(mm<10) {
-        mm = '0'+mm
-    } 
-
-    today = yyyy + '-' + mm + '-' +  dd + "T00:00:00.000Z";
-    return today;
+  // Date converter to "YYYY-MM-DDT00:00:00.000Z"
+  convertDate = (inputFormat) => {
+      function pad(s) { return (s < 10) ? '0' + s : s; }
+      const d = new Date(inputFormat);
+      return [d.getFullYear(), pad(d.getMonth()+1), pad(d.getDate())].join('-') + "T00:00:00.000Z";
   };
 
+  // handle functions (changes the state)
+  handleAmount = (e) => { this.setState({ amount: e.currentTarget.value }); };
+  handleStarted = (e, index) => this.setState({ started: this.convertDate(index) });
+  handleMonthly = (e) => { this.setState({ monthly: !(this.state.monthly) }); };
+  handleEnded = (e, index) => this.setState({ ended: this.convertDate(index) });
 
+  // render datepicker end income field
+  renderEnded = () => {
+    (this.state.monthly) ? false : true;
+  }
 
   addIncome = (e) => {
     e.preventDefault();
-    console.log('inside category form clicked')
-    const addIncomeAct = addCategoryAction(this.state.amount, this.state.monthly, this.state.started, this.state.ended);
+    const addIncomeAct = addIncomeAction(this.state.amount, this.state.started, this.state.monthly, this.state.ended);
     this.props.dispatch(addIncomeAct);
+    this.props.nextPage('/profile');
   };
 
   render() {
-
     /* ---- LOADING INFO ---- */
     if (this.props.currentUser.categories === undefined) {
       return(
@@ -95,7 +91,6 @@ class AddIncome extends Component {
     }
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
-    console.log('addCategory props', this.props);
 
     // filter non fixed categories
     let nonfixedCategories = [];
@@ -113,8 +108,7 @@ class AddIncome extends Component {
       categories.push(nonfixedCategories[i]);
     }
 
-    /* ---- RENDER ADD EXPENSE FORM ---- */
-
+    /* ---- RENDER ADD INCOME FORM ---- */
     return (
         <Paper zDepth={2} style={styles.paper}>
           <form>
@@ -125,26 +119,26 @@ class AddIncome extends Component {
               onChange={this.handleAmount} /><br/>
             <Checkbox
               label="Monthly"
-              checked={true}
+              defaultChecked={this.state.monthly}
               style={styles.checkbox}
               onClick={this.handleMonthly} />
             <DatePicker
-              disabled={this.state.fixed}
               floatingLabelText="Started on" 
               style={styles.datepicker}
               hintText="YYYY-MM-DD"
               onChange={this.handleStarted}/>
             <DatePicker
-              disabled={!(this.state.fixed)}
+              disabled={this.state.monthly}
               floatingLabelText="Ended on" 
               style={styles.datepicker}
               hintText="YYYY-MM-DD"
               onChange={this.handleEnded}/>
-            <Link to="/profile"><RaisedButton 
+            <p className="SmallNotes">*ONLY FOR A NON MONTHLY INCOME</p><br/><br/>
+            <RaisedButton 
               label="Add income" 
               type="submit" 
               style={styles.button}
-              onClick={this.addIncome} /></Link>
+              onClick={this.addIncome} />
           </form>
         </Paper>
     );

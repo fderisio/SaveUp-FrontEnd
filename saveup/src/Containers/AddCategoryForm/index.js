@@ -88,7 +88,7 @@ class AddCategory extends Component {
     if (this.state.fixed === true) {
       this.props.dispatch(addExpenseAction(text, this.state.company, this.state.total, this.currentDate()));
     }
-    this.props.history("/profile");
+    this.props.nextPage("/profile");
   };
 
   render() {

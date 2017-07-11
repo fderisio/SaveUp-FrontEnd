@@ -59,9 +59,9 @@ class AddCategory extends Component {
 
   currentDate = () => {
     let today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1; //January is 0!
+    let yyyy = today.getFullYear();
 
     if(dd<10) {
         dd = '0'+dd
@@ -83,7 +83,7 @@ class AddCategory extends Component {
     const addCategoryAct = addCategoryAction(this.state.name, this.state.fixed);
     this.props.dispatch(addCategoryAct);
 
-    // save fixed category as a expense
+    // save fixed charge as an expense
     const text = "Fixed charge";
     if (this.state.fixed === true) {
       this.props.dispatch(addExpenseAction(text, this.state.company, this.state.total, this.currentDate()));
@@ -112,7 +112,7 @@ class AddCategory extends Component {
       }
     }
 
-    // categories list to display using dropdownmenu
+    // fixed categories list to check if the given name already exists
     const categories = [];
     for (let i = 0; i < nonfixedCategories.length; i++ ) {
       categories.push(nonfixedCategories[i]);

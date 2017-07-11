@@ -11,7 +11,6 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 import LoadingIcon from '../../Components/LoadingIcon';
 
-
 const styles = {
   textField: {
     width: 350,
@@ -70,7 +69,7 @@ class AddExpense extends Component {
     }
   }
 
-  // Date converter to "DD-MM-YYYY" "YYYY-MM-DDT00:00:00.000Z"
+  // Date converter to "YYYY-MM-DDT00:00:00.000Z"
   convertDate = (inputFormat) => {
       function pad(s) { return (s < 10) ? '0' + s : s; }
       const d = new Date(inputFormat);
@@ -89,7 +88,7 @@ class AddExpense extends Component {
     e.preventDefault();
     console.log('hola')
     const addExpenseAct = addExpenseAction(this.state.category, this.state.text,
-    this.state.store, this.state.expenseDate, this.state.total, this.state.payMethod); // signin(email, password) is in actions.js
+    this.state.store, this.state.expenseDate, this.state.total, this.state.payMethod);
     this.props.dispatch(addExpenseAct);
   }
 
@@ -103,9 +102,8 @@ class AddExpense extends Component {
     }
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
-    console.log('addExpense props', this.props);
 
-    // filter non fixed categories
+    // filter non fixed categories to display as a SelectField
     let categories = [];
     const categoriesArray = this.props.currentUser.categories;
     console.log(categoriesArray)
@@ -120,7 +118,7 @@ class AddExpense extends Component {
       }
     }
 
-    // payment methods list to display using dropdownmenu
+    // payment methods list to display using SelectField
     let paymethods = [];
     const paymethodsArray = this.props.currentUser.paymethods;
     for (let i=0; i<paymethodsArray.length; i++) {

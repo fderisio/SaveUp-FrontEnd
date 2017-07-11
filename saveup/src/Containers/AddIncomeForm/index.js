@@ -9,6 +9,7 @@ import { RaisedButton } from 'material-ui';
 import Checkbox from 'material-ui/Checkbox';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import DatePicker from 'material-ui/DatePicker';
 
 const styles = {
   textField: {
@@ -44,18 +45,18 @@ class AddIncome extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      fixed: false,
-      company: '',
-      total: '',
+      amount: '',
+      monthly: true,
+      started: '',
+      ended: '',
     }
   }
 
   // handle functions (changes the state)
-  handleName = (e) => { this.setState({ name: e.currentTarget.value }); };
-  handleFixed = (e) => { this.setState({ fixed: !(this.state.fixed) }); };
-  handleCompany = (e) => { this.setState({ company: e.currentTarget.value }); };
-  handleTotal = (e) => { this.setState({ total: parseFloat(e.currentTarget.value) }); };
+  handleAmount = (e) => { this.setState({ name: e.currentTarget.value }); };
+  handleMonthly = (e) => { this.setState({ monthly: !(this.state.fixed) }); };
+  handleStarted = (e) => { this.setState({ started: e.currentTarget.value }); };
+  handleEnded = (e) => { this.setState({ ended: parseFloat(e.currentTarget.value) }); };
 
   currentDate = () => {
     let today = new Date();
@@ -77,20 +78,11 @@ class AddIncome extends Component {
 
 
 
-  addCategory = (e) => {
+  addIncome = (e) => {
     e.preventDefault();
     console.log('inside category form clicked')
-    const addCategoryAct = addCategoryAction(this.state.name, this.state.fixed);
-    this.props.dispatch(addCategoryAct);
-
-    // save fixed category as a expense
-    const currentDate = Date.now();
-    const text = "Fixed charge";
-    const paymentId = 0;
-    if (this.state.fixed === true) {
-      this.props.dispatch(addExpenseAction(text, this.state.company, this.state.total, this.currentDate()));
-    }
-    this.props.history("/profile");
+    const addIncomeAct = addCategoryAction(this.state.amount, this.state.monthly, this.state.started, this.state.ended);
+    this.props.dispatch(addIncomeAct);
   };
 
   render() {
@@ -127,34 +119,32 @@ class AddIncome extends Component {
         <Paper zDepth={2} style={styles.paper}>
           <form>
             <TextField 
-              hintText="Category name" 
-              floatingLabelText="New Category" 
+              hintText="Amount" 
+              floatingLabelText="Amount" 
               style={styles.textField} 
-              onChange={this.handleName} /><br/>
+              onChange={this.handleAmount} /><br/>
             <Checkbox
-              label="Fixed charge"
+              label="Monthly"
+              checked={true}
               style={styles.checkbox}
-              onClick={this.handleFixed} />
-            <TextField 
+              onClick={this.handleMonthly} />
+            <DatePicker
+              disabled={this.state.fixed}
+              floatingLabelText="Started on" 
+              style={styles.datepicker}
+              hintText="YYYY-MM-DD"
+              onChange={this.handleStarted}/>
+            <DatePicker
               disabled={!(this.state.fixed)}
-              hintText="Company" 
-              floatingLabelText="Company" 
-              style={styles.textField} 
-              onChange={this.handleCompany} />
-            <p className="SmallNotes">*ONLY FOR FIXED CHARGES</p><br/>
-            <TextField 
-              disabled={!(this.state.fixed)}
-              hintText="Monthly cost in CHF" 
-              floatingLabelText="Monthly cost in CHF" 
-              maxLength={10}
-              style={styles.textField} 
-              onChange={this.handleTotal} />
-            <p className="SmallNotes">*ONLY FOR FIXED CHARGES</p><br/><br/>
+              floatingLabelText="Ended on" 
+              style={styles.datepicker}
+              hintText="YYYY-MM-DD"
+              onChange={this.handleEnded}/>
             <Link to="/profile"><RaisedButton 
-              label="Add Category" 
+              label="Add income" 
               type="submit" 
               style={styles.button}
-              onClick={this.addCategory} /></Link>
+              onClick={this.addIncome} /></Link>
           </form>
         </Paper>
     );
@@ -166,3 +156,20 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(AddIncome);
+
+// <TextField 
+//               disabled={this.state.fixed}
+//               hintText="Started on" 
+//               floatingLabelText="Started on" 
+//               style={styles.textField} 
+//               onChange={this.handleStarted} />
+//             <p className="SmallNotes">*ONLY FOR FIXED CHARGES</p><br/>
+
+// <TextField 
+//               disabled={!(this.state.fixed)}
+//               hintText="Ended on" 
+//               floatingLabelText="Ended on" 
+//               maxLength={10}
+//               style={styles.textField} 
+//               onChange={this.handleTotal} />
+//             <p className="SmallNotes">*ONLY FOR FIXED CHARGES</p><br/><br/>

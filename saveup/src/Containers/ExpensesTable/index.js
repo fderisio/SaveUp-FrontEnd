@@ -85,7 +85,7 @@ class ExpensesTable extends React.Component {
 
     /* ---- RENDER TABLES ---- */
 
-    // full table expenses
+    // full expenses table
     if (this.props.path === "/expenses") {
       return(
         <div className='SecondColumn' >
@@ -96,8 +96,8 @@ class ExpensesTable extends React.Component {
                 <TableHeaderColumn style={{width: '11%'}}>Date</TableHeaderColumn>
                 <TableHeaderColumn style={{width: '12%'}}>Category</TableHeaderColumn>
                 <TableHeaderColumn style={{width: '15%'}}>Store</TableHeaderColumn>
-                <TableHeaderColumn style={{width: '10%'}}>Total</TableHeaderColumn>
-                <TableHeaderColumn style={{width: '10%'}}>Payment</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '13%'}}>Total</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '7%'}}>Payment</TableHeaderColumn>
                 <TableHeaderColumn style={{width: '14%'}}>Notes</TableHeaderColumn>
                 <TableHeaderColumn style={{width: '7%'}}>Delete</TableHeaderColumn>
               </TableRow>
@@ -109,10 +109,13 @@ class ExpensesTable extends React.Component {
               <TableRow key={ index }>
                 <TableRowColumn style={{width: '11%'}}>{ this.convertDate(expense.expenseDate) }</TableRowColumn>
                 <TableRowColumn style={{width: '12%'}}>{ categories[expense.category.id] }</TableRowColumn>
-                <TableRowColumn style={{width: '15%'}}>{ Logos[expense.store] ? <img src={ Logos[expense.store] } className='logo' alt='logo'/> :
+                <TableRowColumn style={{width: '15%'}}>{ Logos[expense.store] ? 
+                  <img src={ Logos[expense.store] } className='logo' alt='logo'/> :
                   expense.store }</TableRowColumn>
-                <TableRowColumn style={{width: '10%'}}>CHF { expense.total.toFixed(2) }</TableRowColumn>
-                <TableRowColumn style={{width: '10%'}}>{ paymethods[expense.payMethod.id] }</TableRowColumn>
+                <TableRowColumn style={{width: '13%'}}>CHF { expense.total.toFixed(2) }</TableRowColumn>
+                <TableRowColumn style={{width: '7%'}}>{ Logos[paymethods[expense.payMethod.id]] ? 
+                  <img src={ Logos[paymethods[expense.payMethod.id]] } className='logo' alt='logo'/> :
+                  paymethods[expense.payMethod.id]}</TableRowColumn>
                 <TableRowColumn style={{width: '14%'}}>{ expense.text }</TableRowColumn>
                 <TableRowColumn style={{width: '7%'}}><IconButton><DeleteButton/></IconButton></TableRowColumn>
               </TableRow>

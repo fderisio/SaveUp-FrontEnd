@@ -127,13 +127,13 @@ export const fetchExpenses = () => (dispatch, getState) => {
 }
 
 // POST --> Add new expense // /{categoryId}{paymentId}/expenses/add
-export const addExpenseAction = (text, store, expenseDate, total, payMethod, category) => (dispatch, getState) => { 
+export const addExpenseAction = (category, text, store, expenseDate, total, payMethod) => (dispatch, getState) => { 
 	const currentUser = getState().currentUser;
 	const headers  = new Headers({ 
 		'Content-Type': 'application/json',
 		Authorization: `Bearer ${currentUser.id}`
 	})
-	const body = { text, store, expenseDate, total };
+	const body = {category, text, store, expenseDate, total, payMethod };
 	console.log('json', JSON.stringify(body))
 	const config = {
 		headers: headers, // tells the fetch which format is (in this case Json)
@@ -141,7 +141,7 @@ export const addExpenseAction = (text, store, expenseDate, total, payMethod, cat
 		body: JSON.stringify(body), // Unexpected token S in JSON at position 0
 	}; 
 		console.log(config)
-	fetch(`http://localhost:8080/user/${category.id}${payMethod.id}/expenses/add`, config)
+	fetch(`http://localhost:8080/user/${category.id}/${payMethod.id}/expenses/add`, config)
 		.then(res => res.json())
 		.then(expenses => {
 			console.log('hola posttttt', expenses)

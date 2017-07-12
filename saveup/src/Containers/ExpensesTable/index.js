@@ -74,13 +74,36 @@ class ExpensesTable extends React.Component {
     }
 
     // filter non fixed expenses
-    const expenses = [];
+    let expenses = [];
+    
     let total = 0;
     for (let i=0; i<allExpenses.length; i++) {
       if (allExpenses[i].category.id in categories) {
         expenses.push(allExpenses[i]);
         total += allExpenses[i].total;
       }
+    }
+
+    // category filter
+    const categoryFiltered = [];
+    if (this.props.filter.category > 0) {
+      expenses.map(key => {
+        if (key.category.id === this.props.filter.category) {
+          categoryFiltered.push(key);
+        }
+      })
+      expenses = categoryFiltered;
+    }
+
+    // payment filter
+    const paymentFiltered = [];
+    if (this.props.filter.payment > 0) {
+      expenses.map(key => {
+        if (key.payMethod.id === this.props.filter.payment) {
+          paymentFiltered.push(key);
+        }
+      })
+      expenses = paymentFiltered;
     }
 
     /* ---- RENDER TABLES ---- */

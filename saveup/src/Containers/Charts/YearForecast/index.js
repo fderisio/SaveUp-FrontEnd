@@ -97,7 +97,7 @@ class YearForecast extends Component {
 
     return(
       <div>
-      <h3>Forecast*</h3>
+      <h3>Annual Forecast*</h3>
       <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
         <Line type="monotone" dataKey="Income" stroke="#82ca9d" />
         <Line type="monotone" dataKey="Expenses" stroke="#FFB362" activeDot={{r: 8}}/>
@@ -108,9 +108,9 @@ class YearForecast extends Component {
         <Tooltip />
         <Legend />
       </LineChart>
-      <h4>Total Savings: CHF {totalSavings.toFixed(2)} </h4>
-      <h6>Total Income: CHF {totalIncome.toFixed(2)} </h6>
-      <h6>Total Expenses: CHF {totalExpenses.toFixed(2)} </h6>
+      <h4>Total Savings estimated: CHF {totalSavings.toFixed(2)} </h4>
+      <h6>Total Income estimated: CHF {totalIncome.toFixed(2)} </h6>
+      <h6>Total Expenses estimated: CHF {totalExpenses.toFixed(2)} </h6>
       <br/>
       <p className="SmallNotes">*Calculated with the average expenses per month. Holidays expenses are not included.</p>
       </div>

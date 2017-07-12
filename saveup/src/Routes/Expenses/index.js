@@ -7,6 +7,7 @@ import ViewAllIcon from 'material-ui/svg-icons/content/content-paste';
 import '../../style.css';
 import Navbar from '../../Containers/Navbar';
 import Filters from '../../Containers/Filters';
+import SearchChart from '../../Containers/Search';
 import ExpensesTable from '../../Containers/ExpensesTable';
 import YearSavings from '../../Containers/Charts/YearSavings';
 import YearForecast from '../../Containers/Charts/YearForecast';

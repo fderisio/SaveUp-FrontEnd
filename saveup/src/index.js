@@ -5,6 +5,7 @@ import Dashboard from './Routes/Dashboard';
 import Profile from './Routes/Profile';
 import Expenses from './Routes/Expenses';
 import QuickAdd from './Routes/QuickAdd';
+import Finances from './Routes/Finances';
 import AddCategory from './Routes/AddCategory';
 import AddPayMethod from './Routes/AddPayMethod';
 import AddIncome from './Routes/AddIncome';
@@ -73,6 +74,7 @@ ReactDOM.render(
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/expenses" component={Expenses} />
+            <Route exact path="/finances" component={Finances} />
             <Route exact path="/quickadd" component={QuickAdd} />
             <Route exact path="/addcategory" component={AddCategory} />
             <Route exact path="/addpaymethod" component={AddPayMethod} />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../../style.css';
 import MenuItem from 'material-ui/MenuItem';
-import { fetchUser, fetchExpenses, setFilter, setSearchText } from '../../Store/actions';
+import { fetchUser, fetchExpenses, setCategory, setPayment, setSearchText } from '../../Store/actions';
 import LoadingIcon from '../../Components/LoadingIcon';
 import SelectField from 'material-ui/SelectField';
 import TextField from 'material-ui/TextField';
@@ -45,11 +45,11 @@ class Filters extends Component {
     e.preventDefault();
     if (this.state.category > 0) {
       console.log('hola')
-      const action = setFilter(this.state.category);
+      const action = setCategory(this.state.category);
       this.props.dispatch(action);
     }
     if (this.state.payment > 0) {
-      const action = setFilter(this.state.payment);
+      const action = setPayment(this.state.payment);
       this.props.dispatch(action);
     }
     if (this.state.text.length > 0) {

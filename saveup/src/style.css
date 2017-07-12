@@ -136,6 +136,20 @@
   float: right;
 }
 
+.Finances {
+  margin-top: 30px;
+  margin-left: 100px;
+  width: 30% !important;
+  float: left;
+}
+
+.Finances2 {
+  margin-top: 30px;
+  margin-right: 100px;
+  width: 40% !important;
+  float: right;
+}
+
 .TabFirstColumn {
   width: 40% !important;
   float: left;

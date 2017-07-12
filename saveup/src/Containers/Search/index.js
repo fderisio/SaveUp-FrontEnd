@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../../style.css';
 import { fetchUser, fetchExpenses, setSearchText } from '../../Store/actions';
-import TextField from 'material-ui/TextField';
-import { RaisedButton } from 'material-ui';
+import SelectField from 'material-ui/TextField';
+import { RaisedButton, MenuItem } from 'material-ui';
+import YearSavings from '../../Containers/Charts/YearSavings';
+import YearForecast from '../../Containers/Charts/YearForecast';
 
 const styles = {
+  categories: {
+    width: 250,
+  },
   button: {
     float: 'left',
     marginLeft: 150,
@@ -22,26 +27,47 @@ class Search extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: '',
+      chart: '',
     }
   }
 
-  handleText = (e) => { 
-    this.setState({ text: e.currentTarget.value }); 
-    const action = setSearchText(this.state.text);
-    this.props.dispatch(action);
-  };
+  handleChart = (event, index, value) => this.setState({ chart: value });
+
+  chart = () => {
+    switch (this.state.chart) {
+      case 1:
+        const chart = (
+          <div>
+            <YearForecast />
+          </div>
+        )
+      default:
+        return (
+          <div>
+            <YearSavings />
+          </div>
+        )
+    }
+  } 
 
   render() {
     return (
         <div>
-          <TextField 
-              hintText="Search" 
-              floatingLabelText="Search" 
-              style={{ width: 250 }}
-              onChange={this.handleText} />
-          <br/><br/>
-          <RaisedButton label="Search" type="submit" style={styles.button}/>
+          <h3>Search chart</h3>
+          <SelectField
+              floatingLabelText="Category"
+              style={styles.categories}
+              value={this.state.chart}
+              onChange={this.handleChart}>
+            <MenuItem value={1} primaryText="Year - to Present" />
+            <MenuItem value={2} primaryText="Annual Forecast" />
+            <MenuItem value={3} primaryText="Annual Categories" />
+            <MenuItem value={4} primaryText="Current Month" />
+            <MenuItem value={5} primaryText="Last Mont" />
+          </SelectField>
+          <div>
+          { () => this.chart() }
+          </div>
       </div>
     );
   }

@@ -10,8 +10,12 @@ export const setSearchText = (text) => {
 	return { type: 'setSearchText', text }
 }
 
-export const setFilter = (filter) => {
-	return { type: 'setFilter', filter }
+export const setCategory = (filter) => {
+	return { type: 'setCategory', filter }
+}
+
+export const setPayment = (filter) => {
+	return { type: 'setPayment', filter }
 }
 
 // export const addExpense = (expenses) => {

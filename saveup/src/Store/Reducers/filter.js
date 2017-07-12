@@ -7,15 +7,17 @@ const initialState = {
 
 const filter = (state={}, action) => {
 	switch (action.type) {
-		case 'setFilter':
+		case 'setCategory':
 			const newState = { ...this.state };
-			newState.filter = action.filter;
-			console.log('filter state', newState)
+			newState.category = action.filter;
 			return newState;
+		case 'setPayment':
+			const newState1 = { ...this.state };
+			newState1.payment = action.filter;
+			return newState1;
 		case 'setSearchText':
 			const newState2 = { ...this.state };
 			newState2.searchText = action.text;
-			console.log(newState2)
 			return newState2;
 		default:
 			return state;

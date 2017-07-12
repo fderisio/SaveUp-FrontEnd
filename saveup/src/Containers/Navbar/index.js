@@ -43,6 +43,9 @@ class Navbar extends React.Component {
               <Link to="/quickadd">
                 <FlatButton label="Quick Add" labelStyle={ styles.button }/>
               </Link>
+              <Link to="/finances">
+                <FlatButton label="Finances" labelStyle={ styles.button }/>
+              </Link>
             </div>
           </ToolbarGroup>
 

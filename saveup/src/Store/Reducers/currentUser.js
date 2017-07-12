@@ -7,15 +7,6 @@ const currentUser = (state={}, action) => {
 			const newState1 = { ...action.user };
 			console.log('entre al estado de signup', newState)
 			return newState1;
-		case 'addCategory':
-			const newState2 = { ...this.state };
-			return newState2;
-		case 'addPayment':
-			const newState3 = { ...this.state };
-			return newState3;
-		case 'addIncome':
-			const newStateIncome = { ...this.state };
-			return newStateIncome;
 		case 'logOut':
 			let logoutState = { ...state };
 			localStorage.clear();

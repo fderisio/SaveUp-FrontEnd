@@ -9,6 +9,8 @@ import Navbar from '../../Containers/Navbar';
 import Filters from '../../Containers/Filters';
 import ExpensesTable from '../../Containers/ExpensesTable';
 import YearSavings from '../../Containers/Charts/YearSavings';
+import YearForecast from '../../Containers/Charts/YearForecast';
+import Categories from '../../Containers/Charts/Categories';
 import AddExpense from '../../Containers/AddExpense';
 import Footer from '../../Components/Footer';
 
@@ -31,7 +33,6 @@ const styles = {
 class Expenses extends React.Component {
 
   render() {
-    console.log('expenses props', this.props.match.path)
     return (
       <div>
         <Navbar />
@@ -52,8 +53,12 @@ class Expenses extends React.Component {
           
           <Tab icon={<ChartsIcon />} label="Charts" >
             <div style={styles.tab}>
-            <h3>Year {new Date().getFullYear()}</h3>
-            <YearSavings />
+              <div className="ChartFirstColumn">
+                <YearSavings />
+              </div>
+              <div className="ChartSecondColumn">
+                <YearForecast />
+              </div>
             </div>
           </Tab>
 

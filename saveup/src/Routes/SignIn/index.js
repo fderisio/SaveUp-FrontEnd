@@ -8,7 +8,6 @@ import TextField from 'material-ui/TextField';
 import { signin } from '../../Store/actions';
 import Navbar from '../../Containers/Navbar';
 import Footer from '../../Components/Footer';
-import { Treemap } from 'recharts';
 
 const styles = {
   textField: {
@@ -18,7 +17,7 @@ const styles = {
     width: 500,
     height: 220, 
     margin: 'auto', 
-    marginTop: 100,
+    marginTop: 130,
   }
 };
 
@@ -60,6 +59,7 @@ class SignIn extends Component {
     return (
       <div>
         <Navbar />
+        <div className="signinpage">
         <Paper zDepth={2} style={ styles.paper } >
           <form>
             <TextField 
@@ -75,9 +75,10 @@ class SignIn extends Component {
               onChange={ this.handlePassword }/><br /><br />
             <RaisedButton type="submit" label="Sign In" onClick={ this.signin } />
           </form>
-        </Paper><br/><br/>
+        </Paper><br/>
         <Link to="/forgotpassword"><p>Forgot your password?</p></Link>
         <p>If you don´t have an account, you can register <Link to="/signup">here.</Link> </p>
+        </div>
         <Footer />
       </div>
     );

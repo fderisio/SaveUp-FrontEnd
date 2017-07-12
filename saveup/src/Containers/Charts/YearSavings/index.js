@@ -78,7 +78,8 @@ class YearSavings extends Component {
 
 		return(
       <div>
-			<LineChart width={500} height={250} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+      <h3>Year {new Date().getFullYear()}</h3>
+			<LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
   			<Line type="monotone" dataKey="Income" stroke="#82ca9d" />
         <Line type="monotone" dataKey="Expenses" stroke="#FF443D" activeDot={{r: 8}}/>
         <Line type="monotone" dataKey="Savings" stroke="#8884d8" />

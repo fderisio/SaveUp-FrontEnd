@@ -15,65 +15,108 @@ class YearForecast extends Component {
       );
     }
 
-		/* ---- EXTRA VARIABLES ---- */
-    const months = { 1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June',
-      7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'};
+    /* ---- EXTRA VARIABLES ---- */
+    const months = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
+      7: 'Jul', 8: 'Aug', 9: 'Sept', 10: 'Oct', 11: 'Nov', 12: 'Dec'};
 
-    // sum of expenses per month
-    const monthTotalExpenses = {};
-    const allExpenses = this.props.expenses;
-    for (let i=0; i<allExpenses.length; i++) {
-    	const date = allExpenses[i].expenseDate.split("");
-    	const expenseMonth = parseInt(date[5]+date[6]);
-      if (expenseMonth in monthTotalExpenses) {
-        monthTotalExpenses[expenseMonth] += allExpenses[i].total;
+    // fixed & non fixed categories objects
+    let variableCategories = {};
+    let fixedCategories = {};
+    let holidaysId = 0;
+    const categoriesArray = this.props.currentUser.categories;
+    for (let i=0; i<categoriesArray.length; i++) {
+      if (categoriesArray[i].fixed === false && categoriesArray[i].name !== "Holidays") {
+        variableCategories[categoriesArray[i].id] = categoriesArray[i].name;
+      } else if (categoriesArray[i].name == "Holidays") {
+        holidaysId = categoriesArray[i].id;
+        variableCategories[categoriesArray[i].id] = categoriesArray[i].name;
       } else {
-      	monthTotalExpenses[expenseMonth] = allExpenses[i].total;
+        fixedCategories[categoriesArray[i].id] = categoriesArray[i].name;
       }
     }
 
-    // data to render chart [{ month: 'January', expenses: 3500, income: 8000, savings: 4500}];
-		const data = [];
-		for (let key in monthTotalExpenses) {
-			let newData = { month: '', expenses: '', income: '', savings: ''};
-			newData.month = months[key];
-			newData.expenses = monthTotalExpenses[key];
-      newData.income = this.props.currentUser.incomes[0].amount;
-      newData.savings = newData.income - newData.expenses;
-			data.push(newData);
-		}
+    // sum of variable expenses per month
+    const monthTotalExpenses = {};
+    let holidaysExpenses = 0;
+    const allExpenses = this.props.expenses;
+    for (let i=0; i<allExpenses.length; i++) {
+      const date = allExpenses[i].expenseDate.split("");
+      const expenseMonth = parseInt(date[5]+date[6]);
+      if (allExpenses[i].category.id in variableCategories && expenseMonth in monthTotalExpenses ) {
+        monthTotalExpenses[expenseMonth] += allExpenses[i].total;
+      } else if (allExpenses[i].category.id in variableCategories && allExpenses[i].category) {
+        monthTotalExpenses[expenseMonth] = allExpenses[i].total;
+      }
+      // calculates holidays expenses to rest from the average
+      if (allExpenses[i].category.id === holidaysId) {
+        holidaysExpenses += allExpenses[i].total;
+      }
+    }
 
-    // calculates totals for current year
+    // monthly fixed expenses
+    let totalMonthlyFixedExpenses = 0;
+    for (let i=0; i<allExpenses.length; i++) {
+      if (allExpenses[i].category.id in fixedCategories) {
+        totalMonthlyFixedExpenses += allExpenses[i].total;
+      }
+    }
+
+    // monthly expenses average
+    let monthlyAverage = 0;
+    Object.keys(monthTotalExpenses).map(key => 
+      {
+      monthlyAverage += monthTotalExpenses[key];
+      });
+    monthlyAverage =  ((monthlyAverage-holidaysExpenses)/(new Date().getMonth() + 1)) + totalMonthlyFixedExpenses; 
+
+    // data to render chart [{ month: 'January', expenses: 3500, income: 8000, savings: 4500}];
+    const data = [];
+    for (let key in months) {
+      let newData = { month: '', Income: '', Expenses: '', Savings: ''};
+      newData.month = months[key];
+      newData.Expenses = (monthTotalExpenses[key] > 0) ? monthTotalExpenses[key] + totalMonthlyFixedExpenses :
+        monthlyAverage; 
+      newData.Expenses.toFixed(2);
+      newData.Income = this.props.currentUser.incomes[0].amount;
+      newData.Savings = newData.Income - newData.Expenses.toFixed(2);
+      data.push(newData);
+    }
+
+    // calculate totals for current year
     let totalSavings = 0;
-    Object.keys(monthTotalExpenses).map(key => {
-      totalSavings += this.props.currentUser.incomes[0].amount - monthTotalExpenses[key];
+    data.map(key => {
+      totalSavings += this.props.currentUser.incomes[0].amount - key.Expenses;
     });
 
-    let totalIncome = this.props.currentUser.incomes[0].amount * (new Date().getMonth() + 1);
+    let totalIncome = this.props.currentUser.incomes[0].amount * 12;
 
     let totalExpenses = 0;
-    Object.keys(monthTotalExpenses).map(key => {
-      totalExpenses += monthTotalExpenses[key];
+    data.map(key => {
+      totalExpenses += key.Expenses;
     });
 
-		return(
+    return(
       <div>
-			<LineChart width={500} height={250} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-        <Line type="monotone" dataKey="expenses" stroke="#FF443D" activeDot={{r: 8}}/>
-  			<Line type="monotone" dataKey="income" stroke="#82ca9d" />
-        <Line type="monotone" dataKey="savings" stroke="#8884d8" />
-			  <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-			  <XAxis dataKey="month" />
-			  <YAxis />
-			  <Tooltip />
+      <h3>Forecast*</h3>
+      <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+        <Line type="monotone" dataKey="Income" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="Expenses" stroke="#FFB362" activeDot={{r: 8}}/>
+        <Line type="monotone" dataKey="Savings" stroke="#00B8D4" />
+        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+        <XAxis dataKey="month" />
+        <YAxis />
+        <Tooltip />
         <Legend />
-			</LineChart>
-			<h4>Total Savings: CHF {totalSavings.toFixed(2)} </h4>
+      </LineChart>
+      <h4>Total Savings: CHF {totalSavings.toFixed(2)} </h4>
+      <h6>Total Income: CHF {totalIncome.toFixed(2)} </h6>
       <h6>Total Expenses: CHF {totalExpenses.toFixed(2)} </h6>
+      <br/>
+      <p className="SmallNotes">*Calculated with the average expenses per month. Holidays expenses are not included.</p>
       </div>
-		);
-	}
-	
+    );
+  }
+  
 }
 
 const mapStateToProps = (state) => {

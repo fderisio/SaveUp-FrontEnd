@@ -15,7 +15,7 @@ const styles = {
     width: 460, 
     height: 480, 
     margin: 'auto', 
-    marginTop: 20,
+    marginTop: 40,
   },
   button: {
     marginTop: 40,
@@ -53,7 +53,8 @@ class SignUp extends React.Component {
     return (
       <div>
         <Navbar />
-        <h2>Registration</h2>
+        <div className="signuppage">
+        <h2 style={{ marginBottom:-20, marginTop:-20 }}>Ready for the journey?</h2>
         <Paper zDepth={2} style={styles.paper}>
           <form>
             <TextField 
@@ -75,6 +76,7 @@ class SignUp extends React.Component {
             <RaisedButton label="Create Account" type="submit" style={styles.button} onClick={this.register}/>
           </form>
         </Paper>
+        </div>
         <Footer />
       </div>
     );

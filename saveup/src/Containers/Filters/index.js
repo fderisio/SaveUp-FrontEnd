@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../../style.css';
-import { RaisedButton } from 'material-ui';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { fetchUser, fetchExpenses } from '../../Store/actions';
+import { fetchUser, fetchExpenses, setFilter, setSearchText } from '../../Store/actions';
 import LoadingIcon from '../../Components/LoadingIcon';
+import SelectField from 'material-ui/SelectField';
+import TextField from 'material-ui/TextField';
+import { RaisedButton } from 'material-ui';
 
 const styles = {
-  categoriesmenu: {
+  categories: {
     width: 250,
   },
-  paymentmenu: {
+  selectPayment: {
     width: 250,
   },
   button: {
@@ -30,25 +31,35 @@ class Filters extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      filter: '',
-      category: 0,
+      category: '',
+      payment: '',
+      text: '',
     }
   }
 
   handleCategory = (event, index, value) => this.setState({ category: value });
-  handleNotes = (e) => { this.setState({ notes: e.currentTarget.value }); };
-  handleCompany = (e) => { this.setState({ company: e.currentTarget.value }); };
-  handleDate = (e) => { this.setState({ expenseDate: e.currentTarget.value }); };
-  handleTotal = (e) => { this.setState({ total: e.currentTarget.value }); };
   handlePayment = (event, index, value) => this.setState({ payment: value });
+  handleText = (e) => this.setState({ text: e.currentTarget.value }); 
 
-  addExpense = (e) => {
+  search = (e) => {
     e.preventDefault();
-  };
-  
+    if (this.state.category > 0) {
+      console.log('hola')
+      const action = setFilter(this.state.category);
+      this.props.dispatch(action);
+    }
+    if (this.state.payment > 0) {
+      const action = setFilter(this.state.payment);
+      this.props.dispatch(action);
+    }
+    if (this.state.text.length > 0) {
+      const action = setSearchText(this.state.text);
+      this.props.dispatch(action);
+    }
+  }
 
   render() {
-
+    console.log(this.state)
     /* ---- LOADING INFO ---- */
     if (this.props.currentUser.paymethods === undefined || this.props.currentUser.categories === undefined) {
       return(
@@ -57,32 +68,31 @@ class Filters extends Component {
     }
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
-    console.log('addExpense props', this.props);
 
-    // filter non fixed categories
-    let nonfixedCategories = [];
+    // filter non fixed categories to display as a SelectField
+    let categories = [];
     const categoriesArray = this.props.currentUser.categories;
     for (let i=0; i<categoriesArray.length; i++) {
       if (categoriesArray[i].fixed === false) {
-        let newArray = [categoriesArray[i].id, categoriesArray[i].name];
-        nonfixedCategories.push(newArray);
+        categories.push(
+          <MenuItem 
+            value={categoriesArray[i].id} 
+            key={categoriesArray[i].id} 
+            primaryText={`${categoriesArray[i].name}`} />
+        );
       }
     }
 
-    // categories list to display using dropdownmenu
-    const categories = [];
-    categories.push(<MenuItem value={0} key={0} primaryText={`All`} />);
-    for (let i = 0; i < nonfixedCategories.length; i++ ) {
-      categories.push(<MenuItem value={nonfixedCategories[i][0]} key={nonfixedCategories[i][0]} 
-      primaryText={`${nonfixedCategories[i][1]}`} />);
-    }
-    
-    // payment methods list to display using dropdownmenu
+    // payment methods list to display using SelectField
     let paymethods = [];
-    categories.push(<MenuItem value={0} key={0} primaryText={`All`} />);
     const paymethodsArray = this.props.currentUser.paymethods;
     for (let i=0; i<paymethodsArray.length; i++) {
-      paymethods.push(<MenuItem value={paymethodsArray[i].id} key={i} primaryText={`${paymethodsArray[i].name}`} />);
+      paymethods.push(
+        <MenuItem 
+          value={paymethodsArray[i].id} 
+          key={paymethodsArray[i].id} 
+          primaryText={`${paymethodsArray[i].name}`} />
+      );
     }
 
 
@@ -90,14 +100,27 @@ class Filters extends Component {
     return (
         <div>
           <h4><b>Filter</b></h4>
-            <DropDownMenu maxHeight={300} value={this.state.category} style={styles.categoriesmenu} onChange={this.handleCategory}>
+            <SelectField
+              floatingLabelText="Category"
+              style={styles.categories}
+              value={this.state.category}
+              onChange={this.handleCategory}>
               {categories}
-            </DropDownMenu>
-            <DropDownMenu maxHeight={300} value={this.state.payment} style={styles.paymentmenu} onChange={this.handlePayment}>
+            </SelectField>
+            <SelectField
+              floatingLabelText="Payment"
+              style={styles.selectPayment}
+              value={this.state.payment}
+              onChange={this.handlePayment}>
               {paymethods}
-            </DropDownMenu>
-            <br/><br/><br/>
-            <RaisedButton label="Search" type="submit" style={styles.button}/>
+            </SelectField>
+            <TextField 
+              hintText="Search" 
+              floatingLabelText="Search" 
+              style={{ width: 250 }}
+              onChange={this.handleText} />
+            <br/><br/>
+            <RaisedButton label="Search" type="submit" style={styles.button} onClick={this.search}/>
       </div>
     );
   }

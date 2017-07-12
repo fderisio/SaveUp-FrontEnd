@@ -59,7 +59,7 @@ class LastMonth extends Component {
         <YAxis dataKey="value" />
         <CartesianGrid stroke="#ccc" strokeDasharray="3 3"/>
         <Tooltip/>
-        <Bar dataKey="value" fill="#8884d8" barSize={30} />
+        <Bar dataKey="value" fill="#00B8D4" barSize={30} />
       </BarChart>   
 			
 		);

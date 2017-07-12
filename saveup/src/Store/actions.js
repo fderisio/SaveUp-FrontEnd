@@ -6,21 +6,29 @@ export const setExpenses = (expenses) => {
 	return { type: 'setExpenses', expenses }
 }
 
-export const addExpense = (expenses) => {
-	return { type: 'addExpense', expenses }
+export const setSearchText = (text) => {
+	return { type: 'setSearchText', text }
 }
 
-export const addCategory = (category) => {
-	return { type: 'addCategory', category }
+export const setFilter = (filter) => {
+	return { type: 'setFilter', filter }
 }
 
-export const addPayment = (payment) => {
-	return { type: 'addPayment', payment }
-}
+// export const addExpense = (expenses) => {
+// 	return { type: 'addExpense', expenses }
+// }
 
-export const addIncome = (income) => {
-	return { type: 'addIncome', income }
-}
+// export const addCategory = (category) => {
+// 	return { type: 'addCategory', category }
+// }
+
+// export const addPayment = (payment) => {
+// 	return { type: 'addPayment', payment }
+// }
+
+// export const addIncome = (income) => {
+// 	return { type: 'addIncome', income }
+// }
 
 export const signUpUser = (user) => {
 	return { type: 'signUp', user }

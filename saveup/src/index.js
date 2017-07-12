@@ -25,7 +25,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import {
-  teal500, grey700, grey800, white, grey900, grey500, grey300, tealA200, lightBlueA700, darkBlack, pinkA200, cyan600
+  teal500, grey700, grey800, white, grey900, grey500, grey300, tealA200, lightBlueA700, darkBlack, red300, cyan600
 } from 'material-ui/styles/colors'; 
 // other colors: pinkA200, purpleA400, grey100, yellow100, tealA700, amberA100, lightBlueA700, indigo50
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -45,7 +45,7 @@ const muiTheme = getMuiTheme({
     canvasColor: white, // tables background
     borderColor: grey700, // grey300, input text lines
     pickerHeaderColor: teal500,
-    shadowColor: pinkA200, //grey900,
+    shadowColor: red300, //pinkA200, //grey900,
   },
 });
 

@@ -10,6 +10,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 import LoadingIcon from '../../Components/LoadingIcon';
+import Snackbar from 'material-ui/Snackbar';
 
 const styles = {
   textField: {
@@ -91,13 +92,19 @@ class AddExpense extends Component {
     this.props.dispatch(addExpenseAct);
     this.setState({ 
       category: '',
-      text: ' ',
-      store: ' ',
-      expenseDate: ' ',
-      total: ' ',
+      text: '',
+      store: '',
+      total: '',
       payMethod: '',
+      open: true,
     });
   }
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
 
   render() {
 
@@ -150,24 +157,27 @@ class AddExpense extends Component {
             </SelectField>
             <TextField 
               hintText="Store/Company" 
-              floatingLabelText="Company/Store" 
+              floatingLabelText="Company/Store"
+              value={this.state.store}  
               style={styles.textField} 
               onChange={this.handleCompany} />
             <TextField 
               hintText="Notes" 
-              floatingLabelText="Notes" 
+              floatingLabelText="Notes"
+              value={this.state.text}  
               maxLength={20}
               style={styles.textField} 
               onChange={this.handleNotes}/>
             <p className="SmallNotes">*Max. 20 characters</p>
             <DatePicker
-              style={styles.datepicker}
+              style={styles.datepicker} 
               hintText="YYYY-MM-DD"
               onChange={this.handleDate}/>
             <p className="SmallNotes">*Required</p>
             <TextField 
               hintText="Total in CHF" 
-              floatingLabelText="Total in CHF" 
+              floatingLabelText="Total in CHF"
+              value={this.state.total} 
               maxLength={10}
               style={styles.textField} 
               onChange={this.handleTotal} />
@@ -183,8 +193,13 @@ class AddExpense extends Component {
               label="Add Expense" 
               type="submit" 
               style={styles.button} 
-              onClick={this.addExpense}/>
+              onClick={this.addExpense} />
           </form>
+          <Snackbar
+            open={this.state.open}
+            message="Expense added successfully"
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestClose}/>
         </Paper>
       </div>
     );

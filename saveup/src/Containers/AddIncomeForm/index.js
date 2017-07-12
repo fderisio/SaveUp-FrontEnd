@@ -92,6 +92,7 @@ class AddIncome extends Component {
 
     /* ---- EXTRA VARIABLES TO RENDER THE INFO ---- */
 
+    
     // filter non fixed categories
     let nonfixedCategories = [];
     const categoriesArray = this.props.currentUser.categories;

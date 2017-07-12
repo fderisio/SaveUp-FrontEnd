@@ -27,6 +27,24 @@
   margin-top: 12em;
 }
 
+.signinpage {
+  background-image: url('./Images/sea2.jpg');
+  background-position: center;
+  background-size: cover;
+  padding-top: 25px;
+  padding-bottom: 160px;
+  text-shadow: 0 2px white;
+}
+
+.signuppage {
+  background-image: url('./Images/path.jpg');
+  background-position: center bottom;
+  background-size: cover;
+  padding-top: 55px;
+  padding-bottom: 40px;
+  text-shadow: 0 2px white;
+}
+
 .Navbar {
     list-style-type: none;
     background-color: #0091EA;
@@ -103,6 +121,18 @@
 .SecondColumn {
   margin-top: 10px;
   width: 70% !important;
+  float: right;
+}
+
+.ChartFirstColumn {
+  margin-top: 30px;
+  width: 50% !important;
+  float: left;
+}
+
+.ChartSecondColumn {
+  margin-top: 30px;
+  width: 50% !important;
   float: right;
 }
 

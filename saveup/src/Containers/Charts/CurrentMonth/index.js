@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend
-  } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import LoadingIcon from '../../../Components/LoadingIcon';
 
 class CurrentMonth extends Component {
@@ -46,9 +45,9 @@ class CurrentMonth extends Component {
     // data array to render chart (ex. [{ name: 'groceries', value: 100 }])
 		const data = [];
 		for (let key in currentMonthExpenses) {
-			let newData = { name: '', value: ''};
+			let newData = { name: '', Total: '' };
 			newData.name = categories[key];
-			newData.value = currentMonthExpenses[key];
+			newData.Total = currentMonthExpenses[key];
 			data.push(newData);
 		}
 
@@ -57,10 +56,10 @@ class CurrentMonth extends Component {
         margin={{ top: 5, bottom: 5, left: 0 }}
             >
         <XAxis dataKey="name"/>
-        <YAxis dataKey="value" />
+        <YAxis dataKey="Total" />
         <CartesianGrid stroke="#ccc" strokeDasharray="3 3"/>
         <Tooltip/>
-        <Bar dataKey="value" fill="#FF9E80" barSize={30} />
+        <Bar dataKey="Total" fill="#B2EBF2" barSize={30} />
       </BarChart>			
 		);
 	}

@@ -21,9 +21,9 @@ class Navbar extends React.Component {
 
   signout = (e) => {
     e.preventDefault();
+    this.props.nextPage("/");
     const logoutAction = logOutUser();
     this.props.dispatch(logoutAction);
-    this.props.nextPage("/");
   };
 
   render() {

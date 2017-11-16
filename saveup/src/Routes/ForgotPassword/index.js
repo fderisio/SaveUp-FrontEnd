@@ -11,8 +11,8 @@ const styles = {
     width: 350,
   },
   paper: {
-    width: 500,
-    height: 10, 
+    width: 600,
+    height: 140, 
     margin: 'auto', 
     marginTop: 100,
   }
@@ -33,7 +33,7 @@ class ForgotPassword extends Component {
     return (
       <div>
         <Navbar />
-        <h3>Forgot your password?</h3>
+        <h3 style={{marginTop:50}}>Forgot your password?</h3>
         <p>Please enter your e-mail and you will receive a link to reset your password.</p>
         <Paper zDepth={2} style={ styles.paper } >
           <form>

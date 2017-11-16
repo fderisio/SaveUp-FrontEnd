@@ -8,12 +8,12 @@ const styles = {
   headline: {
     fontSize: 24,
     paddingTop: 16,
-    marginBottom: 12,
     fontWeight: 400,
+    marginTop: 20,
   },
 	list: {
     width: 300,
-    height: 150,
+    height: 200,
     overflowY: 'auto',
     marginLeft: 100,
 	},

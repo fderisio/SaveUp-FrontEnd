@@ -36,17 +36,13 @@ class Search extends Component {
   chart = () => {
     switch (this.state.chart) {
       case 1:
-        const chart = (
-          <div>
-            <YearForecast />
-          </div>
-        )
+        return (
+          <YearForecast />
+        );
       default:
         return (
-          <div>
-            <YearSavings />
-          </div>
-        )
+          <YearSavings />
+        );
     }
   } 
 

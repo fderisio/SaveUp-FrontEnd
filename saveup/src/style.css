@@ -219,5 +219,10 @@ nav {
 }
 
 .About {
-  margin-top: 100px;
+  background-image: url('./Images/stones3.jpg');
+  background-position: center;
+  background-size: cover;
+  padding-top: 150px;
+  padding-bottom: 250px;
+  text-shadow: 0 2px white;
 }

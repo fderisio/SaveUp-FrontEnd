@@ -12,6 +12,7 @@ import DeleteButton from 'material-ui/svg-icons/action/delete';
 import { connect } from 'react-redux';
 import Logos from '../../Components/Logos';
 import LoadingIcon from '../../Components/LoadingIcon';
+import { fetchExpenses } from '../../Store/actions';
 
 const styles = {
   root: {
@@ -35,6 +36,10 @@ const styles = {
 }
 
 class ExpensesTable extends React.Component {
+
+  componentDidMount = () => {
+    this.props.dispatch(fetchExpenses());
+  }
 
   // Date converter to "DD-MM-YYYY"
   convertDate = (inputFormat) => {
@@ -85,25 +90,29 @@ class ExpensesTable extends React.Component {
     }
 
     // category filter
-    const categoryFiltered = [];
+    const itemsFiltered = [];
     if (this.props.filter.category > 0) {
+      console.log(this.props.filter.payment)
+      total = 0;
       expenses.map(key => {
         if (key.category.id === this.props.filter.category) {
-          categoryFiltered.push(key);
+          itemsFiltered.push(key);
+          total += key.total;
         }
       })
-      expenses = categoryFiltered;
+      expenses = itemsFiltered;
     }
 
     // payment filter
-    const paymentFiltered = [];
     if (this.props.filter.payment > 0) {
+      total = 0;
       expenses.map(key => {
         if (key.payMethod.id === this.props.filter.payment) {
-          paymentFiltered.push(key);
+          itemsFiltered.push(key);
+          total += key.total;
         }
       })
-      expenses = paymentFiltered;
+      expenses = itemsFiltered;
     }
 
     /* ---- RENDER TABLES ---- */
@@ -122,7 +131,7 @@ class ExpensesTable extends React.Component {
                 <TableHeaderColumn style={{width: '13%'}}>Total</TableHeaderColumn>
                 <TableHeaderColumn style={{width: '7%'}}>Payment</TableHeaderColumn>
                 <TableHeaderColumn style={{width: '14%'}}>Notes</TableHeaderColumn>
-                <TableHeaderColumn style={{width: '7%'}}>Delete</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '7%'}}></TableHeaderColumn>
               </TableRow>
             </TableHeader>
     

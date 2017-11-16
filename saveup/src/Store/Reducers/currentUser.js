@@ -3,6 +3,12 @@ const currentUser = (state={}, action) => {
 		case 'setUser':
 			const newState = { ...action.user };
 			return newState;
+		case 'addCategory':
+			const newStateCat = { ...action.category };
+			return newStateCat;
+		case 'addExpense':
+			const newStateExp = { ...action.expense };
+			return newStateExp;
 		case 'signUp':
 			const newState1 = { ...action.user };
 			console.log('entre al estado de signup', newState)

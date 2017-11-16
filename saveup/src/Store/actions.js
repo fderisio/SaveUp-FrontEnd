@@ -18,13 +18,13 @@ export const setPayment = (filter) => {
 	return { type: 'setPayment', filter }
 }
 
-// export const addExpense = (expenses) => {
-// 	return { type: 'addExpense', expenses }
-// }
+export const addExpense = (expenses) => {
+	return { type: 'addExpense', expenses }
+}
 
-// export const addCategory = (category) => {
-// 	return { type: 'addCategory', category }
-// }
+export const addCategory = (category) => {
+	return { type: 'addCategory', category }
+}
 
 // export const addPayment = (payment) => {
 // 	return { type: 'addPayment', payment }
@@ -159,11 +159,11 @@ export const addExpenseAction = (category, text, store, expenseDate, total, payM
 	};
 
 	fetch(`http://localhost:8080/user/${category.id}/${payMethod.id}/expenses/add`, config)
-		.then(res => res.json())
-		// .then(expenses => {
-		// 	const action = addExpense(expenses);
-		// 	dispatch(action);
-		// }) 
+		.then(res => {
+			const expense = res.json();
+			const action = addExpense(expense);
+		  dispatch(action);
+		})
 		.catch(err => {
 			console.log('An error ocurred: ', err);
 		})
@@ -187,6 +187,15 @@ export const addCategoryAction = (name, fixed) => (dispatch, getState) => {
 	}; 
 
 	fetch(`http://localhost:8080/user/${userID}/categories/add`, config)
+		.then(res => {
+			const category = res.json();
+			const action = addCategory(category);
+		  dispatch(action);
+		})
+		// .then(category => {
+		// 	const action = addCategory(category);
+		// 	dispatch(action);
+		// }) 
 		.then(res => res.json())
 		// .then(category => {
 		// 	const action = addCategory(category);

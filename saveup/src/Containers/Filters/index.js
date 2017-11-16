@@ -31,8 +31,8 @@ class Filters extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: '',
-      payment: '',
+      category: 0,
+      payment: 0,
       text: '',
     }
   }
@@ -72,6 +72,12 @@ class Filters extends Component {
     // filter non fixed categories to display as a SelectField
     let categories = [];
     const categoriesArray = this.props.currentUser.categories;
+    categories.push(
+      <MenuItem 
+            value={0} 
+            key={0} 
+            primaryText="All" />
+    )
     for (let i=0; i<categoriesArray.length; i++) {
       if (categoriesArray[i].fixed === false) {
         categories.push(
@@ -85,6 +91,12 @@ class Filters extends Component {
 
     // payment methods list to display using SelectField
     let paymethods = [];
+    paymethods.push(
+      <MenuItem 
+            value={0} 
+            key={0} 
+            primaryText="All" />
+    )
     const paymethodsArray = this.props.currentUser.paymethods;
     for (let i=0; i<paymethodsArray.length; i++) {
       paymethods.push(
@@ -100,27 +112,29 @@ class Filters extends Component {
     return (
         <div>
           <h4><b>Filter</b></h4>
-            <SelectField
-              floatingLabelText="Category"
-              style={styles.categories}
-              value={this.state.category}
-              onChange={this.handleCategory}>
-              {categories}
-            </SelectField>
-            <SelectField
-              floatingLabelText="Payment"
-              style={styles.selectPayment}
-              value={this.state.payment}
-              onChange={this.handlePayment}>
-              {paymethods}
-            </SelectField>
-            <TextField 
-              hintText="Search" 
-              floatingLabelText="Search" 
-              style={{ width: 250 }}
-              onChange={this.handleText} />
-            <br/><br/>
-            <RaisedButton label="Search" type="submit" style={styles.button} onClick={this.search}/>
+            <form>
+              <SelectField
+                floatingLabelText="Category"
+                style={styles.categories}
+                value={this.state.category}
+                onChange={this.handleCategory}>
+                {categories}
+              </SelectField>
+              <SelectField
+                floatingLabelText="Payment"
+                style={styles.selectPayment}
+                value={this.state.payment}
+                onChange={this.handlePayment}>
+                {paymethods}
+              </SelectField>
+              <TextField 
+                hintText="Search" 
+                floatingLabelText="Search" 
+                style={{ width: 250 }}
+                onChange={this.handleText} />
+              <br/><br/>
+              <RaisedButton label="Search" type="submit" style={styles.button} onClick={this.search}/>
+            </form>
       </div>
     );
   }

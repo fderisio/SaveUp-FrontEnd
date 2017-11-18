@@ -8,8 +8,8 @@ A web project where you can add your daily expenses to get charts with a savings
 
 **Completed Features:**
   - Log in
-  - Fetch information from a REST-API
-  - Enter information to a data base
+  - Fetch data from a REST-API
+  - Enter new information to a data base
   - Display data base information in text format and dynamic charts
   - Simple filter
   - Log out
